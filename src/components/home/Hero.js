@@ -19,10 +19,10 @@ const Hero = () => {
       <Container maxWidth="sm">
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           Leftovers
-            </Typography>
+        </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Order hand-crafted, home cooked meals!
-            </Typography>
+        </Typography>
         <div className={heroButtons}>
           <Grid container spacing={2} justify="center">
             <Grid item>
