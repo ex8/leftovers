@@ -1,16 +1,16 @@
 import React from 'react';
 
 import Hero from './Hero';
-import Steps from './Steps';
+import Strip from './Strip';
 import Featured from './Featured';
 
 const Home = () => {
   return (
     <div>
       <Hero />
-      <Steps />
+      <Strip />
       <Featured />
-      <Steps />
+      <Strip />
     </div>
   );
 }

@@ -1,42 +1,50 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Grid, Container, Typography } from '@material-ui/core';
+import { Grid, Container, Typography, TextField, InputAdornment, IconButton } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
-  heroContent: {
+  container: {
     backgroundColor: theme.palette.background.primary,
     padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
     marginTop: theme.spacing(4),
   },
 }));
 
 const Hero = () => {
-  const { heroContent, heroButtons } = useStyles();
+  const { container } = useStyles();
   return (
-    <div className={heroContent}>
+    <div className={container}>
       <Container maxWidth="sm">
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+        <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
           Leftovers
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Order hand-crafted, home cooked meals!
         </Typography>
-        <div className={heroButtons}>
-          <Grid container spacing={2} justify="center">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                Main call to action
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="outlined" color="primary">
-                Secondary action
-              </Button>
-            </Grid>
+        <Grid container spacing={2} justify="center">
+          <Grid item xs={12}>
+            <form>
+              <TextField
+                label="Search"
+                margin="normal"
+                variant="outlined"
+                placeholder="(e.g. Pizza, Falafel, Chinese, Italian...)"
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton>
+                        <FontAwesomeIcon icon={faSearch} />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </form>
           </Grid>
-        </div>
+        </Grid>
       </Container>
     </div>
   );

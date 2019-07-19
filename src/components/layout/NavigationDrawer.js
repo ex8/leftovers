@@ -1,22 +1,40 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Typography } from '@material-ui/core';
+import {
+  Drawer, Collapse, Grid, Button, List, ListItem,
+  ListItemIcon, ListItemText, ListSubheader
+} from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faHome, faSearch, faQuestion, faTachometerAlt, 
+import {
+  faHome, faSearch, faTachometerAlt,
   faUtensils, faShoppingCart, faCogs
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
-const DrawerSections = ({ open, onClose }) => {
+const useStyles = makeStyles(theme => ({
+    listSubHeader: {
+      padding: 0,
+      minWidth: 0,
+      color: 'inherit',
+      '&hover': {
+        background: 'inherit',
+      },
+    },
+    linkButton: {
+      textDecoration: 'none',
+      color: '#383838',
+    },
+  }));
+
+const NavigationDrawer = ({ open, onClose }) => {
   const [sections, setSections] = useState({
     main: true,
     account: false,
   });
   const [items] = useState({
     main: [
-      { label: 'Home', Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
-      { label: 'Search', Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
-      { label: 'How it works', Icon: <FontAwesomeIcon icon={faQuestion} size="lg" /> },
+      { label: 'Home', to: "/", Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
+      { label: 'Search', to: "/search", Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
     ],
     account: [
       { label: 'Dashboard', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
@@ -70,32 +88,24 @@ const DrawerSections = ({ open, onClose }) => {
   );
 };
 
-const ListItems = ({ items, onClick, visible }) => (
-  <Collapse in={visible}>
-    {items
-      .filter(({ hidden }) => !hidden)
-      .map(({ label, disabled, Icon }, i) => (
-        <ListItem button key={i} disabled={disabled} onClick={onClick}>
-          <ListItemIcon>
-            {Icon}
-          </ListItemIcon>
-          <ListItemText>
-            {label}
-          </ListItemText>
-        </ListItem>
-      ))}
-  </Collapse>
-)
+const ListItems = ({ items, onClick, visible }) => {
+  const { linkButton } = useStyles();
+  return (
+    <Collapse in={visible}>
+      {items.map(({ label, to, Icon }, i) => (
+          <Link className={linkButton} to={to}>
+            <ListItem button key={i} onClick={onClick}>
+              <ListItemIcon>
+                {Icon}
+              </ListItemIcon>
+              <ListItemText>
+                {label}
+              </ListItemText>
+            </ListItem>
+          </Link>
+        ))}
+    </Collapse>
+  );
+}
 
-const useStyles = makeStyles(theme => ({
-  listSubHeader: {
-    padding: 0,
-    minWidth: 0,
-    color: 'inherit',
-    '&hover': {
-      background: 'inherit',
-    },
-  },
-}))
-
-export default DrawerSections;
+export default NavigationDrawer;

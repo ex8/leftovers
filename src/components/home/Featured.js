@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '56.25%',
   },
   cardContent: {
-    flexGrow: 1,
+    flex: 1,
   },
 }));
 
@@ -31,10 +31,7 @@ const Featured = () => {
       <Container className={cardGrid} maxWidth="md">
         <Grid container>
           <Grid item>
-            <Typography
-              variant="h5"
-              gutterBottom
-            >
+            <Typography variant="h5" gutterBottom>
               Popular Dishes
             </Typography>
           </Grid>

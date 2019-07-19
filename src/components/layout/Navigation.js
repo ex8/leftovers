@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import TopBar from '../layout/TopBar';
+import TopBar from './TopBar';
 import NavigationDrawer from './NavigationDrawer';
 
 const useStyles = makeStyles(theme => ({
