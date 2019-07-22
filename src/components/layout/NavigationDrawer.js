@@ -33,14 +33,14 @@ const NavigationDrawer = ({ open, onClose }) => {
   });
   const [items] = useState({
     main: [
-      { label: 'Home', to: "/", Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
-      { label: 'Search', to: "/search", Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
+      { label: 'Home', to: '/', Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
+      { label: 'Search', to: '/search', Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
     ],
     account: [
-      { label: 'Dashboard', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
-      { label: 'Dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
-      { label: 'Orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
-      { label: 'Settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
+      { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
+      { label: 'Dishes', to: '/account', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
+      { label: 'Orders', to: '/account', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
+      { label: 'Settings', to: '/account', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
   });
 
@@ -93,8 +93,8 @@ const ListItems = ({ items, onClick, visible }) => {
   return (
     <Collapse in={visible}>
       {items.map(({ label, to, Icon }, i) => (
-          <Link className={linkButton} to={to}>
-            <ListItem button key={i} onClick={onClick}>
+          <Link key={i} className={linkButton} to={to}>
+            <ListItem button onClick={onClick}>
               <ListItemIcon>
                 {Icon}
               </ListItemIcon>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, TextField, InputAdornment, IconButton } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Grid, Container, Typography } from '@material-ui/core';
+import SearchBar from '../search/SearchBar';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,24 +24,7 @@ const Hero = () => {
         </Typography>
         <Grid container spacing={2} justify="center">
           <Grid item xs={12}>
-            <form>
-              <TextField
-                label="Search"
-                margin="normal"
-                variant="outlined"
-                placeholder="(e.g. Pizza, Falafel, Chinese, Italian...)"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment>
-                      <IconButton>
-                        <FontAwesomeIcon icon={faSearch} />
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </form>
+            <SearchBar />
           </Grid>
         </Grid>
       </Container>

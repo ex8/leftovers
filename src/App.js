@@ -1,13 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 
 import Navigation from './components/layout/Navigation';
-import Footer from './components/layout/Footer';
-import Home from './components/home/Home';
-
+import Routes from './components/routes/Routes';
 import theme from './theme';
-import { CssBaseline } from '@material-ui/core';
 
 const App = () => {
   return (
@@ -15,8 +13,7 @@ const App = () => {
       <CssBaseline />
       <BrowserRouter>
         <Navigation />
-        <Route exact path="/" component={Home} />
-        <Footer />
+        <Routes />
       </BrowserRouter>
     </MuiThemeProvider>
   );

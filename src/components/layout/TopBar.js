@@ -38,8 +38,12 @@ const TopBar = ({ onMenuClick }) => {
           <Typography variant="h6" color="inherit" className={flex}>
             <Link to="/" className={linkButton}>Leftovers</Link>
           </Typography>
-          <Button color="inherit">Signup</Button>
-          <Button color="inherit">Login</Button>
+          <Link to='/account/signup' className={linkButton}>
+            <Button color='inherit'>Signup</Button>
+          </Link>          
+          <Link to='/account/login' className={linkButton}>
+            <Button color='inherit'>Login</Button>
+          </Link>         
         </Toolbar>
       </AppBar>
       <div className={toolbarMargin} />
