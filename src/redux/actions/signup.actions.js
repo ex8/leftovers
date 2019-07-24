@@ -22,7 +22,7 @@ export const signup = ({ password, password2, ...rest }) => dispatch => {
             dispatch({
               type: SIGNUP_FAILURE,
               loading: false,
-              errorMessage: res.data.err.errmsg
+              errorMessage: res.data.message,
             });
           }
         })
