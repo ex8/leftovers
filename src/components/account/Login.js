@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Button, TextField, Typography, Paper, Container } from '@material-ui/core';
+import { Avatar, Button, TextField, Typography, Paper, Container, CircularProgress } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { login, reset } from '../../redux/actions/login.actions';
+import Alert from '../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
+  body: {
+    backgroundColor: theme.palette.common.white,
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
     padding: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
@@ -28,10 +32,38 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  linkButton: {
+    textDecoration: 'none',
+    color: theme.palette.primary.main,
+  },
 }));
 
-const Login = () => {
-  const { paper, avatar, form, submit  } = useStyles();
+const Login = ({ loading, successMessage, errorMessage, login, reset }) => {
+  const [fields, setFields] = useState({
+    email: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    reset();
+  }, []);
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    reset();
+    setFields({
+      ...fields,
+      [name]: value
+    });
+  };
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    login(fields);
+  };
+
+  const { paper, avatar, form, submit, linkButton  } = useStyles();
+  const { email, password } = fields;
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={paper}>
@@ -41,42 +73,47 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={form} noValidate>
+        {successMessage && <Alert variant="success" message={successMessage} />}
+        {errorMessage && <Alert variant="error" message={errorMessage} />}
+        <form className={form} noValidate onSubmit={handleFormSubmit}>
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            variant="outlined" margin="normal" required fullWidth
+            id="email" label="Email Address" autoComplete="email"
+            name="email" value={email} onChange={handleInputChange} autoFocus
           />
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
+            variant="outlined" margin="normal" required fullWidth
+            label="Password" type="password" id="password" autoComplete="current-password"
+            name="password" value={password} onChange={handleInputChange}
           />
           <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={submit}
+            type="submit" fullWidth variant="contained"
+            color="primary" className={submit} disabled={loading}
           >
-            Proceed
+            {loading && <CircularProgress size={25} color="inherit" />}
+            {!loading && 'Signup'}
           </Button>
         </form>
+        <Typography variant="body2">
+          Don't have an account? <Link className={linkButton} to="/account/signup">Signup</Link>.
+        </Typography>
+        <Typography variant="body2">
+          <Link className={linkButton} to="/">Forgout your password?</Link>
+        </Typography>
       </Paper>
     </Container>
   );
-}
+};
 
-export default Login;
+const mapStateToProps = state => ({
+  loading: state.loginReducer.loading,
+  successMessage: state.loginReducer.successMessage,
+  errorMessage: state.loginReducer.errorMessage,
+});
+
+const mapDispatchToProps = {
+  login,
+  reset,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

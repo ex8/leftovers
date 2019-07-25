@@ -7,26 +7,28 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
-  faUtensils, faShoppingCart, faCogs
+  faUtensils, faShoppingCart, faCogs,
+  faReceipt, faCreditCard
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
-    listSubHeader: {
-      padding: 0,
-      minWidth: 0,
-      color: 'inherit',
-      '&hover': {
-        background: 'inherit',
-      },
+  listSubHeader: {
+    padding: 0,
+    minWidth: 0,
+    color: 'inherit',
+    '&hover': {
+      background: 'inherit',
     },
-    linkButton: {
-      textDecoration: 'none',
-      color: '#383838',
-    },
-  }));
+  },
+  linkButton: {
+    textDecoration: 'none',
+    color: '#383838',
+  },
+}));
 
-const NavigationDrawer = ({ open, onClose }) => {
+const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
   const [sections, setSections] = useState({
     main: true,
     account: false,
@@ -38,9 +40,11 @@ const NavigationDrawer = ({ open, onClose }) => {
     ],
     account: [
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
-      { label: 'Dishes', to: '/account', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
-      { label: 'Orders', to: '/account', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
-      { label: 'Settings', to: '/account', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
+      { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
+      { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
+      { label: 'Receipts', to: '/account/reciepts', Icon: <FontAwesomeIcon icon={faReceipt} size="lg" /> },
+      { label: 'Gateways', to: '/account/gateways', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
   });
 
@@ -70,16 +74,20 @@ const NavigationDrawer = ({ open, onClose }) => {
                 </Button>
               </ListSubheader>
               <ListItems items={items.main} visible={sections.main} onClick={onClick} />
-              <ListSubheader>
-                <Button
-                  disableRipple
-                  classes={{ root: listSubHeader }}
-                  onClick={toggleSection('account')}
-                >
-                  My Account
-                </Button>
-              </ListSubheader>
-              <ListItems items={items.account} visible={sections.account} onClick={onClick} />
+              {isAuthenticated && (
+                <div>
+                  <ListSubheader>
+                    <Button
+                      disableRipple
+                      classes={{ root: listSubHeader }}
+                      onClick={toggleSection('account')}
+                    >
+                      My Account
+                    </Button>
+                  </ListSubheader>
+                  <ListItems items={items.account} visible={sections.account} onClick={onClick} />
+                </div>
+              )}
             </List>
           </Drawer>
         </Grid>
@@ -93,19 +101,23 @@ const ListItems = ({ items, onClick, visible }) => {
   return (
     <Collapse in={visible}>
       {items.map(({ label, to, Icon }, i) => (
-          <Link key={i} className={linkButton} to={to}>
-            <ListItem button onClick={onClick}>
-              <ListItemIcon>
-                {Icon}
-              </ListItemIcon>
-              <ListItemText>
-                {label}
-              </ListItemText>
-            </ListItem>
-          </Link>
-        ))}
+        <Link key={i} className={linkButton} to={to}>
+          <ListItem button onClick={onClick}>
+            <ListItemIcon>
+              {Icon}
+            </ListItemIcon>
+            <ListItemText>
+              {label}
+            </ListItemText>
+          </ListItem>
+        </Link>
+      ))}
     </Collapse>
   );
 }
 
-export default NavigationDrawer;
+const mapStateToProps = state => ({
+  isAuthenticated: state.loginReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(NavigationDrawer);
