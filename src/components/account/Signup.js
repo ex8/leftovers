@@ -43,9 +43,14 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
+    streetName: '',
+    city: '',
+    state: '',
+    zipCode: '',
     username: '',
     password: '',
-    password2: ''
+    password2: '',
   });
 
   useEffect(() => {
@@ -67,7 +72,7 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
   };
 
   const { paper, avatar, form, submit, linkButton } = useStyles();
-  const { firstName, lastName, email, username, password, password2 } = fields;
+  const { firstName, lastName, email, phone, streetName, city, state, zipCode, username, password, password2 } = fields;
 
   return (
     <Container component="main" maxWidth="sm">
@@ -99,9 +104,45 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                inputProps={{ type: 'email' }}
                 variant="outlined" required fullWidth id="email"
                 label="Email Address" autoComplete="email" type="email"
                 name="email" value={email} onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined" required fullWidth id="phone"
+                label="Phone Number" autoComplete="phone"
+                name="phone" value={phone} onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined" required fullWidth id="streetName"
+                label="Street Name" autoComplete="streetName"
+                name="streetName" value={streetName} onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                variant="outlined" required fullWidth id="city"
+                label="City" autoComplete="city"
+                name="city" value={city} onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                variant="outlined" required fullWidth id="state"
+                label="State" autoComplete="state"
+                name="state" value={state} onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                variant="outlined" required fullWidth id="zipCode"
+                label="Zip Code" autoComplete="zipCode"
+                name="zipCode" value={zipCode} onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>

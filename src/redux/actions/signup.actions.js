@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, SIGNUP_RESET } from '../types';
+import api from '../api';
 
 export const signup = ({ password, password2, ...rest }) => dispatch => {
   dispatch({
@@ -9,7 +8,7 @@ export const signup = ({ password, password2, ...rest }) => dispatch => {
   });
   setTimeout(() => {
     if (password === password2) {
-      axios.post('/api/auth/signup', { password, ...rest })
+      api.post('/api/auth/signup', { password, ...rest })
         .then(res => {
           if (res.data.success) {
             dispatch({
@@ -40,37 +39,6 @@ export const signup = ({ password, password2, ...rest }) => dispatch => {
       });
     }
   }, 3000);
-  // if (password === password2) {
-  //   axios.post('/api/auth/signup', { password, ...rest })
-  //     .then(res => {
-  //       if (res.data.success) {
-  //         dispatch({
-  //           type: SIGNUP_SUCCESS,
-  //           loading: false,
-  //           successMessage: 'Account successfully created. You may now login.'
-  //         });
-  //       }
-  //       else {
-  //         dispatch({
-  //           type: SIGNUP_FAILURE,
-  //           loading: false,
-  //           errorMessage: res.data.err.errmsg
-  //         })
-  //       }
-  //     })
-  //     .catch(() => dispatch({
-  //       type: SIGNUP_FAILURE,
-  //       loading: false,
-  //       errorMessage: 'You cannot signup at this time.',
-  //     }));
-  // }
-  // else {
-  //   dispatch({
-  //     type: SIGNUP_FAILURE,
-  //     loading: false,
-  //     errorMessage: 'Passwords do not match. Please try again.',
-  //   });
-  // }
 };
 
 export const reset = () => {
