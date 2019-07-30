@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
   faUtensils, faShoppingCart, faCogs,
-  faReceipt, faCreditCard
+  faReceipt, faCreditCard, faSignInAlt, faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -46,6 +46,10 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
       { label: 'Gateways', to: '/account/gateways', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
+    guest: [
+      { label: 'Login', to: '/account/login', Icon: <FontAwesomeIcon icon={faSignInAlt} size="lg" /> },
+      { label: 'Signup', to: '/account/signup', Icon: <FontAwesomeIcon icon={faUserPlus} size="lg" /> },
+    ],
   });
 
   const onClick = () => onClose();
@@ -74,7 +78,6 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                 </Button>
               </ListSubheader>
               <ListItems items={items.main} visible={sections.main} onClick={onClick} />
-              {isAuthenticated && (
                 <div>
                   <ListSubheader>
                     <Button
@@ -85,9 +88,8 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                       My Account
                     </Button>
                   </ListSubheader>
-                  <ListItems items={items.account} visible={sections.account} onClick={onClick} />
+                  <ListItems items={isAuthenticated ? items.account : items.guest} visible={sections.account} onClick={onClick} />
                 </div>
-              )}
             </List>
           </Drawer>
         </Grid>
