@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faTachometerAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,20 +48,30 @@ const Navigation = () => {
             <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                    <FontAwesomeIcon icon={faHome} />
+                    <FontAwesomeIcon icon={faSearch} />
                 </ListItemIcon>
                 <ListItemText>
-                  Home
+                  Search
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/account/login">
               <ListItem button>
                 <ListItemIcon>
-                    <FontAwesomeIcon icon={faHome} />
+                    <FontAwesomeIcon icon={faSignInAlt} />
                 </ListItemIcon>
                 <ListItemText>
-                  Home
+                  Login
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/account/signup">
+              <ListItem button>
+                <ListItemIcon>
+                    <FontAwesomeIcon icon={faUserPlus} />
+                </ListItemIcon>
+                <ListItemText>
+                  Signup
                 </ListItemText>
               </ListItem>
             </Link>
@@ -85,20 +95,30 @@ const Navigation = () => {
             <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faTachometerAlt} />
+                  <FontAwesomeIcon icon={faUtensils} />
                 </ListItemIcon>
                 <ListItemText>
-                  Dashboard
+                  Dishes
                 </ListItemText>
               </ListItem>
             </Link>
             <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faTachometerAlt} />
+                  <FontAwesomeIcon icon={faShoppingCart} />
                 </ListItemIcon>
                 <ListItemText>
-                  Dashboard
+                  Orders
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                </ListItemIcon>
+                <ListItemText>
+                  Orders
                 </ListItemText>
               </ListItem>
             </Link>

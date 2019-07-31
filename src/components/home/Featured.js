@@ -16,7 +16,7 @@ const Featured = () => {
   const cards = [1, 2, 3];
   return (
     <div>
-      <Container className={cardGrid} maxWidth="md">
+      <Container className={cardGrid}>
         <Grid container>
           <Grid item>
             <Typography variant="h5" gutterBottom>
