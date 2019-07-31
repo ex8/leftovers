@@ -56,8 +56,10 @@ const Dish = () => {
           <Grid item xs={12}>
             <Typography variant="subtitle2">By Mary Jane</Typography>
           </Grid>
-          <Grid item>
-            <Typography variant="caption">Chicken, Seafood, Clams, Shrimp</Typography>
+          <Grid item xs={12}>
+            <Typography variant="caption" gutterBottom>
+              Chicken, Seafood, Clams, Shrimp
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body2" paragraph>A delicious seafood paella dish made with a secret!</Typography>
