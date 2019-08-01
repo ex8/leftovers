@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
   const [sections, setSections] = useState({
     main: true,
-    account: false,
+    account: true,
   });
   const [items] = useState({
     main: [

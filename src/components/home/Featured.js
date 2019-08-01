@@ -5,26 +5,26 @@ import { Grid, Container, Typography } from '@material-ui/core';
 import Dish from '../search/Dish';
 
 const useStyles = makeStyles(theme => ({
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 
 const Featured = () => {
-  const { cardGrid } = useStyles();
+  const { container } = useStyles();
   const cards = [1, 2, 3];
   return (
     <div>
-      <Container className={cardGrid}>
+      <Container className={container}>
         <Grid container>
           <Grid item>
             <Typography variant="h5" gutterBottom>
-              Popular Dishes
+              Popular Dishes in San Francisco
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={4}>
+        <Grid container justify="center" alignItems="center">
           {cards.map(card => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Dish />
