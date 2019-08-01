@@ -6,7 +6,6 @@ import Dish from './Dish';
 import Footer from '../layout/Footer';
 import SearchFilters from './SearchFilters';
 import SearchBar from './SearchBar';
-import Cart from '../cart/Cart';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -41,7 +40,6 @@ const Search = () => {
           </Grid>
         ))}
       </Grid>
-      <Cart />
       <Footer />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, AppBar, Toolbar, IconButton, Typography, Button, Slide } from '@material-ui/core';
+import { Dialog, AppBar, Toolbar, IconButton, Typography, Button, Slide, List, ListItem, Divider, ListItemText } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,7 +22,7 @@ const CartDialog = ({ open, onClose }) => {
   const { appBar, title } = useStyles();
   return (
     <div>
-				<Dialog fullScreen open={open} onClose={onClose} TransitionComponent={Transition}>
+      <Dialog fullScreen open={open} onClose={onClose} TransitionComponent={Transition}>
         <AppBar className={appBar} color="secondary">
           <Toolbar>
             <IconButton edge="start" color="inherit" onClick={onClose} aria-label="Close">
@@ -36,6 +36,15 @@ const CartDialog = ({ open, onClose }) => {
             </Button>
           </Toolbar>
         </AppBar>
+        <List>
+          <ListItem button>
+            <ListItemText primary="Phone ringtone" secondary="Titania" />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+          </ListItem>
+        </List>
       </Dialog>
     </div>
   );
