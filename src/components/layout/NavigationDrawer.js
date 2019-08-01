@@ -140,7 +140,7 @@ const ListItems = ({ items, onClick, visible }) => {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.loginReducer.isAuthenticated,
+  isAuthenticated: state.userReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(NavigationDrawer);

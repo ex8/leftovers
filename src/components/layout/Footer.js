@@ -79,7 +79,7 @@ const Navigation = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="subtitle1">
-            Account
+            My Account
           </Typography>
           <List>
             <Link className={linkButton} to="/">

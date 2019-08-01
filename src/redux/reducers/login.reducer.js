@@ -1,9 +1,7 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET, SET_CURRENT_USER } from '../types';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET } from '../types';
 
 const INITIAL_STATE = {
   loading: false,
-  user: null,
-  isAuthenticated: false,
   successMessage: '',
   errorMessage: '',
 };
@@ -33,12 +31,6 @@ export default function(state=INITIAL_STATE, action) {
         loading: action.loading,
         successMessage: action.successMessage,
         errorMessage: action.errorMessage,
-      };
-    case SET_CURRENT_USER:
-      return {
-        ...state,
-        isAuthenticated: action.isAuthenticated,
-        user: action.user,
       };
     default:
       return state;

@@ -23,7 +23,7 @@ const Featured = ({ title, cards }) => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container justify="center" alignItems="center">
+        <Grid container justify="center" alignItems="center" spacing={4}>
           {cards.map(card => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Dish />
