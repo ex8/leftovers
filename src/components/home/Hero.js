@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Container, Typography } from '@material-ui/core';
-import SearchBar from '../search/SearchBar';
+
+import AddressBar from './AddressBar';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -24,7 +25,7 @@ const Hero = () => {
         </Typography>
         <Grid container spacing={2} justify="center">
           <Grid item xs={12}>
-            <SearchBar />
+            <AddressBar />
           </Grid>
         </Grid>
       </Container>

@@ -1,8 +1,9 @@
 import jwtDecode from 'jwt-decode';
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET, SET_CURRENT_USER } from '../types';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET } from '../types';
 import api from '../api';
 import setToken from '../setToken';
+import { setCurrentUser } from './user.actions';
 
 export const login = user => dispatch => {
   dispatch({
@@ -48,13 +49,5 @@ export const reset = () => {
     loading: false,
     successMessage: '',
     errorMessage: '',
-  };
-};
-
-export const setCurrentUser = (user, isAuthenticated) => {
-  return {
-    type: SET_CURRENT_USER,
-    isAuthenticated,
-    user,
   };
 };

@@ -99,7 +99,7 @@ const TopBar = ({ onMenuClick, isAuthenticated }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.loginReducer.isAuthenticated,
+  isAuthenticated: state.userReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(TopBar);
