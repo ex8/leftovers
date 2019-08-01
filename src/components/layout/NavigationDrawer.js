@@ -8,12 +8,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
   faUtensils, faShoppingCart, faCogs,
-  faReceipt, faCreditCard, faSignInAlt, faUserPlus
+  faCreditCard, faSignInAlt, faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
+  drawer: {
+    width: 215,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 215,
+  },
   listSubHeader: {
     padding: 0,
     minWidth: 0,
@@ -31,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
   const [sections, setSections] = useState({
     main: true,
-    account: false,
+    account: true,
   });
   const [items] = useState({
     main: [
@@ -42,7 +49,6 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
       { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
-      { label: 'Receipts', to: '/account/reciepts', Icon: <FontAwesomeIcon icon={faReceipt} size="lg" /> },
       { label: 'Gateways', to: '/account/gateways', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
@@ -55,18 +61,25 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
   const onClick = () => onClose();
 
   const toggleSection = name => () => {
-    setSections({
-      ...sections,
+    setSections(oldSections => ({
+      ...oldSections,
       [name]: !sections[name]
-    });
+    }));
   }
 
-  const { listSubHeader } = useStyles();
+  const { listSubHeader, drawer, drawerPaper } = useStyles();
   return (
     <div>
       <Grid container justify="space-between">
         <Grid item>
-          <Drawer open={open} onClose={() => onClose()}>
+          <Drawer 
+            className={drawer} 
+            open={open} 
+            onClose={() => onClose()}
+            classes={{
+              paper: drawerPaper,
+            }}
+          >
             <List>
               <ListSubheader>
                 <Button
@@ -77,7 +90,11 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                   Leftovers
                 </Button>
               </ListSubheader>
-              <ListItems items={items.main} visible={sections.main} onClick={onClick} />
+              <ListItems 
+                items={items.main} 
+                visible={sections.main} 
+                onClick={onClick} 
+              />
                 <div>
                   <ListSubheader>
                     <Button
@@ -88,7 +105,11 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                       My Account
                     </Button>
                   </ListSubheader>
-                  <ListItems items={isAuthenticated ? items.account : items.guest} visible={sections.account} onClick={onClick} />
+                  <ListItems 
+                    items={isAuthenticated ? items.account : items.guest} 
+                    visible={sections.account} 
+                    onClick={onClick} 
+                  />
                 </div>
             </List>
           </Drawer>

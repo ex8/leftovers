@@ -16,19 +16,22 @@ const useStyles = makeStyles(theme => ({
 
 const Search = () => {
   const { container } = useStyles();
-  const cards = [1, 2, 3, 4];
+  const cards = [1, 2, 3, 4, 1, 2, 3, 4];
   return (
-    <div className={container}>
-      <Grid container spacing={2}>
-      <Grid item xs={12}>
+    <div>
+      <Grid className={container} container spacing={2}>
+        <Grid item xs={12}>
           <SearchBar />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <SearchFilters />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
-          <Typography variant="h4">
-            Search Dishes
+          <Typography variant="h5">
+            "seafood"
+          </Typography>
+          <Typography variant="caption">
+            {cards.length} dishes
           </Typography>
         </Grid>
         {cards.map((c, i) => (
