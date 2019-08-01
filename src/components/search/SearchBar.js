@@ -19,7 +19,7 @@ const SearchBar = () => {
           label="Search"
           margin="normal"
           variant="outlined"
-          placeholder="(e.g. Pizza, Falafel, Chinese, Italian...)"
+          placeholder="What are you craving?"
           fullWidth
           InputProps={{
             endAdornment: (

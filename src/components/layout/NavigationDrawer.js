@@ -61,10 +61,10 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
   const onClick = () => onClose();
 
   const toggleSection = name => () => {
-    setSections({
-      ...sections,
+    setSections(oldSections => ({
+      ...oldSections,
       [name]: !sections[name]
-    });
+    }));
   }
 
   const { listSubHeader, drawer, drawerPaper } = useStyles();

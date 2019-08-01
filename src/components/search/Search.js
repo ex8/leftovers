@@ -23,12 +23,15 @@ const Search = () => {
         <Grid item xs={12}>
           <SearchBar />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <SearchFilters />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
-          <Typography variant="h4">
-            Search Dishes
+          <Typography variant="h5">
+            "seafood"
+          </Typography>
+          <Typography variant="caption">
+            {cards.length} dishes
           </Typography>
         </Grid>
         {cards.map((c, i) => (

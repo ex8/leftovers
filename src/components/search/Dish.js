@@ -83,7 +83,10 @@ const Dish = () => {
       </CardContent>
       <CardActions>
         <Button size="small" variant="outlined" color="primary">
-          View Dish
+          View dish
+        </Button>
+        <Button size="small" variant="contained" color="primary">
+          Add to cart
         </Button>
         <IconButton
           className={clsx(expand, {
