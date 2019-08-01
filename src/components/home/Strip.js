@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography } from '@material-ui/core';
+import { Grid, Container, Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,26 +17,33 @@ const Strip = () => {
   return (
     <div className={container}>
       <Container>
-        <Grid container spacing={2} justify="space-around" alignItems="center">
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={4}>
             <FontAwesomeIcon icon={faUtensils} size="5x" />
-            <Typography variant="h4">
-              Home chef?
+            <Typography variant="h5">
+              Your dish, sold
             </Typography>
-            <Typography>
+            <Button size="small" color="inherit">
               Add your dish
-            </Typography>
+            </Button>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-          <Typography variant="h4">
-              Fan of eating?
+            <FontAwesomeIcon icon={faUtensils} size="5x" />
+            <Typography variant="h5">
+              Your dish, sold
             </Typography>
-            <Typography>
-              Browser dishes
-            </Typography>
+            <Button size="small" color="inherit">
+              Add your dish
+            </Button>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            hi
+            <FontAwesomeIcon icon={faUtensils} size="5x" />
+            <Typography variant="h5">
+              Your dish, sold
+            </Typography>
+            <Button size="small" color="inherit">
+              Add your dish
+            </Button>
           </Grid>
         </Grid>
       </Container>

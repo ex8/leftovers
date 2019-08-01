@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    padding: theme.spacing(4),
   },
   linkButton: {
     textDecoration: 'none',
@@ -21,7 +21,7 @@ const Navigation = () => {
   const { container, linkButton } = useStyles();
   return (
     <footer className={container}>
-      <Grid container justify="space-around">
+      <Grid container>
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="h5">
             Leftovers

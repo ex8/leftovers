@@ -15,7 +15,7 @@ const Hero = () => {
   const { container } = useStyles();
   return (
     <div className={container}>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
           Leftovers
         </Typography>

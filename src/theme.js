@@ -8,7 +8,7 @@ export default createMuiTheme({
       main: '#87103f',
     },
     secondary: {
-      main: '#77C3CC',
+      main: '#7c88cc',
     },
     // type: "dark",
   },

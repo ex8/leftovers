@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
 
 const Search = () => {
   const { container } = useStyles();
-  const cards = [1, 2, 3, 4];
+  const cards = [1, 2, 3, 4, 1, 2, 3, 4];
   return (
-    <div className={container}>
-      <Grid container spacing={2}>
-      <Grid item xs={12}>
+    <div>
+      <Grid className={container} container spacing={2}>
+        <Grid item xs={12}>
           <SearchBar />
         </Grid>
         <Grid item xs={12}>

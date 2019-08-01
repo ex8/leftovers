@@ -6,21 +6,20 @@ import Dish from '../search/Dish';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
-const Featured = () => {
+const Featured = ({ title, cards }) => {
   const { container } = useStyles();
-  const cards = [1, 2, 3];
   return (
     <div>
       <Container className={container}>
         <Grid container>
           <Grid item>
             <Typography variant="h5" gutterBottom>
-              Popular Dishes in San Francisco
+              {title}
             </Typography>
           </Grid>
         </Grid>
