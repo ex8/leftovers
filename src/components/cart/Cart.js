@@ -11,25 +11,20 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
-  badgeMargin: {
-    margin: theme.spacing(2),
-  },
 }));
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
-  const { bottomRightCorner, badgeMargin } = useStyles();
+  const { bottomRightCorner } = useStyles();
 
   const onClose = () => setOpen(false);
 
   return (
     <div className={bottomRightCorner}>
       <Tooltip title="Open Cart" aria-label="Open Cart">
-        <Badge className={badgeMargin} badgeContent={2} color="primary">
-          <Fab color="secondary" onClick={() => setOpen(!open)}>
-            <FontAwesomeIcon icon={faShoppingBasket} size="lg" />
-          </Fab>
-        </Badge>
+        <Fab color="secondary" onClick={() => setOpen(!open)}>
+          <FontAwesomeIcon icon={faShoppingBasket} size="lg" />
+        </Fab>
       </Tooltip>
       <CartDialog open={open} onClose={onClose} />
     </div>
