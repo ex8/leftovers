@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faStar, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -31,10 +32,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     margin: theme.spacing(0.5),
   },
+  linkButton: {
+    textDecoration: 'none',
+    color: 'white',
+  },
 }));
 
 const Dish = () => {
-  const { card, media, expand, expandOpen, label } = useStyles();
+  const { card, media, expand, expandOpen, label, linkButton } = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -82,9 +87,11 @@ const Dish = () => {
         </Grid>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="outlined" color="primary">
-          View dish
-        </Button>
+        <Link to='/search/a1' className={linkButton}>
+          <Button size="small" variant="outlined" color="primary">
+            View dish
+          </Button>
+        </Link>
         <Button size="small" variant="contained" color="primary">
           Add to cart
         </Button>

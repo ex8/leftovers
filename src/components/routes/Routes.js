@@ -3,18 +3,20 @@ import { Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 import Home from '../home/Home';
-import Search from '../search/Search';
+import DishList from '../search/DishList';
 import Login from '../account/Login';
 import Signup from '../account/Signup';
 import Dashboard from '../account/Dashboard';
 import Dishes from '../account/Dishes';
+import DishDetail from '../search/DishDetail';
 
 const Routes = () => {
   return (
     <div>
       {/* Main Routes */}
       <Route exact path="/" component={Home} />
-      <Route exact path="/search" component={Search} />
+      <Route exact path="/search" component={DishList} />
+      <Route exact path="/search/:id" component={DishDetail} />
 
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
