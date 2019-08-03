@@ -17,11 +17,12 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%',
+    paddingTop: '50.25%',
   },
   avatar: {
     backgroundColor: teal[500],
   },
+
 }))
 
 const DishDetail = ({ match }) => {
