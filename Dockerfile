@@ -1,10 +1,10 @@
-FROM node:10
+FROM node:alpine
 
 # Create app directory
 WORKDIR /src/app/server
 
 # Install app dependencies
-# A wildcard is used to ensure both package.json and package-lock.jsona re copied
+# A wildcard is used to ensure both package.json and package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
 
