@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardMedia, CardHeader, Avatar, Typography } from '@material-ui/core';
+import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     padding: theme.spacing(2),
   },
+  flex: {
+    flex: 1,
+  },
   media: {
     height: 0,
     paddingTop: '50.25%',
@@ -22,17 +25,16 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: teal[500],
   },
-
 }))
 
 const DishDetail = ({ match }) => {
-  const { container, card, media, avatar } = useStyles();
+  const { container, card, media, avatar, flex } = useStyles();
   return (
     <div className={container}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h4">
-            Paella Dish
+          <Typography className={flex} variant="h4">
+            Paella Dish | ID: {match.params.id}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -45,6 +47,23 @@ const DishDetail = ({ match }) => {
         </Grid>
         <Grid item xs={12} sm={4}>
           <Card className={card}>
+            <Typography paragraph>
+              A delicious seafood paella dish made with a secret!
+            </Typography>
+            <Typography paragraph>
+              Stock: 4
+            </Typography>
+            <Typography paragraph>
+              Price: $4.99
+            </Typography>
+            <Typography paragraph>
+              Tags: Chicken, Seafood, Clams, Shrimp
+            </Typography>
+            <Button fullWidth variant="contained" color="secondary">Add to Cart</Button>    
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Card className={card}>
             <CardHeader
               avatar={
                 <Avatar className={avatar}>M</Avatar>
@@ -52,11 +71,6 @@ const DishDetail = ({ match }) => {
               title="Matt Massoodi"
               subheader={<FontAwesomeIcon icon={faStar} size="sm" />}
             />
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <Card className={card}>
-            dish deets
           </Card>
         </Grid>
       </Grid>
