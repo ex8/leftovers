@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: 215,
     flexShrink: 0,
   },
   drawerPaper: {

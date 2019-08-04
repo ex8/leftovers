@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Grid, List, ListItem, Divider, ListItemText, Typography, Button } from '@material-ui/core';
+import { Drawer, Grid, List, ListItem, Divider, ListItemText, Typography, Button, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoneyCheckAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,50 +21,74 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: '#383838',
   },
-  rightIcon: {
-    marginLeft: theme.spacing(1),
+  title: {
+    // margin: theme.spacing(2),
+    padding: theme.spacing(2),
+  },
+  iconPadding: {
+    paddingRight: theme.spacing(1),
+  },
+  checkoutButton: {
+    padding: theme.spacing(2),
   },
 }));
 
 const CartDrawer = ({ open, onClose }) => {
-  const { drawer, drawerPaper, rightIcon } = useStyles();
+  const { drawer, drawerPaper, title, iconPadding, checkoutButton } = useStyles();
   return (
     <div>
-      <Grid container justify="space-between">
-        <Grid item>
-          <Drawer
-            anchor="right"
-            className={drawer}
-            open={open}
-            onClose={() => onClose()}
-            classes={{
-              paper: drawerPaper,
-            }}
-          >
-            <Grid container spacing={4}>
-              <Grid item xs={12}>
-                <Typography variant="h5">
-                  Your cart
-                </Typography>
-              </Grid>
-            </Grid>
-            <Divider />
-            <List>
-              {[1, 2, 3, 4, 5].map((c, i) => (
-                <div key={i}>
-                  <ListItem button>
-                    <ListItemText primary="Phone ringtone" secondary="Titania" />
-                  </ListItem>
-                  <Divider />
-                </div>
-              ))}
-            </List>
-            <Button variant="contained" color="secondary" fullWidth size="large">
-              Checkout (5) items
-            </Button>
-          </Drawer>
+      <Drawer
+        anchor="right"
+        className={drawer}
+        open={open}
+        onClose={() => onClose()}
+        classes={{
+          paper: drawerPaper,
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography className={title} variant="h5">
+              <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
+              Your Cart (5)
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
+        <List>
+          {[1, 2, 3, 4, 5].map((c, i) => (
+            <div key={i}>
+              <ListItem>
+                <Grid container>
+                 <Grid item xs={2}>
+                    <Typography>
+                      1x
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography>
+                      Paella Dish
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography>
+                      $4.99
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <IconButton>
+                      <FontAwesomeIcon icon={faTimes} />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
+        <Button className={checkoutButton} variant="contained" color="secondary" fullWidth size="large">
+          Checkout 5 items ($22.95)
+        </Button>
+      </Drawer>
     </div>
   );
 };
