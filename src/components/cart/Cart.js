@@ -1,32 +1,20 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Tooltip, Fab } from '@material-ui/core';
+import { IconButton, Badge } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-import CartDialog from './CartDialog';
+import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import CartDrawer from './CartDrawer';
 
-const useStyles = makeStyles(theme => ({
-  bottomRightCorner: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}));
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
-  const { bottomRightCorner } = useStyles();
-
-  const onClose = () => setOpen(false);
-
   return (
-    <div className={bottomRightCorner}>
-      <Tooltip title="Open Cart" aria-label="Open Cart">
-        <Fab color="secondary" onClick={() => setOpen(!open)}>
-          <FontAwesomeIcon icon={faShoppingBasket} size="lg" />
-        </Fab>
-      </Tooltip>
-      <CartDialog open={open} onClose={onClose} />
+    <div>
+      <IconButton color="inherit" onClick={() => setOpen(!open)}>
+        <Badge badgeContent={2} color="secondary">
+          <FontAwesomeIcon icon={faShoppingCart} size="xs" />
+        </Badge>
+      </IconButton>
+      <CartDrawer open={open} onClose={() => setOpen(false)} />
     </div>
   );
 };

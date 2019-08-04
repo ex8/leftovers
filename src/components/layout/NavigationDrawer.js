@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Drawer, Collapse, Grid, Button, List, ListItem,
-  ListItemIcon, ListItemText, ListSubheader
-} from '@material-ui/core';
+import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
@@ -15,7 +12,6 @@ import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: 215,
     flexShrink: 0,
   },
   drawerPaper: {

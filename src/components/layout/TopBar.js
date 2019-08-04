@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Cart from '../cart/Cart';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 const TopBar = ({ onMenuClick, isAuthenticated }) => {
   const { container, menuButton, flex, toolbarMargin, aboveDrawer, linkButton } = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleMenu = event => {
@@ -91,6 +92,7 @@ const TopBar = ({ onMenuClick, isAuthenticated }) => {
             <Link to="/" className={linkButton}>Leftovers</Link>
           </Typography>
           {isAuthenticated ? authenticatedLinks : guestLinks}
+          <Cart />
         </Toolbar>
       </AppBar>
       <div className={toolbarMargin} />
