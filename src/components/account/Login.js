@@ -91,14 +91,14 @@ const Login = ({ loading, successMessage, errorMessage, login, reset }) => {
             color="primary" className={submit} disabled={loading}
           >
             {loading && <CircularProgress size={25} color="inherit" />}
-            {!loading && 'Signup'}
+            {!loading && 'Login'}
           </Button>
         </form>
         <Typography variant="body2">
           Don't have an account? <Link className={linkButton} to="/account/signup">Signup</Link>.
         </Typography>
         <Typography variant="body2">
-          <Link className={linkButton} to="/">Forgout your password?</Link>
+          <Link className={linkButton} to="/">Forgot your password?</Link>
         </Typography>
       </Paper>
     </Container>
