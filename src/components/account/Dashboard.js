@@ -1,37 +1,34 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card } from '@material-ui/core';
+import { Card, Grid, Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    margin: theme.spacing(2)
+  },
   card: {
-    width: 200,
-    height: 200,
+    flex: 1,
+    padding: theme.spacing(2)
   },
 }))
 
-const Dashboard = () => {
-  const { card } = useStyles();
+const Dashboard = ({ user }) => {
+  const { container, card } = useStyles();
   return (
-    <div>
-      <Grid container justify="space-around" spacing={2}>
-        <Grid item xs={12} sm={6} md={3}>
+    <div className={container}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
           <Card className={card}>
-            a card
+            Hi, {user.firstName}!
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12}>
           <Card className={card}>
-            a card
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card className={card}>
-            a card
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card className={card}>
-            a card
+            <Typography paragraph>Username: {user.username}</Typography>
+            <Typography paragraph>Address: {user.address}</Typography>
+            <Typography paragraph>Email: {user.email}</Typography>
+            <Typography paragraph>Phone: {user.phone}</Typography>
           </Card>
         </Grid>
       </Grid>
@@ -39,4 +36,8 @@ const Dashboard = () => {
   )
 };
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  user: state.userReducer.user
+});
+
+export default connect(mapStateToProps)(Dashboard);
