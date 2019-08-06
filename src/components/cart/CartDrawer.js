@@ -1,9 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Grid, List, ListItem, Divider, ListItemText, Typography, Button, IconButton } from '@material-ui/core';
+import { Drawer, Grid, Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
+import CartItems from './CartItems';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -34,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CartDrawer = ({ open, onClose }) => {
-  const { drawer, drawerPaper, title, iconPadding, checkoutButton } = useStyles();
+  const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton } = useStyles();
   return (
     <div>
       <Drawer
@@ -54,40 +56,19 @@ const CartDrawer = ({ open, onClose }) => {
             </Typography>
           </Grid>
         </Grid>
-        <List>
-          {[1, 2, 3, 4, 5].map((c, i) => (
-            <div key={i}>
-              <ListItem>
-                <Grid container>
-                 <Grid item xs={2}>
-                    <Typography>
-                      1x
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography>
-                      Paella Dish
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Typography>
-                      $4.99
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <IconButton>
-                      <FontAwesomeIcon icon={faTimes} />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <Divider />
-            </div>
-          ))}
-        </List>
-        <Button className={checkoutButton} variant="contained" color="secondary" fullWidth size="large">
-          Checkout 5 items ($22.95)
-        </Button>
+        <CartItems />
+        <Link className={linkButton} to="/checkout">
+          <Button 
+            className={checkoutButton}
+            onClick={() => onClose()} 
+            variant="contained" 
+            color="secondary" 
+            fullWidth 
+            size="large"
+          >
+            Checkout 5 items ($22.95)
+          </Button>
+        </Link>
       </Drawer>
     </div>
   );

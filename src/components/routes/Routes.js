@@ -9,6 +9,7 @@ import Signup from '../account/Signup';
 import Dashboard from '../account/Dashboard';
 import Dishes from '../account/Dishes';
 import DishDetail from '../search/DishDetail';
+import Checkout from '../checkout/Checkout';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/search" component={DishList} />
       <Route exact path="/search/:id" component={DishDetail} />
+      <Route exact path="/checkout" component={Checkout} />
 
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
