@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faShoppingCart, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -45,7 +45,7 @@ const Navigation = () => {
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/search">
               <ListItem button>
                 <ListItemIcon>
                     <FontAwesomeIcon icon={faSearch} />
@@ -82,7 +82,7 @@ const Navigation = () => {
             My Account
           </Typography>
           <List>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/account">
               <ListItem button>
                 <ListItemIcon>
                   <FontAwesomeIcon icon={faTachometerAlt} />
@@ -115,10 +115,10 @@ const Navigation = () => {
             <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <FontAwesomeIcon icon={faCreditCard} />
                 </ListItemIcon>
                 <ListItemText>
-                  Orders
+                  Gateways
                 </ListItemText>
               </ListItem>
             </Link>

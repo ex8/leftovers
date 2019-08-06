@@ -5,7 +5,7 @@ import api from '../api';
 import setToken from '../setToken';
 import { setCurrentUser } from './user.actions';
 
-export const login = user => dispatch => {
+export const login = (user, history) => dispatch => {
   dispatch({
     type: LOGIN_REQUEST,
     loading: true,
@@ -25,7 +25,7 @@ export const login = user => dispatch => {
           loading: false,
           successMessage: 'Account successfully logged in.'
         });
-        // redirect here
+        history.push('/account');
       }
       else {
         dispatch({
