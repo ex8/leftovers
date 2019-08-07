@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { login, reset } from '../../redux/actions/login.actions';
 import Alert from '../layout/Alert';
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Login = ({ loading, successMessage, errorMessage, login, reset }) => {
+const Login = ({ loading, successMessage, errorMessage, login, reset, history }) => {
   const [fields, setFields] = useState({
     email: '',
     password: '',
@@ -59,7 +60,7 @@ const Login = ({ loading, successMessage, errorMessage, login, reset }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    login(fields);
+    login(fields, history);
   };
 
   const { paper, avatar, form, submit, linkButton  } = useStyles();
@@ -116,4 +117,4 @@ const mapDispatchToProps = {
   reset,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

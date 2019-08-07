@@ -1,15 +1,22 @@
 import jwtDecode from 'jwt-decode';
+import { isEmail } from 'validator';
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET } from '../types';
 import api from '../api';
 import setToken from '../setToken';
 import { setCurrentUser } from './user.actions';
 
-export const login = user => dispatch => {
+export const login = (user, history) => dispatch => {
   dispatch({
     type: LOGIN_REQUEST,
     loading: true,
   });
+  if (!isEmail(user.email)) {
+    return dispatch({
+      type: LOGIN_FAILURE,
+      errorMessage: 'Please enter a valid e-mail address.',
+    });
+  }
   setTimeout(() => {
     api.post('/api/auth/login', user)
     .then(res => {
@@ -25,7 +32,7 @@ export const login = user => dispatch => {
           loading: false,
           successMessage: 'Account successfully logged in.'
         });
-        // redirect here
+        history.push('/account');
       }
       else {
         dispatch({
