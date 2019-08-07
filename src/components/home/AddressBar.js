@@ -16,7 +16,7 @@ const AddressBar = () => {
     <div className={container}>
       <form>
         <TextField
-          label="Enter delivery address"
+          label="Enter your address"
           margin="normal"
           variant="outlined"
           fullWidth
