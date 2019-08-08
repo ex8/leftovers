@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card } from '@material-ui/core';
+import { Grid, Card, Typography } from '@material-ui/core';
 
 import CartItems from '../cart/CartItems';
 
@@ -19,6 +19,11 @@ const Checkout = () => {
   return (
     <div className={container}>
       <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h5">
+            Items (5)
+          </Typography>
+        </Grid>
         <Grid item xs={12} sm={8}>
           <CartItems />
         </Grid>
