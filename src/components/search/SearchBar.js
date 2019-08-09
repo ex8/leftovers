@@ -6,7 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: theme.palette.background.primary,
+    flex: 1,
   },
 }));
 

@@ -6,6 +6,7 @@ import Dish from './Dish';
 import Footer from '../layout/Footer';
 import SearchFilters from './SearchFilters';
 import SearchBar from './SearchBar';
+import AddressBar from '../home/AddressBar';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,12 +21,15 @@ const Search = () => {
   return (
     <div>
       <Grid className={container} container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={3}>
+          <AddressBar />
+        </Grid>
+        <Grid item xs={12} sm={9}>
           <SearchBar />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <SearchFilters />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <Typography variant="h5">
             "seafood"

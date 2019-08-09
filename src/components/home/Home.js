@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <Container>
       <Hero />
-      <Featured title="Popular dishes in San Francisco" cards={[1, 2, 3]} />
+      <Featured title="Popular dishes on Leftovers" cards={[1, 2, 3]} />
       <Divider variant="middle" />
       <Strip />
       <Divider variant="middle" />
