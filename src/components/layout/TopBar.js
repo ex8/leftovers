@@ -3,9 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import Cart from '../cart/Cart';
+import { logout } from '../../redux/actions/logout.actions';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TopBar = ({ onMenuClick, isAuthenticated }) => {
+const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
   const { container, menuButton, flex, toolbarMargin, aboveDrawer, linkButton } = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -39,6 +41,11 @@ const TopBar = ({ onMenuClick, isAuthenticated }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout(history);
+    handleClose();
   };
 
   const authenticatedLinks = (
@@ -65,7 +72,7 @@ const TopBar = ({ onMenuClick, isAuthenticated }) => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
@@ -104,4 +111,8 @@ const mapStateToProps = state => ({
   isAuthenticated: state.userReducer.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(TopBar);
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TopBar));
