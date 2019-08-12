@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
+    flex: 1,
   },
   media: {
     height: 0,
