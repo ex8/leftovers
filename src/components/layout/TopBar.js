@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: 'white',
+    color: 'inherit',
   },
 }));
 
@@ -71,7 +71,11 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <Link className={linkButton} to="/profile/sood">
+          <MenuItem onClick={handleClose} button>
+            Profile
+          </MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
