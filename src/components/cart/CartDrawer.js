@@ -21,11 +21,10 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: '#383838',
+    color: 'inherit',
   },
   title: {
-    // margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
   iconPadding: {
     paddingRight: theme.spacing(1),
@@ -56,6 +55,7 @@ const CartDrawer = ({ open, onClose }) => {
             </Typography>
           </Grid>
         </Grid>
+        <Divider />
         <CartItems />
         <Link className={linkButton} to="/checkout">
           <Button 

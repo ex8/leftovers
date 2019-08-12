@@ -5,7 +5,6 @@ import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import CartDrawer from './CartDrawer';
 
-
 const Cart = () => {
   const [open, setOpen] = useState(false);
   return (
