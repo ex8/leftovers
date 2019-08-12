@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Cart from '../cart/Cart';
-import { logout } from '../../redux/actions/logout.actions';
+import { logout } from '../../redux/actions/user.actions';
 
 const useStyles = makeStyles(theme => ({
   container: {

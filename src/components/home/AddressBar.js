@@ -5,6 +5,9 @@ import { TextField, InputAdornment, IconButton, CircularProgress, Paper, MenuIte
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setUserLocation } from '../../redux/actions/user.actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddressBar = ({ history }) => {
+const AddressBar = ({ place, setUserLocation, history }) => {
   const [address, setAddress] = useState('');
   const { root, container, paper } = useStyles();
 
@@ -32,7 +35,7 @@ const AddressBar = ({ history }) => {
   const handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(coords => console.log('Success', coords))
+      .then(latLng => setUserLocation(address, latLng))
       .then(() => setAddress(address))
       .then(() => history.push('/search'))
       .catch(error => console.error('Error', error));
@@ -52,6 +55,7 @@ const AddressBar = ({ history }) => {
               margin="normal"
               variant="outlined"
               value={address}
+              helperText={place ? `Current: ${place}` : ''}
               fullWidth
               {...getInputProps()}
               InputProps={{
@@ -73,10 +77,8 @@ const AddressBar = ({ history }) => {
               <Paper className={paper} square>
                 <div>
                   {suggestions.map((suggestion, i) => (
-                    <MenuItem key={i}>
-                      <div {...getSuggestionItemProps(suggestion)}>
-                        {suggestion.description}
-                      </div>
+                    <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
+                      {suggestion.description}
                     </MenuItem>
                   ))}
                 </div>
@@ -89,4 +91,12 @@ const AddressBar = ({ history }) => {
   );
 };
 
-export default withRouter(AddressBar);
+const mapStateToProps = state => ({
+  place: state.userReducer.location.place,
+});
+
+const mapDispatchToProps = {
+  setUserLocation,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddressBar));
