@@ -21,11 +21,11 @@ const Search = () => {
   return (
     <div>
       <Grid className={container} container spacing={2}>
-        <Grid item xs={12} sm={3}>
-          <AddressBar />
-        </Grid>
-        <Grid item xs={12} sm={9}>
+        <Grid item xs={12} sm={8}>
           <SearchBar />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <AddressBar / >
         </Grid>
         <Grid item xs={12}>
           <SearchFilters />
