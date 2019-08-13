@@ -7,8 +7,8 @@ import Dish from '../search/Dish';
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
-    padding: theme.spacing(2),
-    margin: theme.spacing(2),
+    // padding: theme.spacing(2),
+    margin: theme.spacing(4),
   },
 }));
 
@@ -19,7 +19,7 @@ const Featured = ({ title, cards }) => {
       <Container>
         <Grid container>
           <Grid item>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h5" gutterBottom>
               {title}
             </Typography>
           </Grid>
