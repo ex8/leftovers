@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, IconButton, Select, Divider, Grid, Typography, FormControl, InputLabel, OutlinedInput, MenuItem } from '@material-ui/core';
+import { List, ListItem, IconButton, Select, Divider, Grid, Typography, FormControl, OutlinedInput, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 

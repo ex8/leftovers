@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, Button, Card, Avatar, CardActions } from '@material-ui/core';
+import { Grid, Typography, Button, Card, Avatar, CardActions } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { green } from '@material-ui/core/colors';
@@ -8,8 +8,8 @@ import { green } from '@material-ui/core/colors';
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
@@ -18,8 +18,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: theme.spacing(2),
-    padding: theme.spacing(5, 5),
+    padding: theme.spacing(2),
   },
   avatar: {
     backgroundColor: green[300],
@@ -33,11 +32,8 @@ const useStyles = makeStyles(theme => ({
 const Strip = () => {
   const { container, card, avatar, icon } = useStyles();
   return (
-    <Container className={container}>
-      <Typography variant="h4">
-        How it works
-      </Typography>
-      <Grid container spacing={1}>
+    <div className={container}>
+      <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Card className={card}>
             <Avatar className={avatar}>1</Avatar>
@@ -81,7 +77,7 @@ const Strip = () => {
           </Card>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 }
 

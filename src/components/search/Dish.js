@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid } from '@material-ui/core';
+import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip, Divider } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faStar, faBolt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   chip: {
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
   },
   label: {
     backgroundColor: '#F5F5F5',
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dish = () => {
-  const { card, media, expand, expandOpen, label, linkButton } = useStyles();
+  const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -65,9 +65,6 @@ const Dish = () => {
             <Typography variant="caption" gutterBottom>
               Chicken, Seafood, Clams, Shrimp
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" paragraph>A delicious seafood paella dish made with a secret!</Typography>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
@@ -108,7 +105,16 @@ const Dish = () => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography>Ingredients:</Typography>
+          <Typography variant="h6">About</Typography>
+          <Typography variant="body2" paragraph>
+            A delicious seafood paella dish made with a secret!
+          </Typography>
+          <Typography variant="h6">Ingredients</Typography>
+          <Chip className={chip} label="Onions" />
+          <Chip className={chip} label="Garlic" />
+          <Chip className={chip} label="Ginger" />
+          <Chip className={chip} label="Saffron" />
+          <Chip className={chip} label="Sauce" />
         </CardContent>
       </Collapse>
     </Card>
