@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, Typography } from '@material-ui/core';
+import { Grid, Card, Typography, CardHeader, CardContent, List, ListItem } from '@material-ui/core';
 
 import CartItems from '../cart/CartItems';
 
@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     flex: 1,
+
   },
 }));
 
@@ -18,18 +19,23 @@ const Checkout = () => {
   const { container, card } = useStyles();
   return (
     <div className={container}>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography variant="h5">
-            Items (5)
-          </Typography>
-        </Grid>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
-          <CartItems />
+          <Card>
+            <CardHeader 
+              title="Items (5)"
+            />
+            <CartItems />
+          </Card>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Card className={card}>
-            order summary...
+            <CardHeader 
+              title="Order Summary"
+            />
+            <CardContent>
+              <Typography>2 items from SOOD</Typography>
+            </CardContent>
           </Card>
         </Grid>
       </Grid>
