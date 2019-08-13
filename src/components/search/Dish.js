@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip, Divider } from '@material-ui/core';
+import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faStar, faBolt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dish = () => {
   const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
@@ -105,7 +105,7 @@ const Dish = () => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography variant="h6">About</Typography>
+          <Typography variant="h6">Description</Typography>
           <Typography variant="body2" paragraph>
             A delicious seafood paella dish made with a secret!
           </Typography>

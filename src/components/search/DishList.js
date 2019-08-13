@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Container } from '@material-ui/core';
 
 import Dish from './Dish';
 import Footer from '../layout/Footer';
@@ -19,7 +19,8 @@ const Search = () => {
   const { container } = useStyles();
   const cards = [1, 2, 3, 4, 1, 2, 3, 4];
   return (
-    <div className={container}>
+    <div>
+      <Container className={container}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
           <SearchBar />
@@ -44,6 +45,7 @@ const Search = () => {
           </Grid>
         ))}
       </Grid>
+      </Container>
       <Footer />
     </div>
   );
