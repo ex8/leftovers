@@ -45,8 +45,6 @@ const Dashboard = ({ user }) => {
               <Typography paragraph>Phone: {user1.phone}</Typography>
             </Card>
           </Grid>
-        </Grid>
-        <Grid container justify="center" alignItems="center" spacing={4}>
           <Grid item xs={12} sm={6} md={4}>
             <Link to="/account/orders" className={linkButton}>
               <Card className={card}>
