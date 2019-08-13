@@ -62,7 +62,7 @@ const Login = ({ loading, successMessage, errorMessage, login, reset }) => {
     login(fields);
   };
 
-  const { paper, avatar, form, submit, linkButton  } = useStyles();
+  const { paper, avatar, form, submit, linkButton } = useStyles();
   const { email, password } = fields;
   return (
     <Container component="main" maxWidth="xs">
