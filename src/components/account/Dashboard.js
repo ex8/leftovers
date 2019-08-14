@@ -14,25 +14,19 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     margin: theme.spacing(4)
   },
-  fillCard: {
-    flex: 1,
-  },
   linkButton: {
     textDecoration: 'none',
   },
   media: {
-    height: '100%',
+    marginBottom: '5%',
+    marginTop: '5%',
+    height: '90%',
     borderRadius: '5px'
-  },
-  mediaContainer: {
-    flex: 1,
-    height: '100%',
-    padding: theme.spacing(2)
   }
 }))
 
 const Dashboard = ({ user }) => {
-  const { card, container, fillCard, linkButton, media, mediaContainer } = useStyles();
+  const { card, container, linkButton, media } = useStyles();
   const user1 = {
     firstName: 'drew',
     username: 'drew',
@@ -50,7 +44,7 @@ const Dashboard = ({ user }) => {
               Hi, {user1.firstName}!
             </Typography>
           </Grid>
-          <Grid item xs={4} md={2} className={fillCard}>
+          <Grid item xs={4} md={2}>
             <CardMedia
               className={media}
               image="https://source.unsplash.com/random"
