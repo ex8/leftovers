@@ -22,10 +22,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   avatar: {
-    height: 100,
-    width: 100,
+    height: 90,
+    width: 90,
     backgroundColor: teal[500],
-    fontSize: 50,
+    fontSize: 35,
   },
 }));
 
@@ -39,10 +39,10 @@ const Profile = ({ match }) => {
             <Card className={card}>
               <CardContent>
                 <Grid container>
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12} sm={4}>
                     <Avatar className={avatar}>J</Avatar>
                   </Grid>
-                  <Grid item xs={12} sm={9}>
+                  <Grid item xs={12} sm={8}>
                     <Typography variant="h4">
                       John Doe
                     </Typography>
@@ -58,9 +58,6 @@ const Profile = ({ match }) => {
                   </Grid>
                 </Grid>
               </CardContent>
-              <CardActions>
-                <Button color="primary" variant="outlined">Edit Profile</Button>
-              </CardActions>
             </Card>
           </Grid>
           <Grid item xs={12} sm={6}>
