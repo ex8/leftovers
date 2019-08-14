@@ -7,7 +7,6 @@ import Dish from '../search/Dish';
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
-    // padding: theme.spacing(2),
     margin: theme.spacing(4),
   },
 }));

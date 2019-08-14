@@ -19,32 +19,32 @@ const Search = () => {
   const { container } = useStyles();
   const cards = [1, 2, 3, 4, 1, 2, 3, 4];
   return (
-    <div>
-      <Container className={container}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={8}>
-          <SearchBar />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <AddressBar / >
-        </Grid>
-        <Grid item xs={12}>
-          <SearchFilters />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h5">
-            "seafood"
-          </Typography>
-          <Typography variant="caption">
-            {cards.length} dishes
-          </Typography>
-        </Grid>
-        {cards.map((c, i) => (
-          <Grid item key={i} xs={12} sm={6} md={4}>
-            <Dish />
+    <div className={container}>
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={8}>
+            <SearchBar />
           </Grid>
-        ))}
-      </Grid>
+          <Grid item xs={12} sm={4}>
+            <AddressBar />
+          </Grid>
+          <Grid item xs={12}>
+            <SearchFilters />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5">
+              "seafood"
+          </Typography>
+            <Typography variant="caption">
+              {cards.length} dishes
+          </Typography>
+          </Grid>
+          {cards.map((c, i) => (
+            <Grid item key={i} xs={12} sm={6} md={4}>
+              <Dish />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
       <Footer />
     </div>

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: 'white',
+    color: 'inherit',
   },
 }));
 
@@ -59,7 +59,9 @@ const Dish = () => {
             <Typography variant="h5">Paella Dish</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="subtitle2">By Mary Jane</Typography>
+            <Typography variant="subtitle2">
+              By <Link className={linkButton} to="/profile/mary-jane">Mary Jane</Link>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="caption" gutterBottom>
