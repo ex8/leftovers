@@ -18,10 +18,12 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
   },
   media: {
+    borderRadius: '5px',
+    height: '90%',
+    flex: 1,
     marginBottom: '5%',
     marginTop: '5%',
-    height: '90%',
-    borderRadius: '5px'
+    paddingTop: '50.25%'
   }
 }))
 
@@ -44,13 +46,13 @@ const Dashboard = ({ user }) => {
               Hi, {user1.firstName}!
             </Typography>
           </Grid>
-          <Grid item xs={4} md={2}>
+          <Grid item xs={12} md={2}>
             <CardMedia
               className={media}
               image="https://source.unsplash.com/random"
             />
           </Grid>
-          <Grid item xs={8} md={6}>
+          <Grid item xs={12} md={6}>
             <Card className={card}>
               <Typography paragraph>Username: {user1.username}</Typography>
               <Typography paragraph>Address: {user1.address}</Typography>
