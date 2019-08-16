@@ -2,15 +2,16 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
-import Home from '../home/Home';
-import DishList from '../search/DishList';
-import Login from '../account/Login';
-import Signup from '../account/Signup';
+import Checkout from '../checkout/Checkout';
 import Dashboard from '../account/Dashboard';
 import Dishes from '../account/Dishes';
 import DishDetail from '../search/DishDetail';
-import Checkout from '../checkout/Checkout';
+import DishList from '../search/DishList';
+import Home from '../home/Home';
+import Login from '../account/Login';
+import Orders from '../account/Orders';
 import Profile from '../profile/Profile';
+import Signup from '../account/Signup';
 
 const Routes = () => {
   return (
@@ -25,6 +26,7 @@ const Routes = () => {
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
       <PrivateRoute exact path="/account/dishes" component={Dishes} />
+      <PrivateRoute exact path="/account/orders" component={Orders} />
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
     </div>
