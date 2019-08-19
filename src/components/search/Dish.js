@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dish = () => {
+const Dish = ({ title, description, stock, price }) => {
   const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -56,7 +56,7 @@ const Dish = () => {
       <CardContent>
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h5">Paella Dish</Typography>
+            <Typography variant="h5">{title}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="subtitle2">
@@ -70,7 +70,7 @@ const Dish = () => {
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faDollarSign} size="sm" /> 4.99
+              <FontAwesomeIcon icon={faDollarSign} size="sm" /> {price}
             </Paper>
           </Grid>
           <Grid item>
@@ -109,7 +109,7 @@ const Dish = () => {
         <CardContent>
           <Typography variant="h6">Description</Typography>
           <Typography variant="body2" paragraph>
-            A delicious seafood paella dish made with a secret!
+            {description}
           </Typography>
           <Typography variant="h6">Ingredients</Typography>
           <Chip className={chip} label="Onions" />

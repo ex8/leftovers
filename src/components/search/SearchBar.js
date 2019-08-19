@@ -10,21 +10,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchBar = () => {
+const SearchBar = ({ queryString, setQueryString, handleSubmit }) => {
   const { container } = useStyles();
   return (
     <div className={container}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextField
           label="Search"
           margin="normal"
           variant="outlined"
           placeholder="What are you craving?"
           fullWidth
+          value={queryString}
+          onChange={e => setQueryString(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment>
-                <IconButton>
+                <IconButton onClick={handleSubmit}>
                   <FontAwesomeIcon icon={faSearch} />
                 </IconButton>
               </InputAdornment>

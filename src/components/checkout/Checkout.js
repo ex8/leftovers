@@ -36,7 +36,7 @@ const Checkout = () => {
             label="Order notes"
             margin="normal"
             variant="outlined"
-            placeholder="Leave a note for SOOD"
+            placeholder="Leave a note for chef"
             fullWidth
           />
         </Grid>
