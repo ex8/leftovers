@@ -4,6 +4,7 @@ import { Grid, Typography, Container, Card, Avatar, CircularProgress } from '@ma
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSadCry } from '@fortawesome/free-solid-svg-icons';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import Dish from './Dish';
 import Footer from '../layout/Footer';
@@ -84,7 +85,8 @@ const DishList = () => {
               {dishes.length} dishes
           </Typography>
           </Grid>
-          {loading && <CircularProgress color="primary" size={50} />}
+          {/* {loading && <CircularProgress color="primary" size={50} />} */}
+          {loading && <Skeleton variant="rect" width={210} height={118} />}
           {!loading && dishes.length === 0 && (
             <Card className={card}>
               <Avatar className={avatar}>
