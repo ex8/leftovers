@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddressBar = ({ place, setUserLocation, history }) => {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(place);
   const { root, container, paper } = useStyles();
 
   const handleChange = address => setAddress(address);
@@ -38,7 +38,7 @@ const AddressBar = ({ place, setUserLocation, history }) => {
       .then(latLng => setUserLocation(address, latLng))
       .then(() => setAddress(address))
       .then(() => history.push('/search'))
-      .catch(error => console.error('Error', error));
+      .catch(() => console.error('Error selecting address.'));
   };
 
   return (
@@ -55,7 +55,6 @@ const AddressBar = ({ place, setUserLocation, history }) => {
               margin="normal"
               variant="outlined"
               value={address}
-              helperText={place ? `Current: ${place}` : ''}
               fullWidth
               {...getInputProps()}
               InputProps={{
