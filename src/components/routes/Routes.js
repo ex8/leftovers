@@ -9,6 +9,7 @@ import DishDetail from '../search/DishDetail';
 import DishList from '../search/DishList';
 import Home from '../home/Home';
 import Login from '../account/Login';
+import OrderDetails from '../account/OrderDetails';
 import Orders from '../account/Orders';
 import Profile from '../profile/Profile';
 import Signup from '../account/Signup';
@@ -26,6 +27,7 @@ const Routes = () => {
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
       <PrivateRoute exact path="/account/dishes" component={Dishes} />
+      <PrivateRoute exact path="/account/orders/:id" component={OrderDetails} />
       <PrivateRoute exact path="/account/orders" component={Orders} />
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
