@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardMedia, Container, Grid, Paper, Typography } from '@material-ui/core';
+import { Card, CardMedia, Container, Grid, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Dashboard = ({ user }) => {
+const Dashboard = () => {
   const { card, container, linkButton, media } = useStyles();
   const user1 = {
     firstName: 'drew',

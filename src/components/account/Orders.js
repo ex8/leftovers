@@ -1,6 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import { Container,
+          Card, 
+          Grid, 
+          Hidden, 
+          Table, 
+          TableBody, 
+          TableCell, 
+          TableHead, 
+          TableRow, 
+          Typography
+        } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -19,56 +29,87 @@ const rows = [
 const useStyles = makeStyles(theme => ({
   card: {
     flex: 1,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4)
   },
   container: {
-    alignItems: 'center',
-    flex: 1,
-    margin: theme.spacing(2),
-  },
-  linkButton: {
-    textDecoration: 'none'
+    flexGrow: 1,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4)
   },
   tableCell: {
     paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1)
+    paddingRight: theme.spacing(1),
+    textDecoration: 'none'
   }
 }))
 
-const Orders = ({ user }) => {
-  const { card, container, linkButton, tableCell } = useStyles();
+const Orders = () => {
+  const { card, container, tableCell } = useStyles();
 
   return (
     <div className={container}>
-      <Grid container>
-        <Grid item xs={12} md={8}>
-          <Card className={card}>
-            <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              Your Orders
-            </Typography>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Chef</TableCell>
-                  <TableCell>Dish</TableCell>
-                  <TableCell align="right">Amount</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map(row => (
-                    <TableRow component={Link} to={`orders/${row.id}`} key={row.id} className={linkButton}>
-                      <TableCell className={tableCell}>{row.date}</TableCell>
-                      <TableCell className={tableCell}>{row.chef}</TableCell>
-                      <TableCell className={tableCell}>{row.dish}</TableCell>
-                      <TableCell  className={tableCell} align="right">{row.amount}</TableCell>
-                    </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
+      <Container>
+        <Grid container>
+          <Grid item xs={12}>
+            <Card className={card}>
+              <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                Your Orders
+              </Typography>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Dish</TableCell>
+                    <Hidden smDown>
+                      <TableCell>Chef</TableCell>
+                    </Hidden>
+                    <TableCell align="right">Amount</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map(row => (
+                      <TableRow key={row.id}>
+                        <TableCell 
+                          component={Link} 
+                          to={`orders/${row.id}`}
+                          className={tableCell}
+                        >
+                          {row.date}
+                        </TableCell>
+                        <TableCell
+                          component={Link}
+                          to={`orders/${row.id}`}
+                          className={tableCell}
+                        >
+                          {row.dish}
+                        </TableCell>
+                        <Hidden smDown>
+                          <TableCell
+                            component={Link}
+                            to={`orders/${row.id}`}
+                            className={tableCell}
+                          >
+                            {row.chef}
+                          </TableCell>
+                        </Hidden>
+                        <TableCell
+                          component={Link}
+                          to={`orders/${row.id}`}
+                          className={tableCell}
+                          align="right"
+                        >
+                          {row.amount}
+                        </TableCell>
+                      </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </div>
   )
 };
