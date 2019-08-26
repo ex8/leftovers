@@ -44,6 +44,10 @@ const Dish = ({ title, description, stock, price }) => {
 
   function handleExpandClick() {
     setExpanded(!expanded);
+  };
+
+  function addToCart() {
+    console.log('add to cart...');
   }
 
   return (
@@ -91,7 +95,7 @@ const Dish = ({ title, description, stock, price }) => {
             View dish
           </Button>
         </Link>
-        <Button size="small" variant="contained" color="primary">
+        <Button onClick={addToCart} size="small" variant="contained" color="primary">
           Add to cart
         </Button>
         <IconButton
