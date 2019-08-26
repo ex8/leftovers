@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faDollarSign, faStar, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dish = ({ title, description, stock, price }) => {
+const Dish = ({ dish }) => {
   const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -48,14 +49,16 @@ const Dish = ({ title, description, stock, price }) => {
 
   function addToCart() {
     console.log('add to cart...');
-  }
+  };
 
+  const { title, description, price, rating, tags, ingredients, chef } = dish;
+  const profileUrl = `/profile/${chef.username}`;
   return (
     <Card className={card}>
       <CardMedia
         className={media}
         image="https://source.unsplash.com/random"
-        title="Paella dish"
+        title={title}
       />
       <CardContent>
         <Grid container>
@@ -64,27 +67,31 @@ const Dish = ({ title, description, stock, price }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="subtitle2">
-              By <Link className={linkButton} to="/profile/mary-jane">Mary Jane</Link>
+              By <Link className={linkButton} to={profileUrl}>{chef.firstName} {chef.lastName}</Link>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="caption" gutterBottom>
-              Chicken, Seafood, Clams, Shrimp
+              {tags.map((tag, i) => (
+                <span key={i}>
+                  {tag}, {' '}
+                </span>
+              ))}
             </Typography>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faDollarSign} size="sm" /> {price}
+              <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
             </Paper>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faStar} size="sm" /> 4.3 (159)
+              <Rating size="small" value={rating} readOnly />
             </Paper>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faBolt} size="sm" /> Quick
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> {chef.city}, {chef.state}
             </Paper>
           </Grid>
         </Grid>
@@ -116,11 +123,9 @@ const Dish = ({ title, description, stock, price }) => {
             {description}
           </Typography>
           <Typography variant="h6">Ingredients</Typography>
-          <Chip className={chip} label="Onions" />
-          <Chip className={chip} label="Garlic" />
-          <Chip className={chip} label="Ginger" />
-          <Chip className={chip} label="Saffron" />
-          <Chip className={chip} label="Sauce" />
+          {ingredients.map((ingredient, i) => (
+            <Chip key={i} className={chip} label={ingredient} />
+          ))}
         </CardContent>
       </Collapse>
     </Card>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Card, CardContent, Typography, Avatar, CardActions, Button, IconButton } from '@material-ui/core';
+import { Grid, Container, Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 
 import Tabs from './Tabs';

@@ -108,11 +108,7 @@ const DishList = ({ place }) => {
           )}
           {!loading && dishes.map((d, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
-              <Dish
-                title={d.title}
-                description={d.description}
-                price={d.price}
-              />
+              <Dish dish={d} />
             </Grid>
           ))}
         </Grid>
