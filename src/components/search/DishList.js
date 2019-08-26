@@ -44,6 +44,7 @@ const DishList = ({ place }) => {
 
 
   const getDishes = () => {
+    setLoading(true);
     if (place) {
       api.get('/api/search')
         .then(res => {
@@ -60,7 +61,7 @@ const DishList = ({ place }) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => setLoading(false), 2000);
-    // 
+    // filter dishes using array methods
   };
 
   return (

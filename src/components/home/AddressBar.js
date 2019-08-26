@@ -8,6 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setUserLocation } from '../../redux/actions/user.actions';
+import useScript from '../../useScript';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 const AddressBar = ({ place, setUserLocation, history, getDishes }) => {
   const [address, setAddress] = useState(place);
+  const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=&libraries=places`);
   const { root, container, paper } = useStyles();
 
   const handleChange = address => setAddress(address);
@@ -44,49 +46,51 @@ const AddressBar = ({ place, setUserLocation, history, getDishes }) => {
 
   return (
     <div className={root}>
-      <PlacesAutocomplete
-        value={address}
-        onChange={handleChange}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className={container}>
-            <TextField
-              label="Enter your address"
-              margin="normal"
-              variant="outlined"
-              value={address}
-              fullWidth
-              {...getInputProps()}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment>
-                    {loading && <CircularProgress size={25} />}
-                    {!loading && (
-                      <Link to="/search">
-                        <IconButton onClick={handleSelect}>
-                          <FontAwesomeIcon icon={faMapMarkerAlt} />
-                        </IconButton>
-                      </Link>
-                    )}
-                  </InputAdornment>
-                )
-              }}
-            />
-            <div>
-              <Paper className={paper} square>
-                <div>
-                  {suggestions.map((suggestion, i) => (
-                    <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
-                      {suggestion.description}
-                    </MenuItem>
-                  ))}
-                </div>
-              </Paper>
+      {loaded && !error && (
+        <PlacesAutocomplete
+          value={address}
+          onChange={handleChange}
+          onSelect={handleSelect}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            <div className={container}>
+              <TextField
+                label="Enter your address"
+                margin="normal"
+                variant="outlined"
+                value={address}
+                fullWidth
+                {...getInputProps()}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      {loading && <CircularProgress size={25} />}
+                      {!loading && (
+                        <Link to="/search">
+                          <IconButton onClick={handleSelect}>
+                            <FontAwesomeIcon icon={faMapMarkerAlt} />
+                          </IconButton>
+                        </Link>
+                      )}
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <div>
+                <Paper className={paper} square>
+                  <div>
+                    {suggestions.map((suggestion, i) => (
+                      <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
+                        {suggestion.description}
+                      </MenuItem>
+                    ))}
+                  </div>
+                </Paper>
+              </div>
             </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
+          )}
+        </PlacesAutocomplete>
+      )}
     </div>
   );
 };
