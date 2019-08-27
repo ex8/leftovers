@@ -51,7 +51,7 @@ const Dish = ({ dish }) => {
     console.log('add to cart...');
   };
 
-  const { title, description, price, rating, tags, ingredients, chef } = dish;
+  const { title, description, price, rating, tags, ingredients, location, chef } = dish;
   const profileUrl = `/profile/${chef.username}`;
   return (
     <Card className={card}>

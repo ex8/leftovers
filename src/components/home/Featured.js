@@ -12,7 +12,7 @@ import DishSkeleton from '../search/DishSkeleton';
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
-    margin: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
   card: {
     flex: 1,

@@ -32,11 +32,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DishList = ({ place }) => {
+const DishList = ({ place, coords }) => {
+  const { container, card, avatar } = useStyles();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [queryString, setQueryString] = useState('');
-  const { container, card, avatar } = useStyles();
 
   useEffect(() => {
     getDishes();
@@ -45,23 +45,22 @@ const DishList = ({ place }) => {
 
   const getDishes = () => {
     setLoading(true);
-    if (place) {
-      api.get('/api/search')
-        .then(res => {
-          if (res.data.success) {
-            setDishes(res.data.dishes);
-            setLoading(false);
-          }
-        })
-        .catch(err => setDishes([]))
-    }
+    const q = `/api/search?s=${queryString ? queryString : ''}&p=${place ? place : ''}`;
+    api.get(q)
+      .then(res => {
+        if (res.data.success) {
+          setDishes(res.data.dishes);
+          setLoading(false);
+        }
+      })
+      .catch(err => setDishes([]))
   };
 
   const handleSearchSubmit = e => {
     e.preventDefault();
     setLoading(true);
+    getDishes();
     setTimeout(() => setLoading(false), 2000);
-    // filter dishes using array methods
   };
 
   return (
@@ -86,23 +85,25 @@ const DishList = ({ place }) => {
             <Typography variant="caption">{dishes.length} dishes found</Typography>
           </Grid>
           {!place && (
-            <Card className={card}>
-              <Avatar className={avatar}>
-                <FontAwesomeIcon icon={faMapMarkedAlt} size="2x" />
-              </Avatar>
-              <Typography variant="h6">
-                Please specify an address.
-            </Typography>
-            </Card>
+            <Grid item xs={12}>
+              <Card className={card}>
+                <Avatar className={avatar}>
+                  <FontAwesomeIcon icon={faMapMarkedAlt} size="2x" />
+                </Avatar>
+                <Typography variant="subtitle2">
+                  Enter an address for dishes in your area.
+                </Typography>
+              </Card>
+            </Grid>
           )}
-          {place && loading && <DishSkeleton skeletons={6} />}
-          {place && !loading && dishes.length === 0 && (
+          {loading && <DishSkeleton skeletons={6} />}
+          {!loading && dishes.length === 0 && (
             <Card className={card}>
               <Avatar className={avatar}>
                 <FontAwesomeIcon icon={faSadCry} size="2x" />
               </Avatar>
               <Typography variant="h6">
-                No dishes around.
+                No dishes found.
               </Typography>
             </Card>
           )}
@@ -119,6 +120,7 @@ const DishList = ({ place }) => {
 
 const mapStateToProps = state => ({
   place: state.userReducer.location.place,
+  coords: state.userReducer.location.coords,
 });
 
 export default connect(mapStateToProps)(DishList);
