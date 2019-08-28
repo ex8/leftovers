@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
+import { connect } from 'react-redux';
+
+import { addItem } from '../../redux/actions/cart.actions';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dish = ({ dish }) => {
+const Dish = ({ dish, addItem }) => {
   const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -48,7 +51,7 @@ const Dish = ({ dish }) => {
   };
 
   function addToCart() {
-    console.log('add to cart...');
+    addItem(dish);
   };
 
   const { title, description, price, rating, tags, ingredients, location, chef } = dish;
@@ -130,6 +133,10 @@ const Dish = ({ dish }) => {
       </Collapse>
     </Card>
   );
-}
+};
 
-export default Dish;
+const mapDispatchToProps = {
+  addItem,
+};
+
+export default connect(() => ({}), mapDispatchToProps)(Dish);

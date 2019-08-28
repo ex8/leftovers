@@ -12,3 +12,5 @@ export const SIGNUP_RESET = 'SIGNUP_RESET';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
+export const CART_ADD_ITEM = 'CART_ADD_ITEM';
