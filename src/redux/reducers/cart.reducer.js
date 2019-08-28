@@ -1,8 +1,8 @@
-import { CART_ADD_ITEM } from '../types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY } from '../types';
 
 const INITIAL_STATE = {
-  count: 0,
-  chef: null,
+  totalAmount: 0,
+  totalQuanity: 0,
   items: {},
 };
 
@@ -11,8 +11,16 @@ export default function (state=INITIAL_STATE, action) {
     case CART_ADD_ITEM:
       return {
         ...state,
-        count: action.count,
-        chef: action.chef,
+        items: action.items,
+      };
+    case CART_UPDATE_QUANTITY:
+      return {
+        ...state,
+        items: action.items,
+      }
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
         items: action.items,
       };
     default:

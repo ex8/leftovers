@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 
+import { removeItem, updateItemQuantity } from '../../redux/actions/cart.actions';
+
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
@@ -17,8 +19,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CartItems = ({ items }) => {
+const CartItems = ({ items, removeItem, updateItemQuantity }) => {
   const { container, formControl, text } = useStyles();
+
   return (
     <div className={container}>
       <List>
@@ -30,14 +33,10 @@ const CartItems = ({ items }) => {
                   <FormControl className={formControl} variant="outlined">
                     <Select
                       value={items[key].quantity}
-                      onChange={() => {}}
+                      onChange={e => updateItemQuantity(items[key].dish, e.target.value)}
                       input={<OutlinedInput name="quantity" />}
                     >
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                      <MenuItem value={4}>4</MenuItem>
-                      <MenuItem value={5}>5</MenuItem>
+                      {Array.from(Array(99).keys()).slice(1).map((x, i) => <MenuItem key={i} value={x}>{x}</MenuItem>)}
                     </Select>
                   </FormControl>
                 </Grid>
@@ -46,7 +45,7 @@ const CartItems = ({ items }) => {
                   <Typography variant="subtitle2">${items[key].dish.price.toFixed(2)}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <IconButton>
+                  <IconButton onClick={() => removeItem(items[key].dish)}>
                     <FontAwesomeIcon icon={faTimes} />
                   </IconButton>
                 </Grid>
@@ -64,4 +63,9 @@ const mapStateToProps = state => ({
   items: state.cartReducer.items,
 });
 
-export default connect(mapStateToProps)(CartItems);
+const mapDispatchToProps = {
+  removeItem,
+  updateItemQuantity,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

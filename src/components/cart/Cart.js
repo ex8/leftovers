@@ -11,7 +11,7 @@ const Cart = ({ count }) => {
   return (
     <div>
       <IconButton color="inherit" onClick={() => setOpen(!open)}>
-        <Badge invisible={count === 0} badgeContent={count} color="secondary">
+        <Badge invisible={false} badgeContent={99} color="secondary">
           <FontAwesomeIcon icon={faShoppingCart} size="xs" />
         </Badge>
       </IconButton>
@@ -21,8 +21,7 @@ const Cart = ({ count }) => {
 };
 
 const mapStateToProps = state => ({
-  count: state.cartReducer.count,
+  // count: state.cartReducer.count,
 });
-
 
 export default connect(mapStateToProps)(Cart);
