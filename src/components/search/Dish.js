@@ -57,81 +57,83 @@ const Dish = ({ dish, addItem }) => {
   const { title, description, price, rating, tags, ingredients, location, chef } = dish;
   const profileUrl = `/profile/${chef.username}`;
   return (
-    <Card className={card}>
-      <CardMedia
-        className={media}
-        image="https://source.unsplash.com/random"
-        title={title}
-      />
-      <CardContent>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h5">{title}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle2">
-              By <Link className={linkButton} to={profileUrl}>{chef.firstName} {chef.lastName}</Link>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="caption" gutterBottom>
-              {tags.map((tag, i) => (
-                <span key={i}>
-                  {tag}, {' '}
-                </span>
-              ))}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
-            </Paper>
-          </Grid>
-          <Grid item>
-            <Paper className={label} square elevation={0}>
-              <Rating size="small" value={rating} readOnly />
-            </Paper>
-          </Grid>
-          <Grid item>
-            <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> {chef.city}, {chef.state}
-            </Paper>
-          </Grid>
-        </Grid>
-      </CardContent>
-      <CardActions>
-        <Link to='/search/a1' className={linkButton}>
-          <Button size="small" variant="outlined" color="primary">
-            View dish
-          </Button>
-        </Link>
-        <Button onClick={addToCart} size="small" variant="contained" color="primary">
-          Add to cart
-        </Button>
-        <IconButton
-          className={clsx(expand, {
-            [expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <FontAwesomeIcon icon={faChevronDown} />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+    <div>
+      <Card className={card}>
+        <CardMedia
+          className={media}
+          image="https://source.unsplash.com/random"
+          title={title}
+        />
         <CardContent>
-          <Typography variant="h6">Description</Typography>
-          <Typography variant="body2" paragraph>
-            {description}
-          </Typography>
-          <Typography variant="h6">Ingredients</Typography>
-          {ingredients.map((ingredient, i) => (
-            <Chip key={i} className={chip} label={ingredient} />
-          ))}
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography variant="h5">{title}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">
+                By <Link className={linkButton} to={profileUrl}>{chef.firstName} {chef.lastName}</Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="caption" gutterBottom>
+                {tags.map((tag, i) => (
+                  <span key={i}>
+                    {tag}, {' '}
+                  </span>
+                ))}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Paper className={label} square elevation={0}>
+                <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Paper className={label} square elevation={0}>
+                <Rating size="small" value={rating} readOnly />
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Paper className={label} square elevation={0}>
+                <FontAwesomeIcon icon={faMapMarkerAlt} /> {chef.city}, {chef.state}
+              </Paper>
+            </Grid>
+          </Grid>
         </CardContent>
-      </Collapse>
-    </Card>
+        <CardActions>
+          <Link to='/search/a1' className={linkButton}>
+            <Button size="small" variant="outlined" color="primary">
+              View dish
+          </Button>
+          </Link>
+          <Button onClick={addToCart} size="small" variant="contained" color="primary">
+            Add to cart
+        </Button>
+          <IconButton
+            className={clsx(expand, {
+              [expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="Show more"
+          >
+            <FontAwesomeIcon icon={faChevronDown} />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography variant="h6">Description</Typography>
+            <Typography variant="body2" paragraph>
+              {description}
+            </Typography>
+            <Typography variant="h6">Ingredients</Typography>
+            {ingredients.map((ingredient, i) => (
+              <Chip key={i} className={chip} label={ingredient} />
+            ))}
+          </CardContent>
+        </Collapse>
+      </Card>
+    </div>
   );
 };
 

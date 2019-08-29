@@ -4,6 +4,9 @@ import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button } from '@
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+
+import { addItem } from '../../redux/actions/cart.actions';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const DishDetail = ({ match }) => {
+const DishDetail = ({ match, addItem }) => {
   const { container, card, media, avatar, flex } = useStyles();
   return (
     <div className={container}>
@@ -78,4 +81,8 @@ const DishDetail = ({ match }) => {
   )
 }
 
-export default DishDetail;
+const mapDispatchToProps = {
+  addItem,
+};
+
+export default connect(() => ({}), mapDispatchToProps)(DishDetail);
