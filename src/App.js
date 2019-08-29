@@ -6,6 +6,7 @@ import { CssBaseline } from '@material-ui/core';
 import Navigation from './components/layout/Navigation';
 import Routes from './components/routes/Routes';
 import theme from './theme';
+import CartNotification from './components/cart/CartNotification';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <BrowserRouter>
         <Navigation />
         <Routes />
+        <CartNotification />
       </BrowserRouter>
     </MuiThemeProvider>
   );

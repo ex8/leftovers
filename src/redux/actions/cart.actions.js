@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY, CART_SET_CHEF, CART_CLEAR } from '../types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY, CART_SET_CHEF, CART_CLEAR, CART_SEND_NOTIFICATION, CART_RESET_NOTIFICATION } from '../types';
 
 export const addItem = dish => (dispatch, getState) => {
   const { chefId, items } = getState().cartReducer;
@@ -18,6 +18,7 @@ export const addItem = dish => (dispatch, getState) => {
             }
           },
         });
+        dispatch(sendNotification('Item added to cart.'))
       }
       else {
         dispatch(clear());
@@ -31,6 +32,7 @@ export const addItem = dish => (dispatch, getState) => {
             }
           },
         });
+        dispatch(sendNotification('Item added to cart.'))
       }
     }
     else {
@@ -45,6 +47,7 @@ export const addItem = dish => (dispatch, getState) => {
           }
         },
       });
+      dispatch(sendNotification('Item added to cart.'))
     }
   }
 };
@@ -61,6 +64,7 @@ export const updateItemQuantity = (dish, quantity) => (dispatch, getState) => {
       },
     },
   });
+  dispatch(sendNotification('Item updated.'))
 };
 
 export const removeItem = dish => (dispatch, getState) => {
@@ -86,5 +90,22 @@ export const clear = () => {
     type: CART_CLEAR,
     chefId: null,
     items: {},
+  };
+};
+
+export const sendNotification = message => dispatch => {
+  dispatch({
+    type: CART_SEND_NOTIFICATION,
+    sendNotification: true,
+    notificationMessage: message,
+  })
+  setTimeout(() => dispatch(resetNotification()), 2500);
+};
+
+export const resetNotification = () => {
+  return {
+    type: CART_RESET_NOTIFICATION,
+    sendNotification: false,
+    notificationMessage: '',
   };
 };
