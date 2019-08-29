@@ -2,9 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Card, Typography, CardHeader, CardContent, TextField, Divider, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faShoppingCart, faClock } from '@fortawesome/free-solid-svg-icons';
+
+import { connect } from 'react-redux';
 
 import CartItems from '../cart/CartItems';
+import { getTotalQuantity, getTotalAmount } from '../utils/cart.helpers';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,16 +23,24 @@ const useStyles = makeStyles(theme => ({
   divider: {
     margin: theme.spacing(3),
   },
+  smallDivider: {
+    margin: theme.spacing(1),
+  },
+  title: {
+    paddingBottom: theme.spacing(1),
+  },
 }));
 
-const Checkout = () => {
-  const { container, card, iconMargin, divider } = useStyles();
+const Checkout = ({ items }) => {
+  const { container, card, iconMargin, divider, title, smallDivider } = useStyles();
+  const totalQuantity = getTotalQuantity(items);
+  const totalAmount = getTotalAmount(items);
   return (
     <div className={container}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
           <CardHeader
-            title="Items (5)"
+            title={`Items (${totalQuantity})`}
           />
           <CartItems />
           <TextField
@@ -46,17 +57,45 @@ const Checkout = () => {
               title="Order Summary"
             />
             <CardContent>
-              <Typography>
+              <Typography className={title}>
+                <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} /> {totalQuantity} items from Matt Massoodi
+              </Typography>
+              <Typography className={title}>
+                <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
+              </Typography>
+              <Typography className={title}>
                 <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 388 Beale St
               </Typography>
+              
               <Divider className={divider} variant="middle" light />
+
+              <Grid container spacing={3} justify="space-between" alignItems="center">
+                <Grid item><Typography variant="subtitle1">Subtotal</Typography></Grid>
+                <Grid item><Typography variant="subtitle1">${totalAmount.toFixed(2)}</Typography></Grid>
+              </Grid>
+              <Grid container spacing={3} justify="space-between" alignItems="center">
+                <Grid item><Typography variant="subtitle1">Tax</Typography></Grid>
+                <Grid item><Typography variant="subtitle1">$1.44</Typography></Grid>
+              </Grid>
+              <Grid container spacing={3} justify="space-between" alignItems="center">
+                <Grid item><Typography variant="subtitle1">Processing Fee</Typography></Grid>
+                <Grid item><Typography variant="subtitle1">$0.44</Typography></Grid>
+              </Grid>
+              <Divider className={smallDivider} light />
+              <Grid container spacing={5} justify="space-between" alignItems="center">
+                <Grid item><Typography variant="h6">Total</Typography></Grid>
+                <Grid item><Typography variant="h6">$125.33</Typography></Grid>
+              </Grid>
+
+              <Divider className={divider} variant="middle" light />
+              
               <Button
                 variant="contained"
                 color="secondary"
                 fullWidth
                 size="large"
               >
-                Place Order ($22.95)
+                Place Order ($125.33)
               </Button>
             </CardContent>
           </Card>
@@ -66,4 +105,8 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+const mapStateToProps = state => ({
+  items: state.cartReducer.items,
+});
+
+export default connect(mapStateToProps)(Checkout);

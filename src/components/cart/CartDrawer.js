@@ -82,7 +82,6 @@ const CartDrawer = ({ open, onClose, items }) => {
         <CartItems />
         <Link className={linkButton} to="/checkout">
           <Button 
-            disabled={totalQuantity === 0}
             className={checkoutButton}
             onClick={() => onClose()} 
             variant="contained" 
