@@ -5,13 +5,15 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 
 import CartDrawer from './CartDrawer';
+import { getTotalQuantity } from '../utils/cart.helpers';
 
-const Cart = ({ count }) => {
+const Cart = ({ items }) => {
   const [open, setOpen] = useState(false);
+  const totalQuantity = getTotalQuantity(items);
   return (
     <div>
       <IconButton color="inherit" onClick={() => setOpen(!open)}>
-        <Badge invisible={false} badgeContent={99} color="secondary">
+        <Badge invisible={totalQuantity === 0} badgeContent={totalQuantity} color="secondary">
           <FontAwesomeIcon icon={faShoppingCart} size="xs" />
         </Badge>
       </IconButton>
@@ -21,7 +23,7 @@ const Cart = ({ count }) => {
 };
 
 const mapStateToProps = state => ({
-  // count: state.cartReducer.count,
+  items: state.cartReducer.items,
 });
 
 export default connect(mapStateToProps)(Cart);

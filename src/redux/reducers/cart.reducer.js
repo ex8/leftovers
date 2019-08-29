@@ -1,8 +1,6 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY } from '../types';
 
 const INITIAL_STATE = {
-  totalAmount: 0,
-  totalQuanity: 0,
   items: {},
 };
 

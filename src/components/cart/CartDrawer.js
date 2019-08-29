@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { teal } from '@material-ui/core/colors';
 
 import CartItems from './CartItems';
+import { getTotalQuantity, getTotalAmount } from '../utils/cart.helpers';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -51,8 +52,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CartDrawer = ({ open, onClose }) => {
+const CartDrawer = ({ open, onClose, items }) => {
   const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar } = useStyles();
+  const totalQuantity = getTotalQuantity(items);
+  const totalAmount = getTotalAmount(items);
   return (
     <div>
       <Drawer
@@ -68,7 +71,7 @@ const CartDrawer = ({ open, onClose }) => {
           <Grid item xs={12}>
             <Typography className={title} variant="h5">
               <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
-              Your Cart (99)
+              Your Cart ({totalQuantity})
             </Typography>
             <Typography display="inline">
               <IconButton onClick={() => onClose()}>
@@ -78,15 +81,15 @@ const CartDrawer = ({ open, onClose }) => {
           </Grid>
         </Grid>
         <Divider />
-        {/* {count === 0 && (
+        {totalQuantity === 0 && (
           <Avatar className={avatar}>
             <FontAwesomeIcon icon={faSadCry} size="4x" />
           </Avatar>
-        )} */}
+        )}
         <CartItems />
         <Link className={linkButton} to="/checkout">
           <Button 
-            // disabled={count === 0}
+            disabled={totalQuantity === 0}
             className={checkoutButton}
             onClick={() => onClose()} 
             variant="contained" 
@@ -94,8 +97,7 @@ const CartDrawer = ({ open, onClose }) => {
             fullWidth 
             size="large"
           >
-            Checkout 99 items ($99.99)
-            {/* Checkout {count} item{count !== 1 ? 's' : ''} (${total.toFixed(2)}) */}
+            Checkout {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} (${totalAmount.toFixed(2)})
           </Button>
         </Link>
       </Drawer>
@@ -104,7 +106,7 @@ const CartDrawer = ({ open, onClose }) => {
 };
 
 const mapStateToProps = state => ({
-
+  items: state.cartReducer.items,
 });
 
 export default connect(mapStateToProps)(CartDrawer);
