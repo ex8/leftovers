@@ -42,7 +42,8 @@ const CartItems = ({ items, removeItem, updateItemQuantity }) => {
                 </Grid>
                 <Grid item xs={7} className={text}>
                   <Typography>{items[key].dish.title}</Typography>
-                  <Typography variant="subtitle2">${items[key].dish.price.toFixed(2)}</Typography>
+                  <Typography variant="caption">${items[key].dish.price.toFixed(2)}</Typography>
+                  <Typography variant="subtitle2">By {items[key].dish.chef.firstName} {items[key].dish.chef.lastName}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <IconButton onClick={() => removeItem(items[key].dish)}>

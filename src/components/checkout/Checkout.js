@@ -58,7 +58,8 @@ const Checkout = ({ items }) => {
             />
             <CardContent>
               <Typography className={title}>
-                <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} /> {totalQuantity} items from Matt Massoodi
+                <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} /> 
+                {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} from Matt Massoodi
               </Typography>
               <Typography className={title}>
                 <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
