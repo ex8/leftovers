@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Grid, Divider, Typography, Button, Avatar, IconButton } from '@material-ui/core';
+import { Drawer, Grid, Divider, Typography, Button, Avatar } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faSadCry, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faSadCry } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { teal } from '@material-ui/core/colors';
@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
     color: 'inherit',
   },
   title: {
-    flex: 1,
     padding: theme.spacing(3),
-    display: 'inline-block',
     color: 'inherit',
   },
   iconPadding: {
@@ -72,11 +70,6 @@ const CartDrawer = ({ open, onClose, items }) => {
             <Typography className={title} variant="h5">
               <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
               Your Cart ({totalQuantity})
-            </Typography>
-            <Typography display="inline">
-              <IconButton onClick={() => onClose()}>
-                <FontAwesomeIcon icon={faTimesCircle} size="lg" />
-              </IconButton>
             </Typography>
           </Grid>
         </Grid>
