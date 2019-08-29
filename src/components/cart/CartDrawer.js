@@ -65,11 +65,16 @@ const CartDrawer = ({ open, onClose, items }) => {
           paper: drawerPaper,
         }}
       >
-        <Grid container>
-          <Grid item xs={12}>
+        <Grid container justify="space-between">
+          <Grid item>
             <Typography className={title} variant="h5">
               <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
               Your Cart ({totalQuantity})
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography className={title}>
+              <Button variant="outlined">Clear Cart</Button>
             </Typography>
           </Grid>
         </Grid>
