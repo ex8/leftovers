@@ -9,6 +9,7 @@ import { teal } from '@material-ui/core/colors';
 
 import CartItems from './CartItems';
 import { getTotalQuantity, getTotalAmount } from '../utils/cart.helpers';
+import { clear } from '../../redux/actions/cart.actions';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CartDrawer = ({ open, onClose, items }) => {
+const CartDrawer = ({ open, onClose, items, clear }) => {
   const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
@@ -74,7 +75,7 @@ const CartDrawer = ({ open, onClose, items }) => {
           </Grid>
           <Grid item>
             <Typography className={title}>
-              <Button variant="outlined">Clear Cart</Button>
+              <Button onClick={() => clear()} variant="outlined">Clear Cart</Button>
             </Typography>
           </Grid>
         </Grid>
@@ -88,7 +89,7 @@ const CartDrawer = ({ open, onClose, items }) => {
         <Link className={linkButton} to="/checkout">
           <Button 
             className={checkoutButton}
-            onClick={() => onClose()} 
+            onClick={() => onClose()}
             variant="contained" 
             color="secondary" 
             fullWidth 
@@ -106,4 +107,8 @@ const mapStateToProps = state => ({
   items: state.cartReducer.items,
 });
 
-export default connect(mapStateToProps)(CartDrawer);
+const mapDispatchToProps = {
+  clear,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartDrawer);
