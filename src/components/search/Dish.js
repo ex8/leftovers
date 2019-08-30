@@ -101,7 +101,7 @@ const Dish = ({ dish, addItem }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          <Link to='/search/a1' className={linkButton}>
+          <Link to={`/search/${dish._id}`} className={linkButton}>
             <Button size="small" variant="outlined" color="primary">
               View dish
           </Button>
