@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Grid, List, ListItem, Divider, Typography, Button, IconButton } from '@material-ui/core';
+import { Drawer, Grid, Divider, Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -21,11 +21,10 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: '#383838',
+    color: 'inherit',
   },
   title: {
-    // margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
   iconPadding: {
     paddingRight: theme.spacing(1),
@@ -56,6 +55,7 @@ const CartDrawer = ({ open, onClose }) => {
             </Typography>
           </Grid>
         </Grid>
+        <Divider />
         <CartItems />
         <Link className={linkButton} to="/checkout">
           <Button 

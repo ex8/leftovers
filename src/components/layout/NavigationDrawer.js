@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: '#383838',
+    color: 'inherit',
   },
 }));
 

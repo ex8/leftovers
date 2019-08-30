@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid } from '@material-ui/core';
+import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faDollarSign, faStar, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   chip: {
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
   },
   label: {
     backgroundColor: '#F5F5F5',
@@ -34,54 +35,63 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: 'white',
+    color: 'inherit',
   },
 }));
 
-const Dish = () => {
-  const { card, media, expand, expandOpen, label, linkButton } = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+const Dish = ({ dish }) => {
+  const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
+  const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
-  }
+  };
 
+  function addToCart() {
+    console.log('add to cart...');
+  };
+
+  const { title, description, price, rating, tags, ingredients, location, chef } = dish;
+  const profileUrl = `/profile/${chef.username}`;
   return (
     <Card className={card}>
       <CardMedia
         className={media}
         image="https://source.unsplash.com/random"
-        title="Paella dish"
+        title={title}
       />
       <CardContent>
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h5">Paella Dish</Typography>
+            <Typography variant="h5">{title}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="subtitle2">By Mary Jane</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="caption" gutterBottom>
-              Chicken, Seafood, Clams, Shrimp
+            <Typography variant="subtitle2">
+              By <Link className={linkButton} to={profileUrl}>{chef.firstName} {chef.lastName}</Link>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body2" paragraph>A delicious seafood paella dish made with a secret!</Typography>
+            <Typography variant="caption" gutterBottom>
+              {tags.map((tag, i) => (
+                <span key={i}>
+                  {tag}, {' '}
+                </span>
+              ))}
+            </Typography>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faDollarSign} size="sm" /> 4.99
+              <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
             </Paper>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faStar} size="sm" /> 4.3 (159)
+              <Rating size="small" value={rating} readOnly />
             </Paper>
           </Grid>
           <Grid item>
             <Paper className={label} square elevation={0}>
-              <FontAwesomeIcon icon={faBolt} size="sm" /> Quick
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> {chef.city}, {chef.state}
             </Paper>
           </Grid>
         </Grid>
@@ -92,7 +102,7 @@ const Dish = () => {
             View dish
           </Button>
         </Link>
-        <Button size="small" variant="contained" color="primary">
+        <Button onClick={addToCart} size="small" variant="contained" color="primary">
           Add to cart
         </Button>
         <IconButton
@@ -108,7 +118,14 @@ const Dish = () => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography>Ingredients:</Typography>
+          <Typography variant="h6">Description</Typography>
+          <Typography variant="body2" paragraph>
+            {description}
+          </Typography>
+          <Typography variant="h6">Ingredients</Typography>
+          {ingredients.map((ingredient, i) => (
+            <Chip key={i} className={chip} label={ingredient} />
+          ))}
         </CardContent>
       </Collapse>
     </Card>
