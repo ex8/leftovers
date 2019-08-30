@@ -32,10 +32,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const TAX_PERCENTAGE = 0.03
+const PROCESSING_FEE = 0.4;
+
 const Checkout = ({ items, chef }) => {
   const { container, card, iconMargin, divider, title, smallDivider } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
+
+  function calculateTax() {
+    return totalAmount * TAX_PERCENTAGE;
+  }
+
+  function calculateTotalCost() {
+    return totalAmount + calculateTax() + PROCESSING_FEE;
+  }
+
   return (
     <div className={container}>
       {Object.keys(items).length === 0 && <EmptyItems />}
@@ -62,14 +74,14 @@ const Checkout = ({ items, chef }) => {
               <CardContent>
                 <Typography className={title}>
                   <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} />
-                  {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} from Matt Massoodi
-              </Typography>
+                  {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} from {`${chef.firstName} ${chef.lastName}`}
+                </Typography>
                 <Typography className={title}>
                   <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
-              </Typography>
+                </Typography>
                 <Typography className={title}>
                   <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 388 Beale St
-              </Typography>
+                </Typography>
 
                 <Divider className={divider} variant="middle" light />
 
@@ -79,16 +91,16 @@ const Checkout = ({ items, chef }) => {
                 </Grid>
                 <Grid container spacing={3} justify="space-between" alignItems="center">
                   <Grid item><Typography variant="subtitle1">Tax</Typography></Grid>
-                  <Grid item><Typography variant="subtitle1">$1.44</Typography></Grid>
+                  <Grid item><Typography variant="subtitle1">${calculateTax().toFixed(2)}</Typography></Grid>
                 </Grid>
                 <Grid container spacing={3} justify="space-between" alignItems="center">
                   <Grid item><Typography variant="subtitle1">Processing Fee</Typography></Grid>
-                  <Grid item><Typography variant="subtitle1">$0.44</Typography></Grid>
+                  <Grid item><Typography variant="subtitle1">${PROCESSING_FEE.toFixed(2)}</Typography></Grid>
                 </Grid>
                 <Divider className={smallDivider} light />
                 <Grid container spacing={5} justify="space-between" alignItems="center">
                   <Grid item><Typography variant="h6">Total</Typography></Grid>
-                  <Grid item><Typography variant="h6">$125.33</Typography></Grid>
+                  <Grid item><Typography variant="h6">${calculateTotalCost().toFixed(2)}</Typography></Grid>
                 </Grid>
 
                 <Divider className={divider} variant="middle" light />
@@ -99,7 +111,7 @@ const Checkout = ({ items, chef }) => {
                   fullWidth
                   size="large"
                 >
-                  Place Order ($125.33)
+                  Place Order (${calculateTotalCost().toFixed(2)})
               </Button>
               </CardContent>
             </Card>
