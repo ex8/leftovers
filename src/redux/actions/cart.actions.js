@@ -1,4 +1,12 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY, CART_SET_CHEF, CART_CLEAR, CART_SEND_NOTIFICATION, CART_RESET_NOTIFICATION } from '../types';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_UPDATE_QUANTITY,
+  CART_SET_CHEF,
+  CART_CLEAR,
+  CART_SEND_NOTIFICATION,
+  CART_RESET_NOTIFICATION,
+} from '../types';
 
 export const addItem = dish => (dispatch, getState) => {
   const { chefId, items } = getState().cartReducer;
@@ -64,7 +72,7 @@ export const updateItemQuantity = (dish, quantity) => (dispatch, getState) => {
       },
     },
   });
-  dispatch(sendNotification('Item updated.'))
+  dispatch(sendNotification('Item updated.'));
 };
 
 export const removeItem = dish => (dispatch, getState) => {
@@ -76,6 +84,7 @@ export const removeItem = dish => (dispatch, getState) => {
       ...rest,
     },
   });
+  dispatch(sendNotification('Item removed.'));
 };
 
 export const setChef = chefId => {

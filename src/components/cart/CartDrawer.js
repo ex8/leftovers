@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Grid, Divider, Typography, Button, Avatar } from '@material-ui/core';
+import { Drawer, Grid, Divider, Typography, Button, Avatar, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faSadCry } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faSadCry, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { teal } from '@material-ui/core/colors';
@@ -49,10 +49,13 @@ const useStyles = makeStyles(theme => ({
     width: 115,
     height: 115,
   },
+  clearIcon: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const CartDrawer = ({ open, onClose, items, clear }) => {
-  const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar } = useStyles();
+  const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar, clearIcon } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
   return (
@@ -66,18 +69,22 @@ const CartDrawer = ({ open, onClose, items, clear }) => {
           paper: drawerPaper,
         }}
       >
-        <Grid container justify="space-between">
+        <Grid container>
           <Grid item>
             <Typography className={title} variant="h5">
               <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
               Your Cart ({totalQuantity})
+              <IconButton className={clearIcon} onClick={() => clear()}>
+                <FontAwesomeIcon icon={faTrash} />
+              </IconButton>
+              {/* <Button onClick={() => clear()} variant="outlined">Clear</Button> */}
             </Typography>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Typography className={title}>
-              <Button onClick={() => clear()} variant="outlined">Clear Cart</Button>
+              <Button onClick={() => clear()} variant="outlined">Clear</Button>
             </Typography>
-          </Grid>
+          </Grid> */}
         </Grid>
         <Divider />
         {totalQuantity === 0 && (

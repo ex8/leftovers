@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 const CartNotification = ({ sendNotification, notificationMessage }) => {
   const { snackbar, close } = useStyles();
   const [open, setOpen] = useState(false);
+  
   useEffect(() => {
     sendNotification ? setOpen(true) : setOpen(false)
   }, [sendNotification]);
