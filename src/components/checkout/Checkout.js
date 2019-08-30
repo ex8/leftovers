@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import CartItems from '../cart/CartItems';
 import { getTotalQuantity, getTotalAmount } from '../utils/cart.helpers';
+import EmptyItems from './EmptyItems';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -31,83 +32,88 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Checkout = ({ items }) => {
+const Checkout = ({ items, chef }) => {
   const { container, card, iconMargin, divider, title, smallDivider } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
   return (
     <div className={container}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={8}>
-          <CardHeader
-            title={`Items (${totalQuantity})`}
-          />
-          <CartItems />
-          <TextField
-            label="Order notes"
-            margin="normal"
-            variant="outlined"
-            placeholder="Leave a note for chef"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card className={card}>
+      {Object.keys(items).length === 0 && <EmptyItems />}
+      {Object.keys(items).length > 0 && chef && (
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={8}>
             <CardHeader
-              title="Order Summary"
+              title={`Items (${totalQuantity})`}
             />
-            <CardContent>
-              <Typography className={title}>
-                <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} /> 
-                {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} from Matt Massoodi
+            <CartItems />
+            <TextField
+              label="Order notes"
+              margin="normal"
+              variant="outlined"
+              placeholder={`Leave note for chef (${chef.firstName} ${chef.lastName})`}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card className={card}>
+              <CardHeader
+                title="Order Summary"
+              />
+              <CardContent>
+                <Typography className={title}>
+                  <FontAwesomeIcon className={iconMargin} icon={faShoppingCart} />
+                  {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} from Matt Massoodi
               </Typography>
-              <Typography className={title}>
-                <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
+                <Typography className={title}>
+                  <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
               </Typography>
-              <Typography className={title}>
-                <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 388 Beale St
+                <Typography className={title}>
+                  <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 388 Beale St
               </Typography>
-              
-              <Divider className={divider} variant="middle" light />
 
-              <Grid container spacing={3} justify="space-between" alignItems="center">
-                <Grid item><Typography variant="subtitle1">Subtotal</Typography></Grid>
-                <Grid item><Typography variant="subtitle1">${totalAmount.toFixed(2)}</Typography></Grid>
-              </Grid>
-              <Grid container spacing={3} justify="space-between" alignItems="center">
-                <Grid item><Typography variant="subtitle1">Tax</Typography></Grid>
-                <Grid item><Typography variant="subtitle1">$1.44</Typography></Grid>
-              </Grid>
-              <Grid container spacing={3} justify="space-between" alignItems="center">
-                <Grid item><Typography variant="subtitle1">Processing Fee</Typography></Grid>
-                <Grid item><Typography variant="subtitle1">$0.44</Typography></Grid>
-              </Grid>
-              <Divider className={smallDivider} light />
-              <Grid container spacing={5} justify="space-between" alignItems="center">
-                <Grid item><Typography variant="h6">Total</Typography></Grid>
-                <Grid item><Typography variant="h6">$125.33</Typography></Grid>
-              </Grid>
+                <Divider className={divider} variant="middle" light />
 
-              <Divider className={divider} variant="middle" light />
-              
-              <Button
-                variant="contained"
-                color="secondary"
-                fullWidth
-                size="large"
-              >
-                Place Order ($125.33)
+                <Grid container spacing={3} justify="space-between" alignItems="center">
+                  <Grid item><Typography variant="subtitle1">Subtotal</Typography></Grid>
+                  <Grid item><Typography variant="subtitle1">${totalAmount.toFixed(2)}</Typography></Grid>
+                </Grid>
+                <Grid container spacing={3} justify="space-between" alignItems="center">
+                  <Grid item><Typography variant="subtitle1">Tax</Typography></Grid>
+                  <Grid item><Typography variant="subtitle1">$1.44</Typography></Grid>
+                </Grid>
+                <Grid container spacing={3} justify="space-between" alignItems="center">
+                  <Grid item><Typography variant="subtitle1">Processing Fee</Typography></Grid>
+                  <Grid item><Typography variant="subtitle1">$0.44</Typography></Grid>
+                </Grid>
+                <Divider className={smallDivider} light />
+                <Grid container spacing={5} justify="space-between" alignItems="center">
+                  <Grid item><Typography variant="h6">Total</Typography></Grid>
+                  <Grid item><Typography variant="h6">$125.33</Typography></Grid>
+                </Grid>
+
+                <Divider className={divider} variant="middle" light />
+
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  fullWidth
+                  size="large"
+                >
+                  Place Order ($125.33)
               </Button>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
+
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   items: state.cartReducer.items,
+  chef: state.cartReducer.chef,
 });
 
 export default connect(mapStateToProps)(Checkout);

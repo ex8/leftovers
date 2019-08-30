@@ -93,8 +93,9 @@ const CartDrawer = ({ open, onClose, items, clear }) => {
           </Avatar>
         )}
         <CartItems />
-        <Link className={linkButton} to="/checkout">
-          <Button 
+        <Link className={linkButton} to="/checkout" onClick={() => onClose()}>
+          <Button
+            disabled={Object.keys(items).length === 0}
             className={checkoutButton}
             onClick={() => onClose()}
             variant="contained" 

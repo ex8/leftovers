@@ -9,13 +9,13 @@ import {
 } from '../types';
 
 export const addItem = dish => (dispatch, getState) => {
-  const { chefId, items } = getState().cartReducer;
+  const { chef, items } = getState().cartReducer;
   if (dish._id in items) {
     dispatch(updateItemQuantity(dish, items[dish._id].quantity + 1))
   }
   else {
-    if (chefId) {
-      if (dish.chef._id === chefId) {
+    if (chef) {
+      if (dish.chef._id === chef._id) {
         dispatch({
           type: CART_ADD_ITEM,
           items: {
@@ -31,7 +31,7 @@ export const addItem = dish => (dispatch, getState) => {
       else {
         // clear and reset b/c new chef
         dispatch(clear());
-        dispatch(setChef(dish.chef._id));
+        dispatch(setChef(dish.chef));
         dispatch({
           type: CART_ADD_ITEM,
           items: {
@@ -45,7 +45,7 @@ export const addItem = dish => (dispatch, getState) => {
       }
     }
     else {
-      dispatch(setChef(dish.chef._id));
+      dispatch(setChef(dish.chef));
       dispatch({
         type: CART_ADD_ITEM,
         items: {
@@ -88,10 +88,10 @@ export const removeItem = dish => (dispatch, getState) => {
   dispatch(sendNotification('Item removed from cart.'));
 };
 
-export const setChef = chefId => {
+export const setChef = chef => {
   return {
     type: CART_SET_CHEF,
-    chefId,
+    chef,
   };
 };
 

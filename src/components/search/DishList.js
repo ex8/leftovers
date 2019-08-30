@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(2),
-    backgroundColor: teal[400],
+    backgroundColor: teal[200],
     width: 75,
     height: 75,
   },

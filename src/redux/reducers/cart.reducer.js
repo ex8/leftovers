@@ -9,7 +9,7 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  chefId: null,
+  chef: null,
   sendNotification: false,
   notificationMessage: '',
   items: {},
@@ -35,7 +35,7 @@ export default function (state=INITIAL_STATE, action) {
     case CART_SET_CHEF:
       return {
         ...state,
-        chefId: action.chefId,
+        chef: action.chef,
       };
     case CART_CLEAR:
       return {
