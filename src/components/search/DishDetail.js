@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button } from '@material-ui/core';
+import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button, CircularProgress } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+
+import { addItem } from '../../redux/actions/cart.actions';
+import api from '../../redux/api';
+import DishDetailSkeleton from './DishDetailSkeleton';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,14 +32,98 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const DishDetail = ({ match }) => {
+const DishDetail = ({ match, addItem }) => {
   const { container, card, media, avatar, flex } = useStyles();
+  const [dish, setDish] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      api.get(`/api/search/${match.params.id}`)
+      .then(res => {
+        if (res.data.success) {
+          setDish(res.data.dish);
+          setLoading(false);
+        }
+      })
+      .catch(err => setDish({}))
+    }, 3000)
+    // api.get(`/api/search/${match.params.id}`)
+    //   .then(res => {
+    //     if (res.data.success) {
+    //       setDish(res.data.dish);
+    //       setLoading(false);
+    //     }
+    //   })
+    //   .catch(err => setDish({}))
+  }, []);
+
+  function addToCart() {
+    addItem(dish);
+  };
+
   return (
     <div className={container}>
-      <Grid container spacing={2}>
+      {loading && <DishDetailSkeleton />}
+      {!loading && (
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography className={flex} variant="h4">
+              {dish.title}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            <Card className={card}>
+              <CardMedia
+                className={media}
+                image="https://source.unsplash.com/random"
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card className={card}>
+              <Typography paragraph>
+                A delicious seafood paella dish made with a secret!
+            </Typography>
+              <Typography paragraph>
+                Stock: 4
+            </Typography>
+              <Typography paragraph>
+                Price: $4.99
+            </Typography>
+              <Typography paragraph>
+                Tags: Chicken, Seafood, Clams, Shrimp
+            </Typography>
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={addToCart}
+              >
+                Add to Cart
+            </Button>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            <Card className={card}>
+              <CardHeader
+                avatar={
+                  <Avatar className={avatar}>M</Avatar>
+                }
+                title="Matt Massoodi"
+                subheader={<FontAwesomeIcon icon={faStar} size="sm" />}
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h6">More dishes by Matt Massoodi</Typography>
+          </Grid>
+        </Grid>
+      )}
+      {/* <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography className={flex} variant="h4">
-            Paella Dish | ID: {match.params.id}
+            {dish.title}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -59,7 +148,14 @@ const DishDetail = ({ match }) => {
             <Typography paragraph>
               Tags: Chicken, Seafood, Clams, Shrimp
             </Typography>
-            <Button fullWidth variant="contained" color="secondary">Add to Cart</Button>    
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              onClick={addToCart}
+            >
+              Add to Cart
+            </Button>
           </Card>
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -73,9 +169,16 @@ const DishDetail = ({ match }) => {
             />
           </Card>
         </Grid>
-      </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">More dishes by Matt Massoodi</Typography>
+        </Grid>
+      </Grid> */}
     </div>
   )
 }
 
-export default DishDetail;
+const mapDispatchToProps = {
+  addItem,
+};
+
+export default connect(() => ({}), mapDispatchToProps)(DishDetail);
