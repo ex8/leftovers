@@ -73,7 +73,7 @@ export const updateItemQuantity = (dish, quantity) => (dispatch, getState) => {
       },
     },
   });
-  dispatch(sendNotification('Item updated.'));
+  dispatch(sendNotification('Item updated from cart.'));
 };
 
 export const removeItem = dish => (dispatch, getState) => {
@@ -85,7 +85,7 @@ export const removeItem = dish => (dispatch, getState) => {
       ...rest,
     },
   });
-  dispatch(sendNotification('Item removed.'));
+  dispatch(sendNotification('Item removed from cart.'));
 };
 
 export const setChef = chefId => {
