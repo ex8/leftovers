@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textDecoration: 'none',
-    color: '#383838',
+    color: 'inherit',
   },
 }));
 
@@ -23,9 +23,7 @@ const Navigation = () => {
     <footer className={container}>
       <Grid container>
         <Grid item xs={12} sm={6} md={4}>
-          <Typography variant="h5">
-            Leftovers
-          </Typography>
+          <Typography variant="h5">Leftovers</Typography>
           <Typography gutterBottom>
             Made with {<FontAwesomeIcon icon={faHeart} size="xs" />}
           </Typography>

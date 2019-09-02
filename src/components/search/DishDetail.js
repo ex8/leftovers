@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faSadCry } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { addItem } from '../../redux/actions/cart.actions';
 import api from '../../redux/api';
@@ -18,8 +19,22 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2),
   },
   card: {
+    
     flex: 1,
     padding: theme.spacing(2),
+  },
+  cardCry: {
+    flex: 1,
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatarCry: {
+    margin: theme.spacing(2),
+    backgroundColor: teal[200],
+    width: 75,
+    height: 75,
   },
   flex: {
     flex: 1,
@@ -31,11 +46,16 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: teal[500],
   },
+  linkButton: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
 }))
 
 const DishDetail = ({ match, addItem, place }) => {
-  const { container, card, media, avatar, flex } = useStyles();
+  const { container, card, media, avatar, flex, cardCry, avatarCry, linkButton, } = useStyles();
   const [dish, setDish] = useState({});
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -45,8 +65,15 @@ const DishDetail = ({ match, addItem, place }) => {
           setDish(res.data.dish);
           setLoading(false);
         }
+        else {
+          setError(res.data.err.message);
+          setLoading(false);
+        }
       })
-      .catch(err => setDish({}))
+      .catch(err => {
+        setError(err);
+        setLoading(false);
+      })
   }, []);
 
   function addToCart() {
@@ -55,8 +82,20 @@ const DishDetail = ({ match, addItem, place }) => {
 
   return (
     <div className={container}>
-      {loading && <DishDetailSkeleton />}
-      {!loading && (
+      {loading && !error && <DishDetailSkeleton />}
+      {!loading && error && (
+        <Card className={cardCry}>
+          <Avatar className={avatarCry}>
+            <FontAwesomeIcon icon={faSadCry} size="2x" />
+          </Avatar>
+          <Link className={linkButton} to="/search">
+            <Button variant="contained" color="secondary" size="large">
+              Find Dishes
+            </Button>
+          </Link>
+        </Card>
+      )}
+      {!loading && !error && (
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography className={flex} variant="h4">
