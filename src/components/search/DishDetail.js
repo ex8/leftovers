@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button } from '@material-ui/core';
+import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button, Chip } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faSadCry } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ import { addItem } from '../../redux/actions/cart.actions';
 import api from '../../redux/api';
 import DishDetailSkeleton from './DishDetailSkeleton';
 import AddressBar from '../home/AddressBar';
+import DishesByChef from './DishesByChef';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2),
   },
   card: {
-    
     flex: 1,
     padding: theme.spacing(2),
   },
@@ -50,15 +50,27 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  chip: {
+    margin: theme.spacing(0.5, 0.5),
+  },
 }))
 
-const DishDetail = ({ match, addItem, place }) => {
-  const { container, card, media, avatar, flex, cardCry, avatarCry, linkButton, } = useStyles();
+const DishDetail = ({ match, addItem, place, location }) => {
+  const { container, card, media, avatar, flex, cardCry, avatarCry, linkButton, chip } = useStyles();
   const [dish, setDish] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    getDish();
+  }, []);
+
+  useEffect(() => {
+    getDish();
+    window.scrollTo(0, 0);
+  }, [location])
+
+  function getDish() {
     api.get(`/api/search/${match.params.id}`)
       .then(res => {
         if (res.data.success) {
@@ -74,7 +86,7 @@ const DishDetail = ({ match, addItem, place }) => {
         setError(err);
         setLoading(false);
       })
-  }, []);
+  }
 
   function addToCart() {
     addItem(dish);
@@ -112,27 +124,31 @@ const DishDetail = ({ match, addItem, place }) => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card className={card}>
+              <Typography paragraph>{dish.description}</Typography>
+              <Typography>Stock: {dish.stock}</Typography>
+              <Typography>Price: ${dish.price.toFixed(2)}</Typography>
               <Typography paragraph>
-                A delicious seafood paella dish made with a secret!
-            </Typography>
-              <Typography paragraph>
-                Stock: 4
-            </Typography>
-              <Typography paragraph>
-                Price: $4.99
-            </Typography>
-              <Typography paragraph>
-                Tags: Chicken, Seafood, Clams, Shrimp
-            </Typography>
-            <Button
-              disabled={place === ''}
-              fullWidth
-              variant="contained"
-              color="secondary"
-              onClick={addToCart}
-            >
-              Add to Cart
-            </Button>
+                Tags: {dish.tags.map((tag, i) => (
+                  <span key={i}>
+                    {tag}, {' '}
+                  </span>
+                ))}
+              </Typography>
+              <Typography>Ingredients</Typography>
+              <Typography gutterBottom>
+                {dish.ingredients.map((ingredient, i) => (
+                  <Chip key={i} className={chip} label={ingredient} />
+                ))}
+              </Typography>
+              <Button
+                disabled={dish.stock === 0 || place === ''}
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={addToCart}
+              >
+                Add to Cart
+              </Button>
             </Card>
             {place === '' && <AddressBar redirect={false} />}
           </Grid>
@@ -140,15 +156,18 @@ const DishDetail = ({ match, addItem, place }) => {
             <Card className={card}>
               <CardHeader
                 avatar={
-                  <Avatar className={avatar}>M</Avatar>
+                  <Avatar className={avatar}>{dish.chef.firstName.split('')[0]}</Avatar>
                 }
-                title="Matt Massoodi"
+                title={`${dish.chef.firstName} ${dish.chef.lastName}`}
                 subheader={<FontAwesomeIcon icon={faStar} size="sm" />}
               />
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">More dishes by Matt Massoodi</Typography>
+            <Typography variant="h6">More dishes by {`${dish.chef.firstName} ${dish.chef.lastName}`}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <DishesByChef chefId={dish.chef._id} />
           </Grid>
         </Grid>
       )}
