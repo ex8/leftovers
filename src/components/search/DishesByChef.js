@@ -28,21 +28,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DishesByChef = ({ chefId }) => {
+const DishesByChef = ({ dishId, chefId, location }) => {
   const { container, card, avatar } = useStyles();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    api.get('/api/search')
+    api.get(`/api/search/chef/${chefId}`)
       .then(res => {
         if (res.data.success) {
-          setDishes(res.data.dishes);
+          const filtered = res.data.dishes.filter(dish => dish._id !== dishId);
+          setDishes(filtered);
           setLoading(false);
         }
       })
       .catch(err => setDishes([]));
-  }, []);
+    window.scrollTo(0, 0);
+  }, [location.key]);
 
   return (
     <div className={container}>
@@ -54,7 +56,7 @@ const DishesByChef = ({ chefId }) => {
               <FontAwesomeIcon icon={faSadCry} size="2x" />
             </Avatar>
             <Typography variant="h6">
-              We could not find any featured dishes.
+              No dishes found.
             </Typography>
           </Card>
         )}
