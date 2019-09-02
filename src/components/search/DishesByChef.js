@@ -42,7 +42,7 @@ const DishesByChef = ({ chefId }) => {
         }
       })
       .catch(err => setDishes([]));
-  });
+  }, []);
 
   return (
     <div className={container}>

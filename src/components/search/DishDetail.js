@@ -68,7 +68,7 @@ const DishDetail = ({ match, addItem, place, location }) => {
   useEffect(() => {
     getDish();
     window.scrollTo(0, 0);
-  }, [location])
+  }, [location.key]);
 
   function getDish() {
     api.get(`/api/search/${match.params.id}`)
