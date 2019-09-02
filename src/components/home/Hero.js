@@ -25,7 +25,7 @@ const Hero = () => {
         </Typography>
         <Grid container spacing={2} justify="center">
           <Grid item xs={12}>
-            <AddressBar />
+            <AddressBar redirect={true} />
           </Grid>
         </Grid>
       </Container>

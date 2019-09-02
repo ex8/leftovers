@@ -39,7 +39,12 @@ const DishList = ({ place, coords }) => {
   const [queryString, setQueryString] = useState('');
 
   useEffect(() => {
-    getDishes();
+    if (place !== '') {
+      getDishes();
+    }
+    else {
+      setLoading(false);
+    }
   }, []);
 
 
@@ -75,7 +80,7 @@ const DishList = ({ place, coords }) => {
             />
           </Grid>
           <Grid item xs={12} sm={5}>
-            <AddressBar getDishes={getDishes} />
+            <AddressBar getDishes={getDishes} redirect={false} />
           </Grid>
           <Grid item xs={12}>
             <SearchFilters />
@@ -97,7 +102,7 @@ const DishList = ({ place, coords }) => {
             </Grid>
           )}
           {loading && <DishSkeleton skeletons={6} />}
-          {!loading && dishes.length === 0 && (
+          {!loading && dishes.length === 0 && place !== '' && (
             <Card className={card}>
               <Avatar className={avatar}>
                 <FontAwesomeIcon icon={faSadCry} size="2x" />

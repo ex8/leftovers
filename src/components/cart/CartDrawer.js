@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
       left: '25%'
     },
     [theme.breakpoints.up('sm')]: {
-      left: '40%',
+      left: '35%',
     },
     margin: theme.spacing(2),
     backgroundColor: teal[400],

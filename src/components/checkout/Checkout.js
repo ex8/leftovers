@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 const TAX_PERCENTAGE = 0.03
 const PROCESSING_FEE = 0.4;
 
-const Checkout = ({ items, chef }) => {
+const Checkout = ({ items, chef, place }) => {
   const { container, card, iconMargin, divider, title, smallDivider } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
@@ -46,6 +46,10 @@ const Checkout = ({ items, chef }) => {
 
   function calculateTotalCost() {
     return totalAmount + calculateTax() + PROCESSING_FEE;
+  }
+
+  function handlePlaceOrder(e) {
+    e.preventDefault();
   }
 
   return (
@@ -80,7 +84,8 @@ const Checkout = ({ items, chef }) => {
                   <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
                 </Typography>
                 <Typography className={title}>
-                  <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 388 Beale St
+                  <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 
+                  {place ? place : 'Please specify an address to order.'}
                 </Typography>
 
                 <Divider className={divider} variant="middle" light />
@@ -106,6 +111,8 @@ const Checkout = ({ items, chef }) => {
                 <Divider className={divider} variant="middle" light />
 
                 <Button
+                  disabled={place === ''}
+                  onClick={handlePlaceOrder}
                   variant="contained"
                   color="secondary"
                   fullWidth
@@ -126,6 +133,7 @@ const Checkout = ({ items, chef }) => {
 const mapStateToProps = state => ({
   items: state.cartReducer.items,
   chef: state.cartReducer.chef,
+  place: state.userReducer.location.place,
 });
 
 export default connect(mapStateToProps)(Checkout);

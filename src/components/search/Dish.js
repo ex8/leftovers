@@ -104,11 +104,11 @@ const Dish = ({ dish, addItem }) => {
           <Link to={`/search/${dish._id}`} className={linkButton}>
             <Button size="small" variant="outlined" color="primary">
               View dish
-          </Button>
+            </Button>
           </Link>
-          <Button onClick={addToCart} size="small" variant="contained" color="primary">
+          {/* <Button onClick={addToCart} size="small" variant="contained" color="primary">
             Add to cart
-        </Button>
+          </Button> */}
           <IconButton
             className={clsx(expand, {
               [expandOpen]: expanded,
