@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, Typography, CardHeader, CardContent, TextField, Divider, Button } from '@material-ui/core';
+import { Grid, Card, Typography, CardHeader, CardContent, TextField, Divider, Button, CardActions } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faShoppingCart, faClock } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CartItems from '../cart/CartItems';
@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     flex: 1,
+    padding: theme.spacing(2),
   },
   iconMargin: {
     marginRight: theme.spacing(0.5),
@@ -30,13 +31,21 @@ const useStyles = makeStyles(theme => ({
   title: {
     paddingBottom: theme.spacing(1),
   },
+  linkButton: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+  transparentCard: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+  }
 }));
 
 const TAX_PERCENTAGE = 0.03
 const PROCESSING_FEE = 0.4;
 
-const Checkout = ({ items, chef, place }) => {
-  const { container, card, iconMargin, divider, title, smallDivider } = useStyles();
+const Checkout = ({ items, chef, place, isAuthenticated }) => {
+  const { container, card, iconMargin, divider, title, smallDivider, linkButton, transparentCard } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
 
@@ -57,18 +66,47 @@ const Checkout = ({ items, chef, place }) => {
       {Object.keys(items).length === 0 && <EmptyItems />}
       {Object.keys(items).length > 0 && chef && (
         <Grid container spacing={2}>
+          <Grid item xs={12}><Typography variant="h4">Checkout</Typography></Grid>
           <Grid item xs={12} sm={8}>
-            <CardHeader
-              title={`Items (${totalQuantity})`}
-            />
-            <CartItems />
-            <TextField
-              label="Order notes"
-              margin="normal"
-              variant="outlined"
-              placeholder={`Leave note for chef (${chef.firstName} ${chef.lastName})`}
-              fullWidth
-            />
+            {isAuthenticated ? '' : (
+              <Card className={card}>
+                <CardHeader
+                  title="Login or Signup"
+                  subheader="You must sign in to your account to complete your order."
+                />
+                <CardActions>
+                  <Link className={linkButton} to="/account/signup">
+                    <Button variant="contained" color="primary" size="large">Signup</Button>
+                  </Link>
+                  <Link className={linkButton} to="/account/login">
+                    <Button variant="outlined" color="primary" size="large">Login</Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            )}
+            <Card className={transparentCard}>
+              <CardHeader
+                title="Pickup details"
+                subheader="Information about your dish pickup."
+              />
+              <CardContent>
+                <Typography>Pickup Address: N/A</Typography>
+                <Typography>Pickup in: 30 minutes</Typography>
+              </CardContent>
+            </Card>
+            <Card className={transparentCard}>
+              <CardHeader
+                title={`Items (${totalQuantity})`}
+              />
+              <CartItems />
+              <TextField
+                label="Order notes"
+                margin="normal"
+                variant="outlined"
+                placeholder={`Leave note for chef (${chef.firstName} ${chef.lastName})`}
+                fullWidth
+              />
+            </Card>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card className={card}>
@@ -84,7 +122,7 @@ const Checkout = ({ items, chef, place }) => {
                   <FontAwesomeIcon className={iconMargin} icon={faClock} /> Pickup in 30 minutes
                 </Typography>
                 <Typography className={title}>
-                  <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} /> 
+                  <FontAwesomeIcon className={iconMargin} icon={faMapMarkerAlt} />
                   {place ? place : 'Please specify an address to order.'}
                 </Typography>
 
@@ -111,7 +149,7 @@ const Checkout = ({ items, chef, place }) => {
                 <Divider className={divider} variant="middle" light />
 
                 <Button
-                  disabled={place === ''}
+                  disabled={place === '' || isAuthenticated === false}
                   onClick={handlePlaceOrder}
                   variant="contained"
                   color="secondary"
@@ -125,7 +163,6 @@ const Checkout = ({ items, chef, place }) => {
           </Grid>
         </Grid>
       )}
-
     </div>
   );
 };
@@ -134,6 +171,7 @@ const mapStateToProps = state => ({
   items: state.cartReducer.items,
   chef: state.cartReducer.chef,
   place: state.userReducer.location.place,
+  isAuthenticated: state.userReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(Checkout);
