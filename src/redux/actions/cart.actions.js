@@ -29,7 +29,7 @@ export const addItem = dish => (dispatch, getState) => {
         dispatch(sendNotification('Item added to cart.'))
       }
       else {
-        // clear and reset b/c new chef
+        // clear cart dialog b/c new chef
         dispatch(clear());
         dispatch(setChef(dish.chef));
         dispatch({

@@ -58,7 +58,7 @@ const ProfileTabs = () => {
         <Grid container spacing={2}>
           {[1, 2, 3, 4].map((c, i) =>
             <Grid key={i} item xs={12} sm={6} md={4}>
-              <Dish />
+              {/* <Dish /> */}
             </Grid>
           )}
         </Grid>
