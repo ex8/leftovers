@@ -8,8 +8,8 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <Featured title="Popular dishes on Leftovers" type="popular" />
-      <Featured title="New dishes on Leftovers" type="newest" />
+      <Featured title="Popular dishes" type="popular" />
+      <Featured title="New dishes" type="newest" />
       <Footer />
     </div>
   );

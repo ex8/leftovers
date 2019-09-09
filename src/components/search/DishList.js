@@ -12,6 +12,7 @@ import SearchBar from './SearchBar';
 import AddressBar from '../home/AddressBar';
 import api from '../../redux/api';
 import DishSkeleton from './DishSkeleton';
+import Alert from '../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -90,16 +91,10 @@ const DishList = ({ place, coords }) => {
             <Typography variant="caption">{dishes.length} dishes found</Typography>
           </Grid>
           {!place && (
-            <Grid item xs={12}>
-              <Card className={card}>
-                <Avatar className={avatar}>
-                  <FontAwesomeIcon icon={faMapMarkedAlt} size="2x" />
-                </Avatar>
-                <Typography variant="subtitle2">
-                  Enter an address for dishes in your area.
-                </Typography>
-              </Card>
-            </Grid>
+            <Alert 
+              message="Enter an address for dishes in your area." 
+              variant="info"  
+            />
           )}
           {loading && <DishSkeleton skeletons={6} />}
           {!loading && dishes.length === 0 && place !== '' && (
