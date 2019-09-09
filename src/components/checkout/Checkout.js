@@ -72,7 +72,7 @@ const Checkout = ({ items, chef, place, isAuthenticated }) => {
               <Card className={card}>
                 <CardHeader
                   title="Login or Signup"
-                  subheader="You must sign in to your account to complete your order."
+                  subheader="In order to complete your order, please sign in to your account."
                 />
                 <CardActions>
                   <Link className={linkButton} to="/account/signup">
