@@ -27,7 +27,7 @@ const Routes = () => {
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
       <PrivateRoute exact path="/account/dishes" component={Dishes} />
-      <Route exact path="/account/orders/:id" component={OrderDetails} />
+      <PrivateRoute exact path="/account/orders/:id" component={OrderDetails} />
       <PrivateRoute exact path="/account/orders" component={Orders} />
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
