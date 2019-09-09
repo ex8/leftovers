@@ -35,7 +35,7 @@ const Dashboard = () => {
     address: '1079 natoma street, sf, ca 94103',
     email: 'drew@drew.com',
     phone: '6502696088'
-  }
+  };
 
   return (
     <div className={container}>
