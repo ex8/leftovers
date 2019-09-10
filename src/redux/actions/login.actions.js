@@ -17,8 +17,7 @@ export const login = (user, history) => dispatch => {
       errorMessage: 'Please enter a valid e-mail address.',
     });
   }
-  setTimeout(() => {
-    api.post('/api/auth/login', user)
+  api.post('/api/auth/login', user)
     .then(res => {
       if (res.data.success) {
         const { token } = res.data;
@@ -47,7 +46,6 @@ export const login = (user, history) => dispatch => {
       loading: false,
       errorMessage: 'You cannot login at this time.'
     }));
-  }, 3000);
 };
 
 export const reset = () => {

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddressBar = ({ place, setUserLocation, history, getDishes }) => {
+const AddressBar = ({ place, setUserLocation, history, getDishes, redirect }) => {
   const [address, setAddress] = useState(place);
   const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=&libraries=places`);
   const { root, container, paper } = useStyles();
@@ -40,7 +40,7 @@ const AddressBar = ({ place, setUserLocation, history, getDishes }) => {
       .then(latLng => setUserLocation(address, latLng))
       .then(() => setAddress(address))
       .then(() => getDishes ? getDishes() : null)
-      .then(() => history.push('/search'))
+      .then(() => redirect ? history.push('/search') : null)
       .catch(() => console.error('Error selecting address.'));
   };
 

@@ -50,7 +50,7 @@ const Featured = ({ title, type }) => {
       <Container>
         <Grid container>
           <Grid item>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               {title}
             </Typography>
           </Grid>

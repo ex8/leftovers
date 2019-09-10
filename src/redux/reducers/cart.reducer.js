@@ -9,13 +9,13 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  chefId: null,
+  chef: null,
   sendNotification: false,
   notificationMessage: '',
   items: {},
 };
 
-export default function (state=INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case CART_ADD_ITEM:
       return {
@@ -27,35 +27,35 @@ export default function (state=INITIAL_STATE, action) {
         ...state,
         items: action.items,
       }
-    case CART_REMOVE_ITEM:
-      return {
-        ...state,
-        items: action.items,
-      };
-    case CART_SET_CHEF:
-      return {
-        ...state,
-        chefId: action.chefId,
-      };
-    case CART_CLEAR:
-      return {
-        ...state,
-        chefId: action.chefId,
-        items: action.items,
-      };
-    case CART_SEND_NOTIFICATION:
-      return {
-        ...state,
-        sendNotification: action.sendNotification,
-        notificationMessage: action.notificationMessage,
-      };
-    case CART_RESET_NOTIFICATION:
-      return {
-        ...state,
-        sendNotification: action.sendNotification,
-        notificationMessage: action.notificationMessage,
-      };
-    default:
-      return state;
+      case CART_REMOVE_ITEM:
+        return {
+          ...state,
+          items: action.items,
+        };
+      case CART_SET_CHEF:
+        return {
+          ...state,
+          chef: action.chef,
+        };
+      case CART_CLEAR:
+        return {
+          ...state,
+          chefId: action.chefId,
+            items: action.items,
+        };
+      case CART_SEND_NOTIFICATION:
+        return {
+          ...state,
+          sendNotification: action.sendNotification,
+            notificationMessage: action.notificationMessage,
+        };
+      case CART_RESET_NOTIFICATION:
+        return {
+          ...state,
+          sendNotification: action.sendNotification,
+            notificationMessage: action.notificationMessage,
+        };
+      default:
+        return state;
   };
 };

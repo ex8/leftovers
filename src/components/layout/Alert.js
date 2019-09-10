@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { SnackbarContent } from '@material-ui/core';
+import { SnackbarContent, Typography } from '@material-ui/core';
 import { green, amber, blue } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faExclamationCircle, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
@@ -48,7 +48,7 @@ const Alert = ({ message, variant }) => {
       message={
         <span id="client-snackbar" className={classes.message}>
           <FontAwesomeIcon icon={icon} className={clsx(classes.iconVariant)} />
-          {message}
+          <Typography>{message}</Typography>
         </span>
       }
     />

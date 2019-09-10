@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
       left: '25%'
     },
     [theme.breakpoints.up('sm')]: {
-      left: '40%',
+      left: '35%',
     },
     margin: theme.spacing(2),
     backgroundColor: teal[400],
@@ -93,8 +93,9 @@ const CartDrawer = ({ open, onClose, items, clear }) => {
           </Avatar>
         )}
         <CartItems />
-        <Link className={linkButton} to="/checkout">
-          <Button 
+        <Link className={linkButton} to="/checkout" onClick={() => onClose()}>
+          <Button
+            disabled={Object.keys(items).length === 0}
             className={checkoutButton}
             onClick={() => onClose()}
             variant="contained" 

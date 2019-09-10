@@ -44,9 +44,6 @@ const DishDetailSkeleton = () => {
           />
         </Card>
       </Grid>
-      <Grid item xs={12}>
-        <DishSkeleton skeletons={6} />
-      </Grid>
     </Grid>
   );
 };

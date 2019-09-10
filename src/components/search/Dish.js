@@ -6,9 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
-import { connect } from 'react-redux';
-
-import { addItem } from '../../redux/actions/cart.actions';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -42,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dish = ({ dish, addItem }) => {
+const Dish = ({ dish }) => {
   const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -50,11 +47,7 @@ const Dish = ({ dish, addItem }) => {
     setExpanded(!expanded);
   };
 
-  function addToCart() {
-    addItem(dish);
-  };
-
-  const { title, description, price, rating, tags, ingredients, location, chef } = dish;
+  const { title, description, price, rating, tags, ingredients, chef } = dish;
   const profileUrl = `/profile/${chef.username}`;
   return (
     <div>
@@ -104,11 +97,8 @@ const Dish = ({ dish, addItem }) => {
           <Link to={`/search/${dish._id}`} className={linkButton}>
             <Button size="small" variant="outlined" color="primary">
               View dish
-          </Button>
+            </Button>
           </Link>
-          <Button onClick={addToCart} size="small" variant="contained" color="primary">
-            Add to cart
-        </Button>
           <IconButton
             className={clsx(expand, {
               [expandOpen]: expanded,
@@ -137,8 +127,4 @@ const Dish = ({ dish, addItem }) => {
   );
 };
 
-const mapDispatchToProps = {
-  addItem,
-};
-
-export default connect(() => ({}), mapDispatchToProps)(Dish);
+export default Dish;
