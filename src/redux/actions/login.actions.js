@@ -3,8 +3,8 @@ import { isEmail } from 'validator';
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET } from '../types';
 import api from '../api';
-import setToken from '../setToken';
 import { setCurrentUser } from './user.actions';
+import setToken from '../setToken';
 
 export const login = (user, history) => dispatch => {
   dispatch({
@@ -21,11 +21,9 @@ export const login = (user, history) => dispatch => {
     .then(res => {
       if (res.data.success) {
         const { token } = res.data;
-        setToken(token);
         const decoded = jwtDecode(token);
+        setToken(token);
         dispatch(setCurrentUser(decoded, true));
-        // not storing in localStorage just yet...
-        // localStorage.setItem(`jwtToken`, token);
         dispatch({
           type: LOGIN_SUCCESS,
           loading: false,

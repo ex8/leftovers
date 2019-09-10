@@ -25,7 +25,7 @@ const Dishes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/api/search')
+    api.get('/api/dishes')
       .then(res => {
         if (res.data.success) {
           setDishes(res.data.dishes);
