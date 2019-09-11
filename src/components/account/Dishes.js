@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography, CircularProgress, Table, Hidden, Paper, TableBody, TableHead, TableRow, TableCell, Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import { Link } from 'react-router-dom';
 
 import api from '../../redux/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    flexGrow: 1,
+    flex: 1,
     padding: theme.spacing(2),
   },
   table: {
@@ -16,11 +17,15 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     overflowX: 'auto',
-  }
+  },
+  linkButton: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
 }));
 
 const Dishes = () => {
-  const { container, table, paper } = useStyles();
+  const { container, table, paper, linkButton } = useStyles();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -40,7 +45,16 @@ const Dishes = () => {
       <Container>
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h4" gutterBottom>Your Dishes</Typography>
+            <Grid container justify="space-between">
+              <Grid item>
+                <Typography variant="h4">Your Dishes</Typography>
+              </Grid>
+              <Grid item>
+                <Link className={linkButton} to="/account/dishes/add">
+                  <Button variant="outlined" color="primary" size="large">Add New Dish</Button>
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             {loading && <CircularProgress />}

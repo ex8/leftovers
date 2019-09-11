@@ -78,7 +78,7 @@ const Dish = ({ dish }) => {
             </Grid>
             <Grid item>
               <Paper className={label} square elevation={0}>
-                <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
+                <FontAwesomeIcon icon={faDollarSign} /> {parseFloat(price).toFixed(2)}
               </Paper>
             </Grid>
             <Grid item>
@@ -94,11 +94,14 @@ const Dish = ({ dish }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          <Link to={`/search/${dish._id}`} className={linkButton}>
-            <Button size="small" variant="outlined" color="primary">
-              View dish
-            </Button>
-          </Link>
+          {dish._id && (
+            <Link to={`/search/${dish._id}`} className={linkButton}>
+              <Button size="small" variant="outlined" color="primary">
+                View dish
+              </Button>
+            </Link>
+          )}
+          
           <IconButton
             className={clsx(expand, {
               [expandOpen]: expanded,
