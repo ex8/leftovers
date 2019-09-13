@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, TextField, Button, Tooltip } from '@material-ui/core';
+import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton, Fab } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ChipInput from 'material-ui-chip-input'
 import { DropzoneArea } from 'material-ui-dropzone'
@@ -112,6 +112,7 @@ const AddDish = ({ user }) => {
                     onChange={handleImageChange}
                     acceptedFiles={['image/*']}
                     filesLimit={5}
+                    maxFileSize={5000000}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -128,6 +129,19 @@ const AddDish = ({ user }) => {
                     multiline rows={5} margin="normal" required
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <ChipInput
+                    className={chipInput}
+                    label="Ingredients"
+                    placeholder="Chicken, Flour, Egg, Breadcrumbs, Salt, Pepper"
+                    variant="outlined"
+                    fullWidth
+                    value={ingredients}
+                    onAdd={handleAddIngredientChip}
+                    onDelete={handleDeleteIngredientChip}
+                    required
+                  />
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Stock" variant="outlined" name="stock" type="number"
@@ -142,7 +156,12 @@ const AddDish = ({ user }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5">
-                    Pickup Information <FontAwesomeIcon icon={faQuestionCircle} size="xs" />
+                    Pickup Information 
+                    <Tooltip title="Details related to consumers after ordering" placement="right">
+                      <IconButton size="small" disableRipple disableTouchRipple>
+                        <FontAwesomeIcon icon={faQuestionCircle} />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -153,8 +172,13 @@ const AddDish = ({ user }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h5">
-                    Search Filters <FontAwesomeIcon icon={faQuestionCircle} size="xs" />
+                <Typography variant="h5">
+                    Search Filters 
+                    <Tooltip title="Keywords that better enhance your dish being searched" placement="right">
+                      <IconButton size="small" disableRipple disableTouchRipple>
+                        <FontAwesomeIcon icon={faQuestionCircle} />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -167,19 +191,6 @@ const AddDish = ({ user }) => {
                     value={tags}
                     onAdd={handleAddTagChip}
                     onDelete={handleDeleteTagChip}
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <ChipInput
-                    className={chipInput}
-                    label="Ingredients"
-                    placeholder="Chicken, Flour, Egg, Breadcrumbs, Salt, Pepper"
-                    variant="outlined"
-                    fullWidth
-                    value={ingredients}
-                    onAdd={handleAddIngredientChip}
-                    onDelete={handleDeleteIngredientChip}
                     required
                   />
                 </Grid>
