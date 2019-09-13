@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, TextField, Button } from '@material-ui/core';
+import { Container, Grid, Typography, TextField, Button, Tooltip } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ChipInput from 'material-ui-chip-input'
+import { DropzoneArea } from 'material-ui-dropzone'
 
 import Dish from '../search/Dish';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -13,13 +16,16 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     flex: 1,
-    paddingTop: theme.spacing(0),
     paddingRight: theme.spacing(2),
+  },
+  chipInput: {
+    paddingBottom: theme.spacing(1),
   },
 }));
 
 const AddDish = ({ user }) => {
   const [fields, setFields] = useState({
+    images: [],
     title: '',
     description: '',
     stock: 0,
@@ -27,7 +33,7 @@ const AddDish = ({ user }) => {
     tags: [],
     ingredients: [],
     location: {
-      place: '',
+      place: user.address,
       coords: {
         lat: 0,
         lng: 0,
@@ -42,6 +48,13 @@ const AddDish = ({ user }) => {
       [name]: value
     });
   };
+
+  const handleImageChange = images => {
+    setFields({
+      images,
+      ...fields
+    });
+  }
 
   const handleFormSubmit = e => {
     e.preventDefault();
@@ -80,8 +93,8 @@ const AddDish = ({ user }) => {
     });
   };
 
-  const { container, form } = useStyles();
-  const { title, description, stock, price, tags, ingredients } = fields;
+  const { container, form, chipInput } = useStyles();
+  const { title, description, stock, price, tags, ingredients, location } = fields;
   return (
     <div className={container}>
       <Container>
@@ -90,14 +103,22 @@ const AddDish = ({ user }) => {
             <Typography variant="h4" gutterBottom>Add New Dish</Typography>
           </Grid>
           <Grid item xs={12} sm={7}>
-            <Typography variant="h5">Details</Typography>
+            <Typography variant="h5">Information</Typography>
             <form className={form} onSubmit={handleFormSubmit}>
               <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <DropzoneArea
+                    dropzoneText="Click or drag/drop image file(s) here"
+                    onChange={handleImageChange}
+                    acceptedFiles={['image/*']}
+                    filesLimit={5}
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth label="Title" placeholder="Fried Chicken Sandwich" variant="outlined"
                     name="title" value={title} onChange={handleInputChange}
-                    required margin="normal" autoFocus
+                    required margin="normal"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -120,7 +141,25 @@ const AddDish = ({ user }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <Typography variant="h5">
+                    Pickup Information <FontAwesomeIcon icon={faQuestionCircle} size="xs" />
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth label="Pickup Address" variant="outlined"
+                    name="location" value={location.place} disabled onChange={handleInputChange}
+                    required margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h5">
+                    Search Filters <FontAwesomeIcon icon={faQuestionCircle} size="xs" />
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
                   <ChipInput
+                    className={chipInput}
                     label="Tags"
                     placeholder="American, Fried, Spicy, Cheap"
                     variant="outlined"
@@ -133,6 +172,7 @@ const AddDish = ({ user }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <ChipInput
+                    className={chipInput}
                     label="Ingredients"
                     placeholder="Chicken, Flour, Egg, Breadcrumbs, Salt, Pepper"
                     variant="outlined"
