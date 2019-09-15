@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setUserLocation } from '../../redux/actions/user.actions';
-import useScript from '../../useScript';
+import useScript from '../utils/useScript';
 
 const useStyles = makeStyles(theme => ({
   root: {

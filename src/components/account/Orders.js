@@ -1,121 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container,
-          Card, 
-          Grid, 
-          Hidden, 
-          Table, 
-          TableBody, 
-          TableCell, 
-          TableHead, 
-          TableRow, 
-          Typography
-        } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { Container, Grid, Typography, CircularProgress, Table, Hidden, Paper, TableBody, TableHead, TableRow, TableCell, Button } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import { Link } from 'react-router-dom';
 
-function createData(id, date, chef, dish, paymentMethod, amount) {
-  return { id, date, chef, dish, paymentMethod, amount };
-}
-
-const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Cheddar', 'VISA ⠀•••• 3719', 312.44),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'Pepper Jack', 'VISA ⠀•••• 2574', 866.99),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Gouda', 'MC ⠀•••• 1253', 100.81),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'Swiss', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Parmesan', 'VISA ⠀•••• 5919', 212.79),
-];
+import api from '../../redux/api';
 
 const useStyles = makeStyles(theme => ({
-  card: {
+  container: {
     flex: 1,
     padding: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-    paddingTop: theme.spacing(4)
   },
-  container: {
-    flexGrow: 1,
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4)
+  table: {
+    flex: 1,
   },
-  tableCell: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    textDecoration: 'none'
-  }
-}))
+  paper: {
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  linkButton: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+}));
 
 const Orders = () => {
-  const { card, container, tableCell } = useStyles();
+  const { container, table, paper, linkButton } = useStyles();
 
   return (
     <div className={container}>
       <Container>
         <Grid container>
           <Grid item xs={12}>
-            <Card className={card}>
-              <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                Your Orders
-              </Typography>
-              <Table>
+            <Typography variant="h4">Your Orders</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={paper}>
+              <Table className={table}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Dish</TableCell>
-                    <Hidden smDown>
-                      <TableCell>Chef</TableCell>
-                    </Hidden>
-                    <TableCell align="right">Amount</TableCell>
+                    <TableCell>Title</TableCell>
+                    <TableCell>Created</TableCell>
+                    <Hidden xsDown><TableCell>Total</TableCell></Hidden>
+                    <Hidden smDown><TableCell>Status</TableCell></Hidden>
+                    <TableCell>Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map(row => (
-                      <TableRow key={row.id}>
-                        <TableCell 
-                          component={Link} 
-                          to={`orders/${row.id}`}
-                          className={tableCell}
-                        >
-                          {row.date}
-                        </TableCell>
-                        <TableCell
-                          component={Link}
-                          to={`orders/${row.id}`}
-                          className={tableCell}
-                        >
-                          {row.dish}
-                        </TableCell>
-                        <Hidden smDown>
-                          <TableCell
-                            component={Link}
-                            to={`orders/${row.id}`}
-                            className={tableCell}
-                          >
-                            {row.chef}
-                          </TableCell>
-                        </Hidden>
-                        <TableCell
-                          component={Link}
-                          to={`orders/${row.id}`}
-                          className={tableCell}
-                          align="right"
-                        >
-                          {row.amount}
-                        </TableCell>
-                      </TableRow>
+                  {[1, 2, 3, 4].map((n ,i) => (
+                    <TableRow key={i} hover>
+                      <TableCell component="th" scope="row">2 items</TableCell>
+                      <TableCell>9/13/2019 - 9:45pm</TableCell>
+                      <Hidden xsDown><TableCell>$9.99</TableCell></Hidden>
+                      <Hidden smDown>
+                        <TableCell>Completed</TableCell>
+                      </Hidden>
+                      <TableCell>
+                        <Link className={linkButton} to={`/account/orders/idbruh`}>
+                          <Button size="small" variant="contained" color="secondary">View</Button>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
                   ))}
                 </TableBody>
               </Table>
-            </Card>
+            </Paper>
           </Grid>
         </Grid>
       </Container>
     </div>
-  )
+  );
 };
 
-const mapStateToProps = state => ({
-  user: state.userReducer.user
-});
-
-export default connect(mapStateToProps)(Orders);
+export default Orders;

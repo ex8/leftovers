@@ -51,8 +51,8 @@ const AddDish = ({ user }) => {
 
   const handleImageChange = images => {
     setFields({
+      ...fields,
       images,
-      ...fields
     });
   }
 

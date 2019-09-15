@@ -72,7 +72,7 @@ const Dishes = () => {
                   </TableHead>
                   <TableBody>
                     {dishes.map(dish => (
-                      <TableRow key={dish._id}>
+                      <TableRow key={dish._id} hover>
                         <TableCell component="th" scope="row">{dish.title}</TableCell>
                         <TableCell>{dish.stock}</TableCell>
                         <Hidden xsDown><TableCell>${dish.price.toFixed(2)}</TableCell></Hidden>
@@ -80,7 +80,9 @@ const Dishes = () => {
                           <TableCell><Rating size="small" value={dish.rating} readOnly /></TableCell>
                         </Hidden>
                         <TableCell>
-                          <Button size="small" variant="contained" color="secondary">Manage</Button>
+                          <Link className={linkButton} to={`/account/dishes/${dish._id}`}>
+                            <Button size="small" variant="contained" color="secondary">Manage</Button>
+                          </Link>
                         </TableCell>
                       </TableRow>
                     ))}
