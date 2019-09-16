@@ -4,7 +4,7 @@ import {
   Card, Container, Grid, Typography, Avatar, CardHeader,
   CardContent, CardActions, Button, List, ListItem,
   ListItemAvatar, ListItemText, IconButton, Divider,
-  Paper, Table, TableBody, TableHead, TableCell, TableRow,
+  Table, TableBody, TableHead, TableCell, TableRow,
   Hidden,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -14,38 +14,23 @@ import { faUtensils, faShoppingCart, faCreditCard, faAngleDoubleRight, faEdit } 
 import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
 import { purple, indigo, green } from '@material-ui/core/colors'
 
+import Tile from './Tile';
+
 const useStyles = makeStyles(theme => ({
   container: {
     flexGrow: 1,
     padding: theme.spacing(2),
   },
-  card: {
-    flex: 1,
-    padding: theme.spacing(4),
-  },
   linkButton: {
     textDecoration: 'none',
     color: 'inherit',
   },
-  avatar: {
-    width: 60,
-    height: 60,
-  },
-  purpleAvatar: {
-    backgroundColor: purple[400],
-  },
-  blueAvatar: {
-    backgroundColor: indigo[400],
-  },
-  greenAvatar: {
-    backgroundColor: green[400],
-  },
-  content: {
-    padding: theme.spacing(0),
-  },
   listContainer: {
     maxHeight: 300,
     overflow: 'auto',
+  },
+  content: {
+    padding: theme.spacing(0),
   },
   image: {
     width: 48,
@@ -69,8 +54,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = ({ user }) => {
   const {
-    card, container, linkButton, avatar, purpleAvatar,
-    blueAvatar, greenAvatar, content, listContainer,
+    container, linkButton, content, listContainer,
     image, actions, payAvatar, rightIcon, table
   } = useStyles();
   return (
@@ -84,60 +68,38 @@ const Dashboard = ({ user }) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Link to="/account/dishes" className={linkButton}>
-              <Card className={card}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Typography variant="h4">4</Typography>
-                    <Typography variant="subtitle1">Total Dishes</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Avatar className={[avatar, purpleAvatar].join(' ')}>
-                      <FontAwesomeIcon icon={faUtensils} size="lg" />
-                    </Avatar>
-                  </Grid>
-                </Grid>
-              </Card>
+              <Tile
+                number={4}
+                subtitle="Total Dishes"
+                faIcon={faUtensils}
+                color={purple[400]}
+              />
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Link to="/account/orders" className={linkButton}>
-              <Card className={card}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Typography variant="h4">24</Typography>
-                    <Typography variant="subtitle1">Completed Orders</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Avatar className={[avatar, blueAvatar].join(' ')}>
-                      <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-                    </Avatar>
-                  </Grid>
-                </Grid>
-              </Card>
+              <Tile
+                number={24}
+                subtitle="Completed Orders"
+                faIcon={faShoppingCart}
+                color={indigo[400]}
+              />
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Link to="/account/payments" className={linkButton}>
-              <Card className={card}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Typography variant="h4">24</Typography>
-                    <Typography variant="subtitle1">Payments Made</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Avatar className={[avatar, greenAvatar].join(' ')}>
-                      <FontAwesomeIcon icon={faCreditCard} size="lg" />
-                    </Avatar>
-                  </Grid>
-                </Grid>
-              </Card>
+              <Tile
+                number={24}
+                subtitle="Payments Made"
+                faIcon={faCreditCard}
+                color={green[400]}
+              />
             </Link>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Card>
               <CardHeader
                 title="Latest Dishes"
-                action={<Button size="small" color="primary" variant="outlined">Add Dish</Button>}
                 titleTypographyProps={{
                   variant: 'h6',
                 }}
@@ -162,10 +124,12 @@ const Dashboard = ({ user }) => {
                 </List>
               </CardContent>
               <CardActions className={actions}>
-                <Button color="primary">
-                  View All Dishes
-                  <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
-                </Button>
+                <Link className={linkButton} to="/account/dishes">
+                  <Button color="primary">
+                    View All Dishes
+                    <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </Grid>
@@ -180,7 +144,7 @@ const Dashboard = ({ user }) => {
               <Divider />
               <CardContent className={content}>
                 <List className={listContainer}>
-                  {[1, 2, 3, 4, 5].map((n, i) => (
+                  {[1, 2, 3, 4].map((n, i) => (
                     <ListItem key={i} divider={i < 5}>
                       <ListItemAvatar>
                         <Avatar className={payAvatar}>
@@ -199,10 +163,12 @@ const Dashboard = ({ user }) => {
                 </List>
               </CardContent>
               <CardActions className={actions}>
-                <Button color="primary">
-                  View All Gateways
-                  <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
-                </Button>
+                <Link className={linkButton} to="/account/payments">
+                  <Button color="primary">
+                    View All Gateways
+                    <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </Grid>
@@ -246,10 +212,12 @@ const Dashboard = ({ user }) => {
                 </Table>
               </CardContent>
               <CardActions className={actions}>
-                <Button color="primary">
-                  View All Orders
-                  <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
-                </Button>
+                <Link className={linkButton} to="/account/orders">
+                  <Button color="primary">
+                    View All Orders
+                    <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </Grid>

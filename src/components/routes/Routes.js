@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 import Checkout from '../checkout/Checkout';
-import Dashboard from '../account/Dashboard';
+import Dashboard from '../account/dashboard/Dashboard';
 import Dishes from '../account/Dishes';
 import DishDetail from '../search/DishDetail';
 import DishList from '../search/DishList';
