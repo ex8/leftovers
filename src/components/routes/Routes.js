@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Checkout from '../checkout/Checkout';
 import Dashboard from '../account/dashboard/Dashboard';
-import Dishes from '../account/Dishes';
+import Dishes from '../account/dishes/Dishes';
 import DishDetail from '../search/DishDetail';
 import DishList from '../search/DishList';
 import Home from '../home/Home';
@@ -13,7 +13,7 @@ import OrderDetails from '../account/OrderDetails';
 import Orders from '../account/Orders';
 import Profile from '../profile/Profile';
 import Signup from '../account/Signup';
-import AddDish from '../account/AddDish';
+import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
 
 const Routes = () => {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton, Fab } from '@material-ui/core';
+import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ChipInput from 'material-ui-chip-input'
 import { DropzoneArea } from 'material-ui-dropzone'
 
-import Dish from '../search/Dish';
+import Dish from '../../search/Dish';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 

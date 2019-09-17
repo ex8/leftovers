@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardMedia, CardHeader, Avatar, Typography, Button, Chip } from '@material-ui/core';
+import { Grid, Card, CardHeader, Avatar, Typography, Button, Chip } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faSadCry } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,7 @@ import api from '../../redux/api';
 import DishDetailSkeleton from './DishDetailSkeleton';
 import AddressBar from '../home/AddressBar';
 import DishesByChef from './DishesByChef';
+import Carousel from '../layout/Carousel';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -22,6 +23,11 @@ const useStyles = makeStyles(theme => ({
   card: {
     flex: 1,
     padding: theme.spacing(2),
+  },
+  carouselCard: {
+    flex: 1,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   cardCry: {
     flex: 1,
@@ -39,10 +45,6 @@ const useStyles = makeStyles(theme => ({
   flex: {
     flex: 1,
   },
-  media: {
-    height: 0,
-    paddingTop: '50.25%',
-  },
   avatar: {
     backgroundColor: teal[400],
   },
@@ -56,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const DishDetail = ({ match, addItem, place, location }) => {
-  const { container, card, media, avatar, flex, cardCry, avatarCry, linkButton, chip } = useStyles();
+  const { container, card, carouselCard, avatar, flex, cardCry, avatarCry, linkButton, chip } = useStyles();
   const [dish, setDish] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true)
@@ -107,11 +109,8 @@ const DishDetail = ({ match, addItem, place, location }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={8}>
-            <Card className={card}>
-              <CardMedia
-                className={media}
-                image="https://source.unsplash.com/random"
-              />
+            <Card className={carouselCard}>
+              <Carousel dots images={[]} />
             </Card>
           </Grid>
           <Grid item xs={12} sm={4}>

@@ -4,7 +4,7 @@ import { Container, Grid, Typography, CircularProgress, Table, Hidden, Paper, Ta
 import Rating from '@material-ui/lab/Rating';
 import { Link } from 'react-router-dom';
 
-import api from '../../redux/api';
+import api from '../../../redux/api';
 
 const useStyles = makeStyles(theme => ({
   container: {

@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Carousel from '../layout/Carousel';
 
 const useStyles = makeStyles(theme => ({
   card: {
     flex: 1,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dish = ({ dish }) => {
-  const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
+  const { card, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
@@ -52,11 +52,7 @@ const Dish = ({ dish }) => {
   return (
     <div>
       <Card className={card}>
-        <CardMedia
-          className={media}
-          image="https://source.unsplash.com/random"
-          title={title}
-        />
+        <Carousel images={[]} />
         <CardContent>
           <Grid container>
             <Grid item xs={12}>
