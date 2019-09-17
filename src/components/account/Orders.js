@@ -32,7 +32,7 @@ const Orders = () => {
       <Container>
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h4">Your Orders</Typography>
+            <Typography variant="h4">Orders</Typography>
           </Grid>
           <Grid item xs={12}>
             <Paper className={paper}>

@@ -47,7 +47,7 @@ const Dishes = () => {
           <Grid item xs={12}>
             <Grid container justify="space-between">
               <Grid item>
-                <Typography variant="h4">Your Dishes</Typography>
+                <Typography variant="h4" gutterBottom>Dishes</Typography>
               </Grid>
               <Grid item>
                 <Link className={linkButton} to="/account/dishes/add">
