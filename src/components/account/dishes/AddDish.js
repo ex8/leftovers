@@ -9,6 +9,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Dish from '../../search/Dish';
 import api from '../../../redux/api';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -21,6 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
   chipInput: {
     paddingBottom: theme.spacing(1),
+  },
+  alertMargin: {
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -41,9 +45,12 @@ const AddDish = ({ user }) => {
       },
     },
   });
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
+    setErrorMessage('');
     setFields({
       ...fields,
       [name]: value
@@ -51,34 +58,16 @@ const AddDish = ({ user }) => {
   };
 
   const handleImageChange = images => {
+    setErrorMessage('');
     setFields({
       ...fields,
       images,
     });
   }
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    const { images, title, description, stock, price, tags, ingredients } = fields;
-    let fd = new FormData();
-    images.forEach(image => fd.append('images', image));
-    fd.set('title', title);
-    fd.set('description', description);
-    fd.set('stock', stock);
-    fd.set('price', price);
-    fd.set('tags', tags);
-    fd.set('ingredients', ingredients);
-    api.post('/api/dishes', fd)
-      .then(res => {
-        if (res.data.success) {
-          console.log(`success from react: NEW DISH: ${JSON.stringify(res.data.dish)}`);
-        }
-      })
-      .catch(err => console.error(`error adding dish: ${err}`));
-  };
-
   const handleAddTagChip = chip => {
     const { tags } = fields;
+    setErrorMessage('');
     setFields({
       ...fields,
       tags: [...tags, chip],
@@ -87,6 +76,7 @@ const AddDish = ({ user }) => {
 
   const handleDeleteTagChip = (chip, index) => {
     const { tags } = fields;
+    setErrorMessage('');
     setFields({
       ...fields,
       tags: tags.filter((tag, i) => index !== i)
@@ -95,6 +85,7 @@ const AddDish = ({ user }) => {
 
   const handleAddIngredientChip = chip => {
     const { ingredients } = fields;
+    setErrorMessage('');
     setFields({
       ...fields,
       ingredients: [...ingredients, chip],
@@ -103,13 +94,66 @@ const AddDish = ({ user }) => {
 
   const handleDeleteIngredientChip = (chip, index) => {
     const { ingredients } = fields;
+    setErrorMessage('');
     setFields({
       ...fields,
       ingredients: ingredients.filter((tag, i) => index !== i)
     });
   };
 
-  const { container, form, chipInput } = useStyles();
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    if (validateForm()) {
+      const { images, title, description, stock, price, tags, ingredients } = fields;
+      let fd = new FormData();
+      images.forEach(image => fd.append('images', image));
+      fd.set('title', title);
+      fd.set('description', description);
+      fd.set('stock', stock);
+      fd.set('price', price);
+      fd.set('tags', tags);
+      fd.set('ingredients', ingredients);
+      api.post('/api/dishes', fd)
+        .then(res => {
+          if (res.data.success) {
+            setErrorMessage('');
+            setSuccessMessage('Your dish was successfully added. It is under verification review.');
+          }
+        })
+        .catch(err => setErrorMessage(err));
+    }
+  };
+
+  const validateForm = () => {
+    const { images, title, description, stock, price, ingredients } = fields;
+    if (images.length === 0) {
+      setErrorMessage('You must have atleast one dish image.');
+      return false;
+    }
+    else if (title.length === 0) {
+      setErrorMessage('You must set a title.');
+      return false;
+    }
+    else if (description.length === 0) {
+      setErrorMessage('You must set a description.');
+      return false;
+    }
+    else if (ingredients.length === 0) {
+      setErrorMessage('You must set your dish ingredients.');
+      return false;
+    }
+    else if (stock < 1) {
+      setErrorMessage('You must set a valid stock number.');
+      return false;
+    }
+    else if (price < 0) {
+      setErrorMessage('You must set a valid price number (USD).');
+      return false;
+    }
+    return true;
+  };
+
+  const { container, form, chipInput, alertMargin } = useStyles();
   const { title, description, stock, price, tags, ingredients, location } = fields;
   return (
     <div className={container}>
@@ -120,6 +164,12 @@ const AddDish = ({ user }) => {
           </Grid>
           <Grid item xs={12} sm={7}>
             <Typography variant="h5">Information</Typography>
+            <div className={alertMargin}>
+              {successMessage && <Alert variant="success" message={successMessage} />}
+            </div>
+            <div className={alertMargin}>
+              {errorMessage && <Alert variant="error" message={errorMessage} />}
+            </div>
             <form className={form} onSubmit={handleFormSubmit} encType="multipart/form-data">
               <Grid container spacing={1}>
                 <Grid item xs={12}>
@@ -173,7 +223,7 @@ const AddDish = ({ user }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5">
-                    Pickup Information 
+                    Pickup Information
                     <Tooltip title="Details related to consumers after ordering" placement="right">
                       <IconButton size="small" disableRipple disableTouchRipple>
                         <FontAwesomeIcon icon={faQuestionCircle} />
@@ -189,8 +239,8 @@ const AddDish = ({ user }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                <Typography variant="h5">
-                    Search Filters 
+                  <Typography variant="h5">
+                    Search Filters
                     <Tooltip title="Keywords that better enhance your dish being searched" placement="right">
                       <IconButton size="small" disableRipple disableTouchRipple>
                         <FontAwesomeIcon icon={faQuestionCircle} />
@@ -219,8 +269,13 @@ const AddDish = ({ user }) => {
             <Dish dish={{ ...fields, chef: user }} />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" size="large" color="secondary" onClick={handleFormSubmit}>
-              Add Dish
+            <Button
+              variant="contained" 
+              size="large" 
+              color="secondary" 
+              onClick={handleFormSubmit}
+            >
+              Add New Dish
             </Button>
           </Grid>
         </Grid>
