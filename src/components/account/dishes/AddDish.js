@@ -4,10 +4,11 @@ import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton } f
 import { connect } from 'react-redux';
 import ChipInput from 'material-ui-chip-input'
 import { DropzoneArea } from 'material-ui-dropzone'
-
-import Dish from '../../search/Dish';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+
+import Dish from '../../search/Dish';
+import api from '../../../redux/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -58,7 +59,22 @@ const AddDish = ({ user }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    console.log('submitted form...');
+    const { images, title, description, stock, price, tags, ingredients } = fields;
+    let fd = new FormData();
+    images.forEach(image => fd.append('images', image));
+    fd.set('title', title);
+    fd.set('description', description);
+    fd.set('stock', stock);
+    fd.set('price', price);
+    fd.set('tags', tags);
+    fd.set('ingredients', ingredients);
+    api.post('/api/dishes', fd)
+      .then(res => {
+        if (res.data.success) {
+          console.log(`success from react: NEW DISH: ${JSON.stringify(res.data.dish)}`);
+        }
+      })
+      .catch(err => console.error(`error adding dish: ${err}`));
   };
 
   const handleAddTagChip = chip => {
@@ -104,10 +120,11 @@ const AddDish = ({ user }) => {
           </Grid>
           <Grid item xs={12} sm={7}>
             <Typography variant="h5">Information</Typography>
-            <form className={form} onSubmit={handleFormSubmit}>
+            <form className={form} onSubmit={handleFormSubmit} encType="multipart/form-data">
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <DropzoneArea
+                    dropzoneClass="images"
                     dropzoneText="Click or drag/drop image file(s) here"
                     onChange={handleImageChange}
                     acceptedFiles={['image/*']}

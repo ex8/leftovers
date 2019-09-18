@@ -47,12 +47,12 @@ const Dish = ({ dish }) => {
     setExpanded(!expanded);
   };
 
-  const { title, description, price, rating, tags, ingredients, chef } = dish;
+  const { images, title, description, price, rating, tags, ingredients, chef } = dish;
   const profileUrl = `/profile/${chef.username}`;
   return (
     <div>
       <Card className={card}>
-        <Carousel images={[]} />
+        <Carousel images={images} />
         <CardContent>
           <Grid container>
             <Grid item xs={12}>

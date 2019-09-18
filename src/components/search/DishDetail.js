@@ -86,6 +86,7 @@ const DishDetail = ({ match, addItem, place, location }) => {
     addItem(dish);
   };
 
+  const { title, images, stock, price, tags, ingredients, _id, chef } = dish;
   return (
     <div className={container}>
       {loading && !error && <DishDetailSkeleton />}
@@ -105,23 +106,23 @@ const DishDetail = ({ match, addItem, place, location }) => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography className={flex} variant="h4">
-              {dish.title}
+              {title}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={8}>
             <Card className={carouselCard}>
-              <Carousel dots images={[]} />
+              <Carousel dots images={images} />
             </Card>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card className={card}>
               <Typography variant="h6">Stock</Typography>
-              <Typography>{dish.stock}</Typography>
+              <Typography>{stock}</Typography>
 
               <Typography variant="h6">Price</Typography>
-              <Typography paragraph>${dish.price.toFixed(2)}</Typography>
+              <Typography paragraph>${price.toFixed(2)}</Typography>
               <Button
-                  disabled={dish.stock === 0 || place === ''}
+                  disabled={stock === 0 || place === ''}
                   fullWidth
                   variant="contained"
                   color="secondary"
@@ -138,9 +139,9 @@ const DishDetail = ({ match, addItem, place, location }) => {
             <Card className={card}>
               <CardHeader
                 avatar={
-                  <Avatar className={avatar}>{dish.chef.firstName.split('')[0]}</Avatar>
+                  <Avatar className={avatar}>{chef.firstName.split('')[0]}</Avatar>
                 }
-                title={`${dish.chef.firstName} ${dish.chef.lastName}`}
+                title={`${chef.firstName} ${chef.lastName}`}
                 subheader={<FontAwesomeIcon icon={faStar} size="sm" />}
               />
             </Card>
@@ -153,7 +154,7 @@ const DishDetail = ({ match, addItem, place, location }) => {
 
               <Typography variant="h6">Tags</Typography>
               <Typography paragraph>
-                {dish.tags.map((tag, i) => (
+                {tags.map((tag, i) => (
                   <span key={i}>
                     {tag}, {' '}
                   </span>
@@ -161,16 +162,16 @@ const DishDetail = ({ match, addItem, place, location }) => {
               </Typography>
 
               <Typography variant="h6">Ingredients</Typography>
-              {dish.ingredients.map((ingredient, i) => (
+              {ingredients.map((ingredient, i) => (
                 <Chip key={i} className={chip} label={ingredient} />
               ))}
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">More dishes by {`${dish.chef.firstName} ${dish.chef.lastName}`}</Typography>
+            <Typography variant="h6">More dishes by {`${chef.firstName} ${chef.lastName}`}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <DishesByChef dishId={dish._id} chefId={dish.chef._id} location={location} />
+            <DishesByChef dishId={_id} chefId={chef._id} location={location} />
           </Grid>
         </Grid>
       )}
