@@ -45,7 +45,7 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
       { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
-      { label: 'Gateways', to: '/account/gateways', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Payments', to: '/account/payments', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
     guest: [

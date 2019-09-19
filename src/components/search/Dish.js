@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Carousel from '../layout/Carousel';
 
 const useStyles = makeStyles(theme => ({
   card: {
     flex: 1,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -40,23 +40,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dish = ({ dish }) => {
-  const { card, media, expand, expandOpen, label, linkButton, chip } = useStyles();
+  const { card, expand, expandOpen, label, linkButton, chip } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
   };
 
-  const { title, description, price, rating, tags, ingredients, chef } = dish;
+  const { images, title, description, price, rating, tags, ingredients, chef } = dish;
   const profileUrl = `/profile/${chef.username}`;
   return (
     <div>
       <Card className={card}>
-        <CardMedia
-          className={media}
-          image="https://source.unsplash.com/random"
-          title={title}
-        />
+        <Carousel images={images} />
         <CardContent>
           <Grid container>
             <Grid item xs={12}>
@@ -78,7 +74,7 @@ const Dish = ({ dish }) => {
             </Grid>
             <Grid item>
               <Paper className={label} square elevation={0}>
-                <FontAwesomeIcon icon={faDollarSign} /> {price.toFixed(2)}
+                <FontAwesomeIcon icon={faDollarSign} /> {parseFloat(price).toFixed(2)}
               </Paper>
             </Grid>
             <Grid item>
@@ -94,11 +90,14 @@ const Dish = ({ dish }) => {
           </Grid>
         </CardContent>
         <CardActions>
-          <Link to={`/search/${dish._id}`} className={linkButton}>
-            <Button size="small" variant="outlined" color="primary">
-              View dish
-            </Button>
-          </Link>
+          {dish._id && (
+            <Link to={`/search/${dish._id}`} className={linkButton}>
+              <Button size="small" variant="outlined" color="primary">
+                View dish
+              </Button>
+            </Link>
+          )}
+          
           <IconButton
             className={clsx(expand, {
               [expandOpen]: expanded,
