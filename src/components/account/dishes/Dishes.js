@@ -5,6 +5,7 @@ import Rating from '@material-ui/lab/Rating';
 import { Link } from 'react-router-dom';
 
 import api from '../../../redux/api';
+import NoResults from '../../layout/NoResults';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -58,7 +59,8 @@ const Dishes = () => {
           </Grid>
           <Grid item xs={12}>
             {loading && <CircularProgress />}
-            {!loading && (
+            {!loading && dishes.length === 0 && <NoResults text="You have no dishes." />}
+            {!loading && dishes.length !== 0 && (
               <Paper className={paper}>
                 <Table className={table}>
                   <TableHead>

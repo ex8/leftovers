@@ -49,13 +49,10 @@ const useStyles = makeStyles(theme => ({
     width: 115,
     height: 115,
   },
-  clearIcon: {
-    marginLeft: theme.spacing(1),
-  },
 }));
 
 const CartDrawer = ({ open, onClose, items, clear }) => {
-  const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar, clearIcon } = useStyles();
+  const { drawer, drawerPaper, title, iconPadding, checkoutButton, linkButton, avatar } = useStyles();
   const totalQuantity = getTotalQuantity(items);
   const totalAmount = getTotalAmount(items);
   return (
@@ -70,21 +67,21 @@ const CartDrawer = ({ open, onClose, items, clear }) => {
         }}
       >
         <Grid container>
-          <Grid item>
-            <Typography className={title} variant="h5">
-              <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
-              Your Cart ({totalQuantity})
-              <IconButton className={clearIcon} onClick={() => clear()}>
-                <FontAwesomeIcon icon={faTrash} />
-              </IconButton>
-              {/* <Button onClick={() => clear()} variant="outlined">Clear</Button> */}
-            </Typography>
+          <Grid item xs={12}>
+            <Grid container className={title} justify="space-between" alignItems="center">
+              <Grid item>
+                <Typography variant="h5">
+                  <FontAwesomeIcon className={iconPadding} icon={faShoppingBasket} size="lg" />
+                  Your Cart ({totalQuantity})
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={() => clear()}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
-          {/* <Grid item>
-            <Typography className={title}>
-              <Button onClick={() => clear()} variant="outlined">Clear</Button>
-            </Typography>
-          </Grid> */}
         </Grid>
         <Divider />
         {totalQuantity === 0 && (

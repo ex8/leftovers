@@ -4,7 +4,7 @@ import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemT
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
-  faUtensils, faShoppingCart, faCogs,
+  faUtensils, faShoppingCart,
   faCreditCard, faSignInAlt, faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -46,7 +46,6 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
       { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
       { label: 'Payments', to: '/account/payments', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
-      { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
     guest: [
       { label: 'Login', to: '/account/login', Icon: <FontAwesomeIcon icon={faSignInAlt} size="lg" /> },

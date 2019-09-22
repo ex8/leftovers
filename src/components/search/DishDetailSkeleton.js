@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Card, CardHeader } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import DishSkeleton from './DishSkeleton';
 
 const useStyles = makeStyles(theme => ({
   card: {

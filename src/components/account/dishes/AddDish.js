@@ -58,6 +58,7 @@ const AddDish = ({ user }) => {
   };
 
   const handleImageChange = images => {
+    images.forEach(image => console.log(JSON.stringify(image)));
     setErrorMessage('');
     setFields({
       ...fields,
@@ -203,9 +204,11 @@ const AddDish = ({ user }) => {
                     placeholder="Chicken, Flour, Egg, Breadcrumbs, Salt, Pepper"
                     variant="outlined"
                     fullWidth
+                    defaultValue={['salt', 'pepper']}
                     value={ingredients}
                     onAdd={handleAddIngredientChip}
                     onDelete={handleDeleteIngredientChip}
+                    newChipKeyCodes={[13, 32]}
                     required
                   />
                 </Grid>
@@ -258,6 +261,7 @@ const AddDish = ({ user }) => {
                     value={tags}
                     onAdd={handleAddTagChip}
                     onDelete={handleDeleteTagChip}
+                    newChipKeyCodes={[13, 32]}
                     required
                   />
                 </Grid>

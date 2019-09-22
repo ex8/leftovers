@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
-import { login, reset } from '../../redux/actions/login.actions';
-import Alert from '../layout/Alert';
+import { login, reset } from '../../../redux/actions/login.actions';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   body: {

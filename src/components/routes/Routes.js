@@ -8,11 +8,11 @@ import Dishes from '../account/dishes/Dishes';
 import DishDetail from '../search/DishDetail';
 import DishList from '../search/DishList';
 import Home from '../home/Home';
-import Login from '../account/Login';
+import Login from '../account/auth/Login';
 import OrderDetails from '../account/OrderDetails';
 import Orders from '../account/Orders';
 import Profile from '../profile/Profile';
-import Signup from '../account/Signup';
+import Signup from '../account/auth/Signup';
 import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
 

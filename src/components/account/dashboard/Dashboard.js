@@ -32,10 +32,6 @@ const useStyles = makeStyles(theme => ({
   content: {
     padding: theme.spacing(0),
   },
-  image: {
-    width: 48,
-    height: 48,
-  },
   actions: {
     justifyContent: 'flex-end',
   },
@@ -55,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = ({ user }) => {
   const {
     container, linkButton, content, listContainer,
-    image, actions, payAvatar, rightIcon, table
+    actions, payAvatar, rightIcon, table
   } = useStyles();
   return (
     <div className={container}>
@@ -109,9 +105,6 @@ const Dashboard = ({ user }) => {
                 <List className={listContainer}>
                   {[1, 2, 3, 4, 5, 6, 7].map((n, i) => (
                     <ListItem key={i} divider={i < 7}>
-                      <ListItemAvatar>
-                        <img className={image} src="https://source.unsplash.com/random" alt="dishImage" />
-                      </ListItemAvatar>
                       <ListItemText
                         primary="Fried Chicken Sandwich"
                         secondary="Last updated 2 days ago"

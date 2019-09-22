@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Button, CssBaseline, TextField, Grid, Container, Typography, Paper, CircularProgress } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { signup, reset } from '../../redux/actions/signup.actions';
-import Alert from '../layout/Alert';
+import { signup, reset } from '../../../redux/actions/signup.actions';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -75,7 +75,7 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
       <CssBaseline />
       <Paper className={paper}>
         <Avatar className={avatar}>
-          <FontAwesomeIcon icon={faLock} />
+          <FontAwesomeIcon icon={faUserPlus} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Signup

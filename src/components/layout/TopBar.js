@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUserCircle, faIdCard, faCogs, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -28,10 +28,13 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  iconMargin: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
-  const { container, menuButton, flex, toolbarMargin, aboveDrawer, linkButton } = useStyles();
+  const { container, menuButton, flex, toolbarMargin, aboveDrawer, linkButton, iconMargin } = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -73,10 +76,20 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
       >
         <Link className={linkButton} to="/profile/sood">
           <MenuItem onClick={handleClose} button>
+            <FontAwesomeIcon className={iconMargin} icon={faIdCard} />
             Profile
           </MenuItem>
         </Link>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <Link className={linkButton} to="/account/settings">
+          <MenuItem onClick={handleClose} button>
+            <FontAwesomeIcon className={iconMargin} icon={faCogs} />
+            Settings
+          </MenuItem>
+        </Link>
+        <MenuItem onClick={handleLogout}>
+          <FontAwesomeIcon className={iconMargin} icon={faSignOutAlt} />
+          Logout
+        </MenuItem>
       </Menu>
     </div>
   );
