@@ -44,7 +44,6 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
     lastName: '',
     email: '',
     phone: '',
-    username: '',
     password: '',
     password2: '',
   });
@@ -68,7 +67,7 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
   };
 
   const { paper, avatar, form, submit, linkButton } = useStyles();
-  const { firstName, lastName, email, phone, username, password, password2 } = fields;
+  const { firstName, lastName, email, phone, password, password2 } = fields;
 
   return (
     <Container component="main" maxWidth="sm">
@@ -111,13 +110,6 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
                 variant="outlined" required fullWidth id="phone"
                 label="Phone Number" autoComplete="phone"
                 name="phone" value={phone} onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined" required fullWidth id="username"
-                label="Username" autoComplete="username"
-                name="username" value={username} onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>

@@ -15,6 +15,8 @@ import Profile from '../profile/Profile';
 import Signup from '../account/auth/Signup';
 import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
+import ForgotPassword from '../account/auth/ForgotPassword';
+import PrivateChefRoute from './PrivateChefRoute';
 
 const Routes = () => {
   return (
@@ -28,13 +30,14 @@ const Routes = () => {
 
       {/* Account Routes */}
       <PrivateRoute exact path="/account" component={Dashboard} />
-      <PrivateRoute exact path="/account/dishes" component={Dishes} />
-      <PrivateRoute exact path="/account/dishes/add" component={AddDish} />
+      <PrivateChefRoute exact path="/account/dishes" component={Dishes} />
+      <PrivateChefRoute exact path="/account/dishes/add" component={AddDish} />
       <PrivateRoute exact path="/account/orders/:id" component={OrderDetails} />
       <PrivateRoute exact path="/account/orders" component={Orders} />
       <PrivateRoute exact path="/account/payments" component={Gateways} /> 
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
+      <Route exact path="/account/forgot-password" component={ForgotPassword} />
     </div>
   );
 };

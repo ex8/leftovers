@@ -99,7 +99,7 @@ const Login = ({ loading, successMessage, errorMessage, login, reset, history })
           Don't have an account? <Link className={linkButton} to="/account/signup">Signup</Link>.
         </Typography>
         <Typography variant="body2">
-          <Link className={linkButton} to="/">Forgot your password?</Link>
+          <Link className={linkButton} to="/account/forgot-password">Forgot your password?</Link>
         </Typography>
       </Paper>
     </Container>
