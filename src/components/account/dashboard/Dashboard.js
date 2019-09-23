@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faShoppingCart, faCreditCard, faAngleDoubleRight, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
-import { purple, indigo, green } from '@material-ui/core/colors'
+import { purple, cyan, green } from '@material-ui/core/colors'
 
 import Tile from './Tile';
 
@@ -68,7 +68,7 @@ const Dashboard = ({ user }) => {
                 number={4}
                 subtitle="Total Dishes"
                 faIcon={faUtensils}
-                color={purple[400]}
+                color={purple[300]}
               />
             </Link>
           </Grid>
@@ -78,7 +78,7 @@ const Dashboard = ({ user }) => {
                 number={24}
                 subtitle="Completed Orders"
                 faIcon={faShoppingCart}
-                color={indigo[400]}
+                color={cyan[300]}
               />
             </Link>
           </Grid>
@@ -88,7 +88,7 @@ const Dashboard = ({ user }) => {
                 number={24}
                 subtitle="Payments Made"
                 faIcon={faCreditCard}
-                color={green[400]}
+                color={green[300]}
               />
             </Link>
           </Grid>
