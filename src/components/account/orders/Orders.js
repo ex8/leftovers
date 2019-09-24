@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, CircularProgress, Table, Hidden, Paper, TableBody, TableHead, TableRow, TableCell, Button } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { Container, Grid, Typography, Table, Hidden, Paper, TableBody, TableHead, TableRow, TableCell, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
-import api from '../../redux/api';
 
 const useStyles = makeStyles(theme => ({
   container: {

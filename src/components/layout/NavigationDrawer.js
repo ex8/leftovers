@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
   faUtensils, faShoppingCart, faCogs,
-  faCreditCard, faSignInAlt, faUserPlus
+  faCreditCard, faSignInAlt, faUserPlus, faUtensilSpoon
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -43,9 +43,9 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
     ],
     account: [
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
-      { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
-      { label: 'Payments', to: '/account/payments', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Payment', to: '/account/payment', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Become a Chef', to: '/account/become-a-chef', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
     guest: [

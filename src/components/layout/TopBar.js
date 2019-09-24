@@ -74,12 +74,6 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
         open={open}
         onClose={handleClose}
       >
-        <Link className={linkButton} to="/profile/sood">
-          <MenuItem onClick={handleClose} button>
-            <FontAwesomeIcon className={iconMargin} icon={faIdCard} />
-            Profile
-          </MenuItem>
-        </Link>
         <Link className={linkButton} to="/account/settings">
           <MenuItem onClick={handleClose} button>
             <FontAwesomeIcon className={iconMargin} icon={faCogs} />
