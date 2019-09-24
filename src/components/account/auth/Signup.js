@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Button, CssBaseline, TextField, Grid, Container, Typography, Paper, CircularProgress } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { signup, reset } from '../../redux/actions/signup.actions';
-import Alert from '../layout/Alert';
+import { signup, reset } from '../../../redux/actions/signup.actions';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -44,7 +44,6 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
     lastName: '',
     email: '',
     phone: '',
-    username: '',
     password: '',
     password2: '',
   });
@@ -68,14 +67,14 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
   };
 
   const { paper, avatar, form, submit, linkButton } = useStyles();
-  const { firstName, lastName, email, phone, username, password, password2 } = fields;
+  const { firstName, lastName, email, phone, password, password2 } = fields;
 
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <Paper className={paper}>
         <Avatar className={avatar}>
-          <FontAwesomeIcon icon={faLock} />
+          <FontAwesomeIcon icon={faUserPlus} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Signup
@@ -111,13 +110,6 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
                 variant="outlined" required fullWidth id="phone"
                 label="Phone Number" autoComplete="phone"
                 name="phone" value={phone} onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined" required fullWidth id="username"
-                label="Username" autoComplete="username"
-                name="username" value={username} onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>

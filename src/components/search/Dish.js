@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Button, Paper, Card, CardMedia, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip } from '@material-ui/core';
+import { Button, Paper, Card, CardContent, CardActions, Collapse, IconButton, Typography, Grid, Chip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faDollarSign, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import Carousel from '../layout/Carousel';
 
 const useStyles = makeStyles(theme => ({
@@ -37,10 +35,13 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  lineBreaks: {
+    whiteSpace: 'pre-line'
+  }
 }));
 
 const Dish = ({ dish }) => {
-  const { card, expand, expandOpen, label, linkButton, chip } = useStyles();
+  const { card, expand, expandOpen, label, linkButton, chip, lineBreaks } = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
@@ -61,15 +62,6 @@ const Dish = ({ dish }) => {
             <Grid item xs={12}>
               <Typography variant="subtitle2">
                 By <Link className={linkButton} to={profileUrl}>{chef.firstName} {chef.lastName}</Link>
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="caption" gutterBottom>
-                {tags.map((tag, i) => (
-                  <span key={i}>
-                    {tag}, {' '}
-                  </span>
-                ))}
               </Typography>
             </Grid>
             <Grid item>
@@ -112,12 +104,16 @@ const Dish = ({ dish }) => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography variant="h6">Description</Typography>
-            <Typography variant="body2" paragraph>
+            <Typography className={lineBreaks} variant="body2" paragraph>
               {description}
             </Typography>
             <Typography variant="h6">Ingredients</Typography>
             {ingredients.map((ingredient, i) => (
               <Chip key={i} className={chip} label={ingredient} />
+            ))}
+            <Typography variant="h6">Tags</Typography>
+            {tags.map((tag, i) => (
+              <Chip key={i} className={chip} label={tag} />
             ))}
           </CardContent>
         </Collapse>

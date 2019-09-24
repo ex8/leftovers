@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Container, Card, Avatar } from '@material-ui/core';
-import { teal } from '@material-ui/core/colors';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSadCry, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import { Grid, Typography, Container} from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import Dish from './Dish';
@@ -13,28 +10,16 @@ import AddressBar from '../home/AddressBar';
 import api from '../../redux/api';
 import DishSkeleton from './DishSkeleton';
 import Alert from '../layout/Alert';
+import NoResults from '../layout/NoResults';
 
 const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
   },
-  card: {
-    flex: 1,
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(2),
-    backgroundColor: teal[200],
-    width: 75,
-    height: 75,
-  },
 }));
 
 const DishList = ({ place, coords }) => {
-  const { container, card, avatar } = useStyles();
+  const { container } = useStyles();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [queryString, setQueryString] = useState('');
@@ -97,16 +82,7 @@ const DishList = ({ place, coords }) => {
             />
           )}
           {loading && <DishSkeleton skeletons={6} />}
-          {!loading && dishes.length === 0 && place !== '' && (
-            <Card className={card}>
-              <Avatar className={avatar}>
-                <FontAwesomeIcon icon={faSadCry} size="2x" />
-              </Avatar>
-              <Typography variant="h6">
-                No dishes found.
-              </Typography>
-            </Card>
-          )}
+          {!loading && dishes.length === 0 && place !== '' && <NoResults text="No dishes found." />}
           {!loading && dishes.map((d, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
               <Dish dish={d} />

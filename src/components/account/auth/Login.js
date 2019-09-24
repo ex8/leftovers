@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
-import { login, reset } from '../../redux/actions/login.actions';
-import Alert from '../layout/Alert';
+import { login, reset } from '../../../redux/actions/login.actions';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -99,7 +99,7 @@ const Login = ({ loading, successMessage, errorMessage, login, reset, history })
           Don't have an account? <Link className={linkButton} to="/account/signup">Signup</Link>.
         </Typography>
         <Typography variant="body2">
-          <Link className={linkButton} to="/">Forgot your password?</Link>
+          <Link className={linkButton} to="/account/forgot-password">Forgot your password?</Link>
         </Typography>
       </Paper>
     </Container>
