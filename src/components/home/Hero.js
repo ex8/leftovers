@@ -23,7 +23,7 @@ const Hero = () => {
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Order hand-crafted, home cooked meals!
         </Typography>
-        <Grid container spacing={2} justify="center">
+        <Grid container spacing={2} justify="center" alignItems="center">
           <Grid item xs={12}>
             <AddressBar redirect={true} />
           </Grid>

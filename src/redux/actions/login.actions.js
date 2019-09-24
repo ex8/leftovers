@@ -11,10 +11,16 @@ export const login = (user, history) => dispatch => {
     type: LOGIN_REQUEST,
     loading: true,
   });
-  if (!isEmail(user.email)) {
+  if (!isEmail(user.email) || user.email === '') {
     return dispatch({
       type: LOGIN_FAILURE,
       errorMessage: 'Please enter a valid e-mail address.',
+    });
+  }
+  if (user.password === '') {
+    return dispatch({
+      type: LOGIN_FAILURE,
+      errorMessage: 'Please enter a password.'
     });
   }
   api.post('/api/auth/login', user)

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faShoppingCart, faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faCreditCard, faUtensilSpoon, faCogs, faReceipt } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -22,13 +22,13 @@ const Navigation = () => {
   return (
     <footer className={container}>
       <Grid container>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h5">Leftovers</Typography>
           <Typography gutterBottom>
             Made with {<FontAwesomeIcon icon={faHeart} size="xs" />}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Typography variant="subtitle1">
             Main
           </Typography>
@@ -75,7 +75,7 @@ const Navigation = () => {
             </Link>
           </List>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Typography variant="subtitle1">
             My Account
           </Typography>
@@ -93,17 +93,7 @@ const Navigation = () => {
             <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faUtensils} />
-                </ListItemIcon>
-                <ListItemText>
-                  Dishes
-                </ListItemText>
-              </ListItem>
-            </Link>
-            <Link className={linkButton} to="/">
-              <ListItem button>
-                <ListItemIcon>
-                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <FontAwesomeIcon icon={faReceipt} />
                 </ListItemIcon>
                 <ListItemText>
                   Orders
@@ -116,7 +106,64 @@ const Navigation = () => {
                   <FontAwesomeIcon icon={faCreditCard} />
                 </ListItemIcon>
                 <ListItemText>
-                  Gateways
+                  Payment
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faUtensilSpoon} />
+                </ListItemIcon>
+                <ListItemText>
+                  Become a Chef
+                </ListItemText>
+              </ListItem>
+            </Link>
+          </List>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <Typography variant="subtitle1">
+            Chef
+          </Typography>
+          <List>
+            <Link className={linkButton} to="/chef/dishes">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faUtensils} />
+                </ListItemIcon>
+                <ListItemText>
+                  Dishes
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/chef/settings">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faCogs} />
+                </ListItemIcon>
+                <ListItemText>
+                  Settings
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/chef/login">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faSignInAlt} />
+                </ListItemIcon>
+                <ListItemText>
+                  Chef Login
+                </ListItemText>
+              </ListItem>
+            </Link>
+            <Link className={linkButton} to="/chef/signup">
+              <ListItem button>
+                <ListItemIcon>
+                  <FontAwesomeIcon icon={faUserPlus} />
+                </ListItemIcon>
+                <ListItemText>
+                  Chef Signup
                 </ListItemText>
               </ListItem>
             </Link>

@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faHome, faSearch, faTachometerAlt,
-  faUtensils, faShoppingCart, faCogs,
-  faCreditCard, faSignInAlt, faUserPlus, faUtensilSpoon
+  faHome, faSearch, faTachometerAlt,faCogs,
+  faCreditCard, faSignInAlt, faUserPlus, faUtensilSpoon, faReceipt
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -43,7 +42,7 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
     ],
     account: [
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
-      { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
+      { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faReceipt} size="lg" /> },
       { label: 'Payment', to: '/account/payment', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
       { label: 'Become a Chef', to: '/account/become-a-chef', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
@@ -91,22 +90,20 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                 visible={sections.main} 
                 onClick={onClick} 
               />
-                <div>
-                  <ListSubheader>
-                    <Button
-                      disableRipple
-                      classes={{ root: listSubHeader }}
-                      onClick={toggleSection('account')}
-                    >
-                      My Account
-                    </Button>
-                  </ListSubheader>
-                  <ListItems 
-                    items={isAuthenticated ? items.account : items.guest} 
-                    visible={sections.account} 
-                    onClick={onClick} 
-                  />
-                </div>
+              <ListSubheader>
+                <Button
+                  disableRipple
+                  classes={{ root: listSubHeader }}
+                  onClick={toggleSection('account')}
+                >
+                  My Account
+                </Button>
+              </ListSubheader>
+              <ListItems 
+                items={isAuthenticated ? items.account : items.guest} 
+                visible={sections.account} 
+                onClick={onClick} 
+              />
             </List>
           </Drawer>
         </Grid>

@@ -3,11 +3,19 @@ import { isEmail, isMobilePhone } from 'validator'
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, SIGNUP_RESET } from '../types';
 import api from '../api';
 
-export const signup = ({ email, phone, password, password2, ...rest }) => dispatch => {
+export const signup = user => dispatch => {
   dispatch({
     type: SIGNUP_REQUEST,
     loading: true,
   });
+  const { firstName, lastName, email, phone, password, password2 } = user;
+  if (firstName === '' || lastName === '' || email === '' || 
+      phone === '' || password === '' || password2 === '') {
+    return dispatch({
+      type: SIGNUP_FAILURE,
+      errorMessage: 'Please fill in all fields.',
+    });
+  }
   if (!isEmail(email)) {
     return dispatch({
       type: SIGNUP_FAILURE,
@@ -21,7 +29,7 @@ export const signup = ({ email, phone, password, password2, ...rest }) => dispat
     });
   }
   if (password === password2) {
-    api.post('/api/auth/signup', { email, phone, password, ...rest })
+    api.post('/api/auth/signup', user)
       .then(res => {
         if (res.data.success) {
           dispatch({
