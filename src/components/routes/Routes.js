@@ -17,6 +17,7 @@ import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
 import ForgotPassword from '../account/auth/ForgotPassword';
 import PrivateChefRoute from './PrivateChefRoute';
+import BecomeAChef from '../account/become-a-chef/BecomeAChef';
 
 const Routes = () => {
   return (
@@ -34,7 +35,8 @@ const Routes = () => {
       <PrivateChefRoute exact path="/account/dishes/add" component={AddDish} />
       <PrivateRoute exact path="/account/orders/:id" component={OrderDetails} />
       <PrivateRoute exact path="/account/orders" component={Orders} />
-      <PrivateRoute exact path="/account/payments" component={Gateways} /> 
+      <PrivateRoute exact path="/account/payments" component={Gateways} />
+      <PrivateRoute exact path="/account/become-a-chef" component={BecomeAChef} />
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
       <Route exact path="/account/forgot-password" component={ForgotPassword} />

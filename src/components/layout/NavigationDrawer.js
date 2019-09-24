@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,
   faUtensils, faShoppingCart,
-  faCreditCard, faSignInAlt, faUserPlus
+  faCreditCard, faSignInAlt, faUserPlus, faUtensilSpoon
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
+const NavigationDrawer = ({ open, onClose, isAuthenticated, user }) => {
   const [sections, setSections] = useState({
     main: true,
     account: true,
@@ -46,6 +46,7 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
       { label: 'Dishes', to: '/account/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faShoppingCart} size="lg" /> },
       { label: 'Payments', to: '/account/payments', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Become a Chef', to: '/account/become-a-chef', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
     ],
     guest: [
       { label: 'Login', to: '/account/login', Icon: <FontAwesomeIcon icon={faSignInAlt} size="lg" /> },
@@ -90,22 +91,20 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                 visible={sections.main} 
                 onClick={onClick} 
               />
-                <div>
-                  <ListSubheader>
-                    <Button
-                      disableRipple
-                      classes={{ root: listSubHeader }}
-                      onClick={toggleSection('account')}
-                    >
-                      My Account
-                    </Button>
-                  </ListSubheader>
-                  <ListItems 
-                    items={isAuthenticated ? items.account : items.guest} 
-                    visible={sections.account} 
-                    onClick={onClick} 
-                  />
-                </div>
+              <ListSubheader>
+                <Button
+                  disableRipple
+                  classes={{ root: listSubHeader }}
+                  onClick={toggleSection('account')}
+                >
+                  My Account
+                </Button>
+              </ListSubheader>
+              <ListItems 
+                items={isAuthenticated ? items.account : items.guest} 
+                visible={sections.account} 
+                onClick={onClick} 
+              />
             </List>
           </Drawer>
         </Grid>
@@ -136,6 +135,7 @@ const ListItems = ({ items, onClick, visible }) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.userReducer.isAuthenticated,
+  user: state.userReducer.user,
 });
 
 export default connect(mapStateToProps)(NavigationDrawer);

@@ -15,10 +15,11 @@ import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
 import { purple, cyan, green } from '@material-ui/core/colors'
 
 import Tile from './Tile';
+import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    flexGrow: 1,
+    flex: 1,
     padding: theme.spacing(2),
   },
   linkButton: {
@@ -58,10 +59,15 @@ const Dashboard = ({ user }) => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h4">
-              Hi, {user.firstName}!
-            </Typography>
+            <Typography variant="h4">Hi, {user.firstName}!</Typography>
           </Grid>
+          {!user.isChef && (
+            <Grid item xs={12}>
+              <Link className={linkButton} to="/account/become-a-chef">
+                <Alert variant="info" message="Become a Chef today!" />              
+              </Link>
+            </Grid>
+          )}
           <Grid item xs={12} sm={6} md={4}>
             <Link to="/account/dishes" className={linkButton}>
               <Tile
