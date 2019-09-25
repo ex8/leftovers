@@ -4,7 +4,7 @@ import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemT
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,faCogs,
-  faCreditCard, faSignInAlt, faUserPlus, faUtensilSpoon, faReceipt
+  faCreditCard, faSignInAlt, faUserPlus, faReceipt, faUtensilSpoon, faPizzaSlice
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -39,12 +39,13 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
     main: [
       { label: 'Home', to: '/', Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
       { label: 'Search', to: '/search', Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
+      { label: 'Eaters', to: '/eaters', Icon: <FontAwesomeIcon icon={faPizzaSlice} size="lg" /> },
+      { label: 'Chefs', to: '/chefs', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
     ],
     account: [
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
       { label: 'Orders', to: '/account/orders', Icon: <FontAwesomeIcon icon={faReceipt} size="lg" /> },
       { label: 'Payment', to: '/account/payment', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
-      { label: 'Become a Chef', to: '/account/become-a-chef', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
       { label: 'Settings', to: '/account/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
     guest: [

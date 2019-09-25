@@ -24,13 +24,13 @@ const Tile = ({ number, subtitle, faIcon, color }) => {
           <Typography variant="subtitle1">{subtitle}</Typography>
         </Grid>
         <Grid item>
-          <Avatar className={[avatar].join(' ')} style={{ backgroundColor: color }}>
+          <Avatar className={avatar} style={{ backgroundColor: color }}>
             <FontAwesomeIcon icon={faIcon} size="lg" />
           </Avatar>
         </Grid>
       </Grid>
     </Card>
-  )
+  );
 };
 
 export default Tile;

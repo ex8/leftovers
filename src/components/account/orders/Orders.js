@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 const Orders = () => {
   const { container, table, paper, linkButton } = useStyles();
-
   return (
     <div className={container}>
       <Container>

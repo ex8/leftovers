@@ -17,13 +17,14 @@ import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
 import ForgotPassword from '../account/auth/ForgotPassword';
 import Settings from '../account/Settings';
-import BecomeAChef from '../account/BecomeAChef';
 import ChefDashboard from '../chef-account/ChefDashboard';
 import ChefLogin from '../chef-account/auth/ChefLogin';
 import ChefSignup from '../chef-account/auth/ChefSignup';
 import ChefForgotPassword from '../chef-account/auth/ChefForgotPassword';
 import ChefDishList from '../chef-account/ChefDishList';
 import ChefOrderList from '../chef-account/ChefOrderList';
+import Eaters from '../home/Eaters';
+import Chefs from '../home/Chefs';
 
 const Routes = () => {
   return (
@@ -33,6 +34,8 @@ const Routes = () => {
       <Route exact path="/search" component={DishList} />
       <Route exact path="/search/:id" component={DishDetail} />
       <Route exact path="/checkout" component={Checkout} />
+      <Route exact path="/eaters" component={Eaters} />
+      <Route exact path="/chefs" component={Chefs} />
       <Route exact path="/profile/:username" component={Profile} />
 
       {/* Account Routes */}
@@ -40,7 +43,6 @@ const Routes = () => {
       <PrivateRoute exact path="/account/orders/:id" component={OrderDetails} />
       <PrivateRoute exact path="/account/orders" component={Orders} />
       <PrivateRoute exact path="/account/payment" component={Gateways} /> 
-      <PrivateRoute exact path="/account/become-a-chef" component={BecomeAChef} /> 
       <PrivateRoute exact path="/account/settings" component={Settings} /> 
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
@@ -50,7 +52,6 @@ const Routes = () => {
       <Route exact path="/chef" component={ChefDashboard} />
       <Route exact path="/chef/dishes" component={ChefDishList} />
       <Route exact path="/chef/orders" component={ChefOrderList} />
-      
       <Route exact path="/chef/login" component={ChefLogin} />
       <Route exact path="/chef/signup" component={ChefSignup} />
       <Route exact path="/chef/forgot-password" component={ChefForgotPassword} />

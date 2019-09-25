@@ -4,15 +4,13 @@ import {
   Card, Container, Grid, Typography, Avatar, CardHeader,
   CardContent, CardActions, Button, List, ListItem,
   ListItemAvatar, ListItemText, IconButton, Divider,
-  Table, TableBody, TableHead, TableCell, TableRow,
-  Hidden,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faShoppingCart, faCreditCard, faAngleDoubleRight, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faCreditCard, faAngleDoubleRight, faEdit, faReceipt, faUtensilSpoon } from '@fortawesome/free-solid-svg-icons';
 import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
-import { teal } from '@material-ui/core/colors'
+import { teal, red } from '@material-ui/core/colors'
 
 import Tile from './Tile';
 
@@ -46,16 +44,12 @@ const useStyles = makeStyles(theme => ({
   rightIcon: {
     marginLeft: theme.spacing(1),
   },
-  table: {
-    maxHeight: 300,
-    overflow: 'auto',
-  },
 }));
 
 const Dashboard = ({ user }) => {
   const {
     container, linkButton, content, listContainer,
-    image, actions, payAvatar, rightIcon, table
+    image, actions, payAvatar, rightIcon
   } = useStyles();
   return (
     <div className={container}>
@@ -66,27 +60,17 @@ const Dashboard = ({ user }) => {
               Hi, {user.firstName}!
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Link to="/account/dishes" className={linkButton}>
-              <Tile
-                number={4}
-                subtitle="Total Dishes"
-                faIcon={faUtensils}
-                color={teal[300]}
-              />
-            </Link>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6}>
             <Link to="/account/orders" className={linkButton}>
               <Tile
                 number={24}
                 subtitle="Completed Orders"
-                faIcon={faShoppingCart}
+                faIcon={faReceipt}
                 color={teal[300]}
               />
             </Link>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6}>
             <Link to="/account/payments" className={linkButton}>
               <Tile
                 number={24}
@@ -99,7 +83,7 @@ const Dashboard = ({ user }) => {
           <Grid item xs={12} sm={6}>
             <Card>
               <CardHeader
-                title="Latest Dishes"
+                title="Latest Orders"
                 titleTypographyProps={{
                   variant: 'h6',
                 }}
@@ -113,8 +97,8 @@ const Dashboard = ({ user }) => {
                         <img className={image} src="https://source.unsplash.com/random" alt="dishImage" />
                       </ListItemAvatar>
                       <ListItemText
-                        primary="Fried Chicken Sandwich"
-                        secondary="Last updated 2 days ago"
+                        primary="Fried Chicken Sandwich from Jeffrey Xie"
+                        secondary="Completed - 2 days ago"
                       />
                       <IconButton>
                         <FontAwesomeIcon icon={faEdit} size="xs" />
@@ -124,9 +108,9 @@ const Dashboard = ({ user }) => {
                 </List>
               </CardContent>
               <CardActions className={actions}>
-                <Link className={linkButton} to="/account/dishes">
+                <Link className={linkButton} to="/account/orders">
                   <Button color="primary">
-                    View All Dishes
+                    View All Orders
                     <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
                   </Button>
                 </Link>
@@ -166,55 +150,6 @@ const Dashboard = ({ user }) => {
                 <Link className={linkButton} to="/account/payments">
                   <Button color="primary">
                     View All Gateways
-                    <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
-                  </Button>
-                </Link>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <CardHeader
-                title="Latest Orders"
-                titleTypographyProps={{
-                  variant: 'h6',
-                }}
-              />
-              <Divider />
-              <CardContent className={content}>
-                <Table className={table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Title</TableCell>
-                      <TableCell>Created</TableCell>
-                      <Hidden xsDown><TableCell>Total</TableCell></Hidden>
-                      <Hidden smDown><TableCell>Status</TableCell></Hidden>
-                      <TableCell>Action</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((n, i) => (
-                      <TableRow key={i} hover>
-                        <TableCell component="th" scope="row">2 items</TableCell>
-                        <TableCell>9/13/2019 - 9:45pm</TableCell>
-                        <Hidden xsDown><TableCell>$9.99</TableCell></Hidden>
-                        <Hidden smDown>
-                          <TableCell>Completed</TableCell>
-                        </Hidden>
-                        <TableCell>
-                          <Link className={linkButton} to={`/account/orders/idbruh`}>
-                            <Button size="small" variant="contained" color="secondary">View</Button>
-                          </Link>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-              <CardActions className={actions}>
-                <Link className={linkButton} to="/account/orders">
-                  <Button color="primary">
-                    View All Orders
                     <FontAwesomeIcon className={rightIcon} icon={faAngleDoubleRight} />
                   </Button>
                 </Link>
