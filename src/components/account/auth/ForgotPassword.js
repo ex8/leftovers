@@ -59,9 +59,6 @@ import { Link } from 'react-router-dom';
           </Button>
         </form>
         <Typography variant="body2">
-          Have an account? <Link className={linkButton} to="/account/login">Login</Link>.
-        </Typography>
-        <Typography variant="body2">
           Don't have an account? <Link className={linkButton} to="/account/signup">Signup</Link>.
         </Typography>
       </Paper>

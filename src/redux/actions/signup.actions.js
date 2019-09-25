@@ -29,7 +29,7 @@ export const signup = user => dispatch => {
     });
   }
   if (password === password2) {
-    api.post('/api/auth/signup', user)
+    api.post('/api/account/signup', user)
       .then(res => {
         if (res.data.success) {
           dispatch({
@@ -42,7 +42,7 @@ export const signup = user => dispatch => {
           dispatch({
             type: SIGNUP_FAILURE,
             loading: false,
-            errorMessage: res.data.message,
+            errorMessage: res.data.err,
           });
         }
       })

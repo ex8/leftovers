@@ -8,16 +8,19 @@ import Routes from './components/routes/Routes';
 import theme from './theme';
 import CartNotification from './components/cart/CartNotification';
 import CartDialog from './components/cart/CartDialog';
+import ScrollToTop from './components/layout/ScrollToTop';
 
 const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Navigation />
-        <Routes />
-        <CartNotification />
-        <CartDialog />
+        <ScrollToTop>
+          <Navigation />
+          <Routes />
+          <CartNotification />
+          <CartDialog />
+        </ScrollToTop>
       </BrowserRouter>
     </MuiThemeProvider>
   );

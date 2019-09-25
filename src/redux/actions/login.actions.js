@@ -23,7 +23,7 @@ export const login = (user, history) => dispatch => {
       errorMessage: 'Please enter a password.'
     });
   }
-  api.post('/api/auth/login', user)
+  api.post('/api/account/login', user)
     .then(res => {
       if (res.data.success) {
         const { token } = res.data;
