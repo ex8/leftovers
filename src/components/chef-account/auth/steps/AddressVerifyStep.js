@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { TextField, InputAdornment, IconButton, CircularProgress, Paper, MenuItem, Container } from '@material-ui/core';
+import { TextField, InputAdornment, IconButton, CircularProgress, Paper, MenuItem, Container, Typography, Grid } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -47,51 +47,60 @@ const AdressVerifyStep = ({ fields, setFields }) => {
   return (
     <div className={root}>
       <Container maxWidth="sm">
-        {loaded && !error && (
-          <PlacesAutocomplete
-            value={address}
-            onChange={handleChange}
-            onSelect={handleSelect}
-          >
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-              <div className={container}>
-                <TextField
-                  label="Enter your address"
-                  margin="normal"
-                  variant="outlined"
-                  value={address}
-                  fullWidth
-                  {...getInputProps()}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment>
-                        {loading && <CircularProgress size={25} />}
-                        {!loading && (
-                          <Link to="/search">
-                            <IconButton onClick={handleSelect}>
-                              <FontAwesomeIcon icon={faMapMarkerAlt} />
-                            </IconButton>
-                          </Link>
-                        )}
-                      </InputAdornment>
-                    )
-                  }}
-                />
-                <div>
-                  <Paper className={paper} square>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography gutterBottom>
+              Your profile page will be visible to all using your username.
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            {loaded && !error && (
+              <PlacesAutocomplete
+                value={address}
+                onChange={handleChange}
+                onSelect={handleSelect}
+              >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                  <div className={container}>
+                    <TextField
+                      label="Enter your address"
+                      margin="normal"
+                      variant="outlined"
+                      value={address}
+                      fullWidth
+                      {...getInputProps()}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment>
+                            {loading && <CircularProgress size={25} />}
+                            {!loading && (
+                              <Link to="/search">
+                                <IconButton onClick={handleSelect}>
+                                  <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                </IconButton>
+                              </Link>
+                            )}
+                          </InputAdornment>
+                        )
+                      }}
+                    />
                     <div>
-                      {suggestions.map((suggestion, i) => (
-                        <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
-                          {suggestion.description}
-                        </MenuItem>
-                      ))}
+                      <Paper className={paper} square>
+                        <div>
+                          {suggestions.map((suggestion, i) => (
+                            <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
+                              {suggestion.description}
+                            </MenuItem>
+                          ))}
+                        </div>
+                      </Paper>
                     </div>
-                  </Paper>
-                </div>
-              </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
             )}
-          </PlacesAutocomplete>
-        )}
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

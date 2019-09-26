@@ -144,64 +144,6 @@ const BecomeAChefSteps = ({ fields, setFields }) => {
           </Typography>
         </div>
       )}
-
-      {/* <Stepper activeStep={activeStep}>
-        {steps.map((step, i) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepOptional(i)) {
-            labelProps.optional = <Typography variant="caption">optional</Typography>;
-          }
-          if (isStepSkipped(i)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={step} {...stepProps}>
-              <StepLabel {...labelProps}>{step}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography className={instructions}>
-              All steps completed!!
-            </Typography>
-          </div>
-        ) : (
-            <div>
-              <Typography className={instructions}>{getStepContent(activeStep)}</Typography>
-              <Button
-                variant="contained"
-                className={button}
-                color="secondary"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={button}
-              >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button>
-              {isStepOptional(activeStep) && (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={handleSkip}
-                  className={button}
-                >
-                  Skip
-                </Button>
-              )}
-            </div>
-          )}
-      </div> */}
     </div>
   );
 };

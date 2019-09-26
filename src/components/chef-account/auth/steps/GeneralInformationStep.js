@@ -29,28 +29,26 @@ const GeneralInformationStep = ({ fields, setFields }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              inputProps={{ type: 'email' }} margin="normal"
+              inputProps={{ type: 'email' }}
               variant="outlined" required fullWidth label="Email Address"
               name="email" value={email} onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              variant="outlined" required fullWidth label="Phone Number" margin="normal"
+              variant="outlined" required fullWidth label="Phone Number"
               name="phone" value={phone} onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              variant="outlined" required fullWidth margin="normal"
-              label="Password" type="password"
+              variant="outlined" required fullWidth label="Password" type="password"
               name="password" value={password} onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              variant="outlined" required fullWidth
-              label="Password Again" type="password" margin="normal"
+              variant="outlined" required fullWidth label="Password Again" type="password"
               name="password2" value={password2} onChange={handleInputChange}
             />
           </Grid>

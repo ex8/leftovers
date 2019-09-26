@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
@@ -48,7 +49,13 @@ const ChefSignup = () => {
     password: '',
     password2: '',
     address: '',
-    driversLicense: '',
+    driversLicenseImage: '',
+    bio: '',
+    social: {
+      facebook: '',
+      twitter: '',
+      instagram: '',
+    }
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
