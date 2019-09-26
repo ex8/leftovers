@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { TextField, InputAdornment, IconButton, CircularProgress, Paper, MenuItem, Container, Typography, Grid } from '@material-ui/core';
@@ -50,7 +50,7 @@ const AdressVerifyStep = ({ fields, setFields }) => {
         <Grid container>
           <Grid item xs={12}>
             <Typography gutterBottom>
-              Your profile page will be visible to all using your username.
+              Your address will be used for the dish location upon search.
             </Typography>
           </Grid>
           <Grid item xs={12}>

@@ -10,7 +10,7 @@ const GeneralInformationStep = ({ fields, setFields }) => {
     });
   }
 
-  const { firstName, lastName, email, phone, password, password2 } = fields;
+  const { firstName, lastName, email, phone, username, password, password2 } = fields;
   return (
     <div>
       <Container maxWidth="sm">
@@ -38,6 +38,12 @@ const GeneralInformationStep = ({ fields, setFields }) => {
             <TextField
               variant="outlined" required fullWidth label="Phone Number"
               name="phone" value={phone} onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined" fullWidth label="Username" required
+              name="username" value={username} onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>

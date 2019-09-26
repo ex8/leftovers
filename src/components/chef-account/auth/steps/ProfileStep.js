@@ -8,11 +8,15 @@ const ProfileStep = ({ fields, setFields }) => {
     const { name, value } = e.target;
     setFields({
       ...fields,
+      social: {
+        ...fields.social,
+        [name]: value,
+      },
       [name]: value,
     });
   }
 
-  const { username, bio, social } = fields;
+  const { bio, social } = fields;
   const { facebook, twitter, instagram } = social;
   return (
     <div>
@@ -22,12 +26,6 @@ const ProfileStep = ({ fields, setFields }) => {
             <Typography gutterBottom>
               Your profile page will be visible to all using your username.
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined" fullWidth label="Username" autoFocus
-              name="username" value={username} onChange={handleInputChange}
-            />
           </Grid>
           <Grid item xs={12}>
             <TextField
