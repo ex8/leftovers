@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
 import { addItem } from '../../redux/actions/cart.actions';
-import api from '../../redux/api';
+import api from '../utils/api';
 import DishDetailSkeleton from './DishDetailSkeleton';
 import AddressBar from '../home/AddressBar';
 import DishesByChef from './DishesByChef';

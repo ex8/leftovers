@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Container } from '@material-ui/core';
 
 import Dish from '../search/Dish';
-import api from '../../redux/api';
+import api from '../utils/api';
 import DishSkeleton from '../search/DishSkeleton';
 import NoResults from '../layout/NoResults';
 

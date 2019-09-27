@@ -7,7 +7,7 @@ import Dish from './Dish';
 import SearchFilters from './SearchFilters';
 import SearchBar from './SearchBar';
 import AddressBar from '../home/AddressBar';
-import api from '../../redux/api';
+import api from '../utils/api';
 import DishSkeleton from './DishSkeleton';
 import Alert from '../layout/Alert';
 import NoResults from '../layout/NoResults';

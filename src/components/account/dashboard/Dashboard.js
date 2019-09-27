@@ -8,9 +8,9 @@ import {
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faCreditCard, faAngleDoubleRight, faEdit, faReceipt, faUtensilSpoon } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard, faAngleDoubleRight, faEdit, faReceipt } from '@fortawesome/free-solid-svg-icons';
 import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
-import { teal, red } from '@material-ui/core/colors'
+import { teal } from '@material-ui/core/colors'
 
 import Tile from './Tile';
 

@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Button, CssBaseline, TextField, Grid, Container, Typography, Paper, CircularProgress } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField, Grid, Container, Typography, Card, CircularProgress } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { isEmail, isMobilePhone } from 'validator'
 
-import { signup, reset } from '../../../redux/actions/signup.actions';
 import Alert from '../../layout/Alert';
+import api from '../../utils/api';
 
 const useStyles = makeStyles(theme => ({
   body: {
     backgroundColor: theme.palette.common.white,
   },
-  paper: {
+  card: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
     padding: theme.spacing(4),
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
+const Signup = () => {
   const [fields, setFields] = useState({
     firstName: '',
     lastName: '',
@@ -47,10 +47,10 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
     password: '',
     password2: '',
   });
-
-  useEffect(() => {
-    reset();
-  }, []);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+  const [successMessage, setSuccessMessage] = useState();
+  const { firstName, lastName, email, phone, password, password2 } = fields;
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -61,18 +61,60 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
     });
   };
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    signup(fields);
+  const reset = () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(false);
   };
 
-  const { paper, avatar, form, submit, linkButton } = useStyles();
-  const { firstName, lastName, email, phone, password, password2 } = fields;
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    setLoading(true);
+    if (validateForm()) {
+      api.post('/api/account/signup', fields)
+        .then(res => {
+          if (res.data.success) {
+            setSuccessMessage('Account successfully created. You may now login.')
+          }
+          else {
+            setErrorMessage(res.data.err);
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          setErrorMessage('You cannot signup at this time.');
+          setLoading(false);
+        });
+    }
+    setLoading(false);
+  };
 
+  const validateForm = () => {
+    if (firstName === '' || lastName === '' || email === '' ||
+      phone === '' || password === '' || password2 === '') {
+      setErrorMessage('Please fill in all fields.');
+      return false;
+    }
+    else if (password !== password2) {
+      setErrorMessage('Please enter matching passwords.');
+      return false;
+    }
+    else if (!isEmail(email)) {
+      setErrorMessage('Please enter a valid e-mail address.');
+      return false;
+    }
+    else if (!isMobilePhone(phone)) {
+      setErrorMessage('Please enter a valid phone number.');
+      return false;
+    }
+    return true;
+  }
+
+  const { card, avatar, form, submit, linkButton } = useStyles();
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
-      <Paper className={paper}>
+      <Card className={card}>
         <Avatar className={avatar}>
           <FontAwesomeIcon icon={faUserPlus} />
         </Avatar>
@@ -138,20 +180,9 @@ const Signup = ({ loading, successMessage, errorMessage, signup, reset }) => {
         <Typography variant="body2">
           Already have an account? <Link className={linkButton} to="/account/login">Login</Link>.
         </Typography>
-      </Paper>
+      </Card>
     </Container>
   );
 }
 
-const mapStateToProps = state => ({
-  loading: state.signupReducer.loading,
-  successMessage: state.signupReducer.successMessage,
-  errorMessage: state.signupReducer.errorMessage,
-});
-
-const mapDispatchToProps = {
-  signup,
-  reset,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default Signup;

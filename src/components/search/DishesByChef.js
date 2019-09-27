@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSadCry } from '@fortawesome/free-solid-svg-icons';
 import { teal } from '@material-ui/core/colors';
 
-import api from '../../redux/api';
+import api from '../utils/api';
 import DishSkeleton from './DishSkeleton';
 import Dish from './Dish';
 

@@ -8,7 +8,7 @@ import ProfileStep from './ProfileStep';
 import AddressVerifyStep from './AddressVerifyStep';
 import IdVerifyStep from './IdVerifyStep';
 import Alert from '../../../layout/Alert';
-import api from '../../../../redux/api';
+import api from '../../../utils/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -65,13 +65,30 @@ const BecomeAChefStepsForm = () => {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <GeneralInformationStep fields={fields} setFields={setFields} />;
+        return (
+          <GeneralInformationStep 
+            fields={fields} 
+            setFields={setFields} 
+            setErrorMessage={setErrorMessage} 
+          />
+        );
       case 1:
-        return <AddressVerifyStep fields={fields} setFields={setFields} />;
+        return (
+          <AddressVerifyStep 
+            fields={fields} 
+            setFields={setFields} 
+          />
+        );
       case 2:
-        return <ProfileStep fields={fields} setFields={setFields} />;
+        return <ProfileStep 
+          fields={fields} 
+          setFields={setFields} 
+        />;
       case 3:
-        return <IdVerifyStep fields={fields} setFields={setFields} />;
+        return <IdVerifyStep 
+          fields={fields} 
+          setFields={setFields} 
+        />;
       default:
         return 'Unknown step';
     }
@@ -121,8 +138,12 @@ const BecomeAChefStepsForm = () => {
         .then(res => {
           if (res.data.success) {
             setSuccessMessage('Chef account successfully created. You may now login.')
-            setLoading(false);
+            handleNext();
           }
+          else {
+            setErrorMessage(res.data.message);
+          }
+          setLoading(false);
         })
         .catch(err => setErrorMessage('You cannot create a chef account at this time.'));
     }
@@ -163,15 +184,13 @@ const BecomeAChefStepsForm = () => {
   const { container, button, actionsContainer, alert, form } = useStyles();
   return (
     <div className={container}>
-      {activeStep === steps.length && (
-        <div className={alert}>
-          <Alert variant="success" message="All steps completed! You may now login." />
-        </div>
-      )}
-
-
       {successMessage && <Alert variant="success" message={successMessage} />}
       {errorMessage && <Alert variant="error" message={errorMessage} />}
+      {activeStep === steps.length && (
+        <div className={alert}>
+          <Alert variant="success" message="All steps completed!" />
+        </div>
+      )}
       <form className={form} noValidate onSubmit={handleFormSubmit}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, i) => {
@@ -187,7 +206,7 @@ const BecomeAChefStepsForm = () => {
               <Step key={step} {...stepProps}>
                 <StepLabel {...labelProps}>{step}</StepLabel>
                 <StepContent>
-                  <Typography>{getStepContent(i)}</Typography>
+                  {getStepContent(i)}
                   <div className={actionsContainer}>
                     <Button
                       variant="contained"

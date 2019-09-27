@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER, SET_USER_LOCATION, LOGOUT_REQUEST, LOGOUT_SUCCESS } from '../types';
-import setToken from '../setToken';
+import setToken from '../../components/utils/setToken';
 
 export const setCurrentUser = (user, isAuthenticated) => ({
     type: SET_CURRENT_USER,

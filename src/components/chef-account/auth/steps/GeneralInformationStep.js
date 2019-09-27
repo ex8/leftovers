@@ -1,9 +1,10 @@
 import React from 'react';
 import { Grid, TextField, Container } from '@material-ui/core';
 
-const GeneralInformationStep = ({ fields, setFields }) => {
+const GeneralInformationStep = ({ fields, setFields, setErrorMessage }) => {
   function handleInputChange(e) {
     const { name, value } = e.target;
+    setErrorMessage('');
     setFields({
       ...fields,
       [name]: value,

@@ -50,7 +50,7 @@ const AdressVerifyStep = ({ fields, setFields }) => {
         <Grid container>
           <Grid item xs={12}>
             <Typography gutterBottom>
-              Your address will be used for the dish location upon search.
+              Your address will be used for the location of the dish upon search.
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -63,6 +63,7 @@ const AdressVerifyStep = ({ fields, setFields }) => {
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                   <div className={container}>
                     <TextField
+                      autoFocus
                       label="Enter your address"
                       margin="normal"
                       variant="outlined"

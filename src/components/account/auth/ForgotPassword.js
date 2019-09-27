@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrownOpen } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
- const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   body: {
     backgroundColor: theme.palette.common.white,
   },
@@ -34,7 +34,7 @@ import { Link } from 'react-router-dom';
   },
 }));
 
- const ForgotPassword = () => {
+const ForgotPassword = () => {
   const { paper, avatar, form, submit, linkButton } = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -65,4 +65,4 @@ import { Link } from 'react-router-dom';
     </Container>
   );
 };
- export default ForgotPassword;
+export default ForgotPassword;

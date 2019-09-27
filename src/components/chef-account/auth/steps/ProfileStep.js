@@ -29,7 +29,7 @@ const ProfileStep = ({ fields, setFields }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              variant="outlined" fullWidth label="Bio"
+              variant="outlined" fullWidth label="Bio" autoFocus
               name="bio" value={bio} onChange={handleInputChange} multiline rows={5}
             />
           </Grid>

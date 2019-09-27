@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Dish from '../../search/Dish';
-import api from '../../../redux/api';
+import api from '../../utils/api';
 import Alert from '../../layout/Alert';
 
 const useStyles = makeStyles(theme => ({
