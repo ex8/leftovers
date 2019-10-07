@@ -4,7 +4,7 @@ import { Drawer, Collapse, Grid, Button, List, ListItem, ListItemIcon, ListItemT
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome, faSearch, faTachometerAlt,faCogs,
-  faCreditCard, faSignInAlt, faUserPlus, faReceipt, faUtensilSpoon, faPizzaSlice
+  faCreditCard, faSignInAlt, faUserPlus, faReceipt, faUtensilSpoon, faPizzaSlice, faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -30,17 +30,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
+const NavigationDrawer = ({ open, onClose, isAuthenticated, isChef }) => {
   const [sections, setSections] = useState({
     main: true,
     account: true,
+    chef: true,
   });
   const [items] = useState({
     main: [
       { label: 'Home', to: '/', Icon: <FontAwesomeIcon icon={faHome} size="lg" /> },
       { label: 'Search', to: '/search', Icon: <FontAwesomeIcon icon={faSearch} size="lg" /> },
-      { label: 'Eaters', to: '/eaters', Icon: <FontAwesomeIcon icon={faPizzaSlice} size="lg" /> },
-      { label: 'Chefs', to: '/chefs', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
+      { label: 'For Eaters', to: '/eaters', Icon: <FontAwesomeIcon icon={faPizzaSlice} size="lg" /> },
+      { label: 'For Chefs', to: '/chefs', Icon: <FontAwesomeIcon icon={faUtensilSpoon} size="lg" /> },
     ],
     account: [
       { label: 'Dashboard', to: '/account', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
@@ -51,6 +52,13 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
     guest: [
       { label: 'Login', to: '/account/login', Icon: <FontAwesomeIcon icon={faSignInAlt} size="lg" /> },
       { label: 'Signup', to: '/account/signup', Icon: <FontAwesomeIcon icon={faUserPlus} size="lg" /> },
+    ],
+    chef: [
+      { label: 'Dashboard', to: '/chef', Icon: <FontAwesomeIcon icon={faTachometerAlt} size="lg" /> },
+      { label: 'Dishes', to: '/chef/dishes', Icon: <FontAwesomeIcon icon={faUtensils} size="lg" /> },
+      { label: 'Orders', to: '/chef/orders', Icon: <FontAwesomeIcon icon={faReceipt} size="lg" /> },
+      { label: 'Payment', to: '/chef/payment', Icon: <FontAwesomeIcon icon={faCreditCard} size="lg" /> },
+      { label: 'Settings', to: '/chef/settings', Icon: <FontAwesomeIcon icon={faCogs} size="lg" /> },
     ],
   });
 
@@ -91,20 +99,42 @@ const NavigationDrawer = ({ open, onClose, isAuthenticated }) => {
                 visible={sections.main} 
                 onClick={onClick} 
               />
-              <ListSubheader>
-                <Button
-                  disableRipple
-                  classes={{ root: listSubHeader }}
-                  onClick={toggleSection('account')}
-                >
-                  My Account
-                </Button>
-              </ListSubheader>
-              <ListItems 
-                items={isAuthenticated ? items.account : items.guest} 
-                visible={sections.account} 
-                onClick={onClick} 
-              />
+              {!isChef && (
+                <div>
+                  <ListSubheader>
+                    <Button
+                      disableRipple
+                      classes={{ root: listSubHeader }}
+                      onClick={toggleSection('account')}
+                    >
+                      My Account
+                    </Button>
+                  </ListSubheader>
+                  <ListItems 
+                    items={isAuthenticated ? items.account : items.guest} 
+                    visible={sections.account} 
+                    onClick={onClick} 
+                  />
+                </div>
+              )}
+              {isChef && (
+                <div>
+                  <ListSubheader>
+                    <Button
+                      disableRipple
+                      classes={{ root: listSubHeader }}
+                      onClick={toggleSection('chef')}
+                    >
+                      Chef Account
+                    </Button>
+                  </ListSubheader>
+                  <ListItems 
+                    items={items.chef} 
+                    visible={sections.chef} 
+                    onClick={onClick} 
+                  />
+                </div>
+              )}
             </List>
           </Drawer>
         </Grid>
@@ -135,6 +165,7 @@ const ListItems = ({ items, onClick, visible }) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.userReducer.isAuthenticated,
+  isChef: state.userReducer.isChef,
 });
 
 export default connect(mapStateToProps)(NavigationDrawer);

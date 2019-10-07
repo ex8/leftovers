@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
+import ChefPrivateRoute from './ChefPrivateRoute';
 import Checkout from '../checkout/Checkout';
 import Dashboard from '../account/dashboard/Dashboard';
 import Dishes from '../account/dishes/Dishes';
@@ -49,9 +50,9 @@ const Routes = () => {
       <Route exact path="/account/forgot-password" component={ForgotPassword} />
 
       {/* Chef Account Routes */}
-      <Route exact path="/chef" component={ChefDashboard} />
-      <Route exact path="/chef/dishes" component={ChefDishList} />
-      <Route exact path="/chef/orders" component={ChefOrderList} />
+      <ChefPrivateRoute exact path="/chef" component={ChefDashboard} />
+      <ChefPrivateRoute exact path="/chef/dishes" component={ChefDishList} />
+      <ChefPrivateRoute exact path="/chef/orders" component={ChefOrderList} />
       <Route exact path="/chef/login" component={ChefLogin} />
       <Route exact path="/chef/signup" component={ChefSignup} />
       <Route exact path="/chef/forgot-password" component={ChefForgotPassword} />

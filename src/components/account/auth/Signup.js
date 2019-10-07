@@ -77,7 +77,7 @@ const Signup = () => {
             setSuccessMessage('Account successfully created. You may now login.')
           }
           else {
-            setErrorMessage(res.data.err);
+            setErrorMessage(res.data.message);
           }
           setLoading(false);
         })

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faCreditCard, faUtensilSpoon, faCogs, faReceipt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTachometerAlt, faHeart, faSearch, faSignInAlt, faUserPlus, faUtensils, faCreditCard, faUtensilSpoon, faCogs, faReceipt, faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -53,23 +53,23 @@ const Navigation = () => {
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/account/login">
+            <Link className={linkButton} to="/eaters">
               <ListItem button>
                 <ListItemIcon>
-                    <FontAwesomeIcon icon={faSignInAlt} />
+                    <FontAwesomeIcon icon={faPizzaSlice} />
                 </ListItemIcon>
                 <ListItemText>
-                  Login
+                  For Eaters
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/account/signup">
+            <Link className={linkButton} to="/chefs">
               <ListItem button>
                 <ListItemIcon>
-                    <FontAwesomeIcon icon={faUserPlus} />
+                    <FontAwesomeIcon icon={faUtensilSpoon} />
                 </ListItemIcon>
                 <ListItemText>
-                  Signup
+                  For Chefs
                 </ListItemText>
               </ListItem>
             </Link>
@@ -77,7 +77,7 @@ const Navigation = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="subtitle1">
-            My Account
+            Account
           </Typography>
           <List>
             <Link className={linkButton} to="/account">
@@ -90,7 +90,7 @@ const Navigation = () => {
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/account/orders">
               <ListItem button>
                 <ListItemIcon>
                   <FontAwesomeIcon icon={faReceipt} />
@@ -100,23 +100,23 @@ const Navigation = () => {
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/account/login">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faCreditCard} />
+                  <FontAwesomeIcon icon={faSignInAlt} />
                 </ListItemIcon>
                 <ListItemText>
-                  Payment
+                  Login
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/">
+            <Link className={linkButton} to="/account/signup">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faUtensilSpoon} />
+                  <FontAwesomeIcon icon={faUserPlus} />
                 </ListItemIcon>
                 <ListItemText>
-                  Become a Chef
+                  Signup
                 </ListItemText>
               </ListItem>
             </Link>
@@ -137,13 +137,13 @@ const Navigation = () => {
                 </ListItemText>
               </ListItem>
             </Link>
-            <Link className={linkButton} to="/chef/settings">
+            <Link className={linkButton} to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <FontAwesomeIcon icon={faCogs} />
+                  <FontAwesomeIcon icon={faCreditCard} />
                 </ListItemIcon>
                 <ListItemText>
-                  Settings
+                  Payment
                 </ListItemText>
               </ListItem>
             </Link>
@@ -153,7 +153,7 @@ const Navigation = () => {
                   <FontAwesomeIcon icon={faSignInAlt} />
                 </ListItemIcon>
                 <ListItemText>
-                  Chef Login
+                  Login
                 </ListItemText>
               </ListItem>
             </Link>
@@ -163,7 +163,7 @@ const Navigation = () => {
                   <FontAwesomeIcon icon={faUserPlus} />
                 </ListItemIcon>
                 <ListItemText>
-                  Chef Signup
+                  Signup
                 </ListItemText>
               </ListItem>
             </Link>

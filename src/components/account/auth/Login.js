@@ -4,8 +4,7 @@ import { Avatar, Button, TextField, Typography, Container, CircularProgress, Car
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { isEmail } from 'validator'
 import jwtDecode from 'jwt-decode';
 
@@ -78,7 +77,7 @@ const Login = ({ setCurrentUser, history }) => {
             const { token } = res.data;
             const decoded = jwtDecode(token);
             setToken(token);
-            setCurrentUser(decoded, true);
+            setCurrentUser(decoded, true, false);
             setSuccessMessage('Account successfully logged in.');
             setLoading(false);
             history.push('/account');

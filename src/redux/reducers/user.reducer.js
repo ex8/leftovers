@@ -3,6 +3,7 @@ import { SET_CURRENT_USER, SET_USER_LOCATION } from '../types';
 const INITIAL_STATE = {
   user: null,
   isAuthenticated: false,
+  isChef: false,
   location: {
     place: '',
     coords: {
@@ -19,6 +20,7 @@ export default function(state=INITIAL_STATE, action) {
         ...state,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
+        isChef: action.isChef,
       };
     case SET_USER_LOCATION:
       return {

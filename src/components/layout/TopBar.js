@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUserCircle, faCogs, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUserCircle, faCogs, faSignOutAlt, faBell, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -33,13 +33,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
+const TopBar = ({ onMenuClick, isAuthenticated, logout, history, isChef }) => {
   const { container, menuButton, flex, toolbarMargin, aboveDrawer, linkButton, iconMargin } = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
+  const handleMenu = e => {
+    setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
@@ -88,6 +88,50 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
     </div>
   );
 
+  const chefLinks = (
+    <div>
+      <IconButton color="inherit"><FontAwesomeIcon icon={faBell} /></IconButton>
+      <IconButton
+        onClick={handleMenu}
+        color="inherit"
+      >
+        <FontAwesomeIcon icon={faUserCircle} />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        onClose={handleClose}
+      >
+        <Link className={linkButton} to="/profile/SOOD">
+          <MenuItem onClick={handleClose} button>
+            <FontAwesomeIcon className={iconMargin} icon={faIdCard} />
+            Profile
+          </MenuItem>
+        </Link>
+        <Link className={linkButton} to="/chef/settings">
+          <MenuItem onClick={handleClose} button>
+            <FontAwesomeIcon className={iconMargin} icon={faCogs} />
+            Settings
+          </MenuItem>
+        </Link>
+        <MenuItem onClick={handleLogout}>
+          <FontAwesomeIcon className={iconMargin} icon={faSignOutAlt} />
+          Logout
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+
   const guestLinks = (
     <div>
       <Link to='/account/signup' className={linkButton}>
@@ -109,7 +153,9 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
           <Typography variant="h6" color="inherit" className={flex}>
             <Link to="/" className={linkButton}>Leftovers</Link>
           </Typography>
-          {isAuthenticated ? authenticatedLinks : guestLinks}
+          {(isAuthenticated && !isChef) && authenticatedLinks}
+          {isChef && chefLinks }
+          {!isAuthenticated && guestLinks}
           <Cart />
         </Toolbar>
       </AppBar>
@@ -120,6 +166,7 @@ const TopBar = ({ onMenuClick, isAuthenticated, logout, history }) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.userReducer.isAuthenticated,
+  isChef: state.userReducer.isChef,
 });
 
 const mapDispatchToProps = {

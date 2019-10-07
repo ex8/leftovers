@@ -118,8 +118,6 @@ const BecomeAChefStepsForm = () => {
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.");
     }
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -143,10 +141,10 @@ const BecomeAChefStepsForm = () => {
           else {
             setErrorMessage(res.data.message);
           }
-          setLoading(false);
         })
         .catch(err => setErrorMessage('You cannot create a chef account at this time.'));
     }
+    setLoading(false);
   };
 
   const validateForm = () => {
@@ -175,7 +173,7 @@ const BecomeAChefStepsForm = () => {
       return false;
     }
     else if (address === '') {
-      setErrorMessage('Please enter an address');
+      setErrorMessage('Please enter an address.');
       return false;
     }
     return true;

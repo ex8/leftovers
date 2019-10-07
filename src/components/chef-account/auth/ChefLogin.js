@@ -3,7 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Button, TextField, Paper, Grid, Typography, CircularProgress } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import { isEmail } from 'validator'
+
+import api from '../../utils/api';
+import Alert from '../../layout/Alert';
+import { setCurrentUser } from '../../../redux/actions/user.actions';
+import setToken from '../../utils/setToken';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,15 +45,25 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
   },
 }));
-const ChefLogin = () => {
+
+const ChefLogin = ({ history, setCurrentUser }) => {
   const [fields, setFields] = useState({
     email: '',
     password: '',
   });
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+  const [successMessage, setSuccessMessage] = useState();
+
+  const reset = () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(false);
+  };
 
   function handleInputChange(e) {
     const { name, value } = e.target;
+    reset();
     setFields({
       ...fields,
       [name]: value,
@@ -55,6 +73,38 @@ const ChefLogin = () => {
   function handleFormSubmit(e) {
     e.preventDefault();
     setLoading(true);
+    if (validateForm()) {
+      api.post('/api/chef/login', fields)
+        .then(res => {
+          if (res.data.success) {
+            const { token } = res.data;
+            const decoded = jwtDecode(token);
+            setToken(token);
+            setCurrentUser(decoded, true, true);
+            setSuccessMessage('Chef account successfully logged in.');
+            setLoading(false);
+            history.push('/chef');
+          }
+          else {
+            setLoading(false);
+            setErrorMessage(res.data.message);
+          }
+        })
+        .catch(err => setErrorMessage('You cannot create a chef account at this time.'));
+    }
+    setLoading(false);
+  }
+
+  const validateForm = () => {
+    if (email === '' || password === '') {
+      setErrorMessage('Please fill in all fields.');
+      return false;
+    }
+    else if (!isEmail(email)) {
+      setErrorMessage('Please enter a valid e-mail address.');
+      return false;
+    }
+    return true;
   }
 
   const { container, image, paper, avatar, form, submit, linkButton } = useStyles();
@@ -68,6 +118,8 @@ const ChefLogin = () => {
             <FontAwesomeIcon icon={faLock} />
           </Avatar>
           <Typography variant="h5">Chef Login</Typography>
+          {successMessage && <Alert variant="success" message={successMessage} />}
+          {errorMessage && <Alert variant="error" message={errorMessage} />}
           <form className={form} noValidate onSubmit={handleFormSubmit}>
             <TextField
               variant="outlined"
@@ -110,6 +162,12 @@ const ChefLogin = () => {
       </Grid>
     </Grid>
   );
-}
+};
 
-export default ChefLogin;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+  setCurrentUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChefLogin));
