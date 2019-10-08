@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dishes = () => {
+const ChefDishList = () => {
   const { container, table, paper, linkButton } = useStyles();
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,7 @@ const Dishes = () => {
                 <Typography variant="h4" gutterBottom>Dishes</Typography>
               </Grid>
               <Grid item>
-                <Link className={linkButton} to="/account/dishes/add">
+                <Link className={linkButton} to="/chef/dishes/add">
                   <Button variant="outlined" color="primary" size="large">Add New Dish</Button>
                 </Link>
               </Grid>
@@ -59,7 +59,7 @@ const Dishes = () => {
           </Grid>
           <Grid item xs={12}>
             {loading && <CircularProgress />}
-            {!loading && dishes.length === 0 && <NoResults text="You have no dishes." />}
+            {!loading && dishes.length === 0 && <NoResults text="You do not have any dishes." />}
             {!loading && dishes.length !== 0 && (
               <Paper className={paper}>
                 <Table className={table}>
@@ -99,4 +99,4 @@ const Dishes = () => {
   );
 };
 
-export default Dishes;
+export default ChefDishList;

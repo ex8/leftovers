@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddDish = ({ user }) => {
+const ChefAddDish = ({ user }) => {
   const [fields, setFields] = useState({
     images: [],
     title: '',
@@ -127,7 +127,7 @@ const AddDish = ({ user }) => {
   const validateForm = () => {
     const { images, title, description, stock, price, ingredients } = fields;
     if (images.length === 0) {
-      setErrorMessage('You must have atleast one dish image.');
+      setErrorMessage('You must have atleast one image.');
       return false;
     }
     else if (title.length === 0) {
@@ -290,4 +290,4 @@ const mapStateToProps = state => ({
   user: state.userReducer.user,
 });
 
-export default connect(mapStateToProps)(AddDish);
+export default connect(mapStateToProps)(ChefAddDish);

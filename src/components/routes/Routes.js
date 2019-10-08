@@ -5,7 +5,6 @@ import PrivateRoute from './PrivateRoute';
 import ChefPrivateRoute from './ChefPrivateRoute';
 import Checkout from '../checkout/Checkout';
 import Dashboard from '../account/dashboard/Dashboard';
-import Dishes from '../account/dishes/Dishes';
 import DishDetail from '../search/DishDetail';
 import DishList from '../search/DishList';
 import Home from '../home/Home';
@@ -14,18 +13,18 @@ import Orders from '../account/orders/Orders';
 import OrderDetails from '../account/orders/OrderDetails';
 import Profile from '../profile/Profile';
 import Signup from '../account/auth/Signup';
-import AddDish from '../account/dishes/AddDish';
 import Gateways from '../account/Gateways';
 import ForgotPassword from '../account/auth/ForgotPassword';
 import Settings from '../account/Settings';
-import ChefDashboard from '../chef-account/ChefDashboard';
+import ChefDashboard from '../chef-account/dashboard/ChefDashboard';
 import ChefLogin from '../chef-account/auth/ChefLogin';
 import ChefSignup from '../chef-account/auth/ChefSignup';
 import ChefForgotPassword from '../chef-account/auth/ChefForgotPassword';
-import ChefDishList from '../chef-account/ChefDishList';
+import ChefDishList from '../chef-account/dishes/ChefDishList';
 import ChefOrderList from '../chef-account/ChefOrderList';
 import Eaters from '../home/Eaters';
 import Chefs from '../home/Chefs';
+import ChefAddDish from '../chef-account/dishes/ChefAddDish';
 
 const Routes = () => {
   return (
@@ -52,6 +51,7 @@ const Routes = () => {
       {/* Chef Account Routes */}
       <ChefPrivateRoute exact path="/chef" component={ChefDashboard} />
       <ChefPrivateRoute exact path="/chef/dishes" component={ChefDishList} />
+      <ChefPrivateRoute exact path="/chef/dishes/add" component={ChefAddDish} />
       <ChefPrivateRoute exact path="/chef/orders" component={ChefOrderList} />
       <Route exact path="/chef/login" component={ChefLogin} />
       <Route exact path="/chef/signup" component={ChefSignup} />

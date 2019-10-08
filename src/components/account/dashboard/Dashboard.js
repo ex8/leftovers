@@ -12,7 +12,7 @@ import { faCreditCard, faAngleDoubleRight, faEdit, faReceipt } from '@fortawesom
 import { faBitcoin, faBuffer } from '@fortawesome/free-brands-svg-icons';
 import { teal } from '@material-ui/core/colors'
 
-import Tile from './Tile';
+import Tile from '../../layout/Tile';
 
 const useStyles = makeStyles(theme => ({
   container: {
