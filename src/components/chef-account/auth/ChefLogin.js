@@ -90,7 +90,7 @@ const ChefLogin = ({ history, setCurrentUser }) => {
             setErrorMessage(res.data.message);
           }
         })
-        .catch(err => setErrorMessage('You cannot create a chef account at this time.'));
+        .catch(err => setErrorMessage('You cannot login at this time.'));
     }
     setLoading(false);
   }

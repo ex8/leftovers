@@ -4,7 +4,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import { TextField, InputAdornment, IconButton, CircularProgress, Paper, MenuItem, Container, Typography, Grid } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 
 import useScript from '../../../utils/useScript';
 
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AdressVerifyStep = ({ fields, setFields }) => {
-  const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=AIzaSyBUSPc9zpJ1on4Q6Oe7GwSHFfdMpfflGJU&libraries=places`);
+  const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=&libraries=places`);
 
   const handleChange = address => {
     setFields({
@@ -75,11 +74,9 @@ const AdressVerifyStep = ({ fields, setFields }) => {
                           <InputAdornment>
                             {loading && <CircularProgress size={25} />}
                             {!loading && (
-                              <Link to="/search">
-                                <IconButton onClick={handleSelect}>
-                                  <FontAwesomeIcon icon={faMapMarkerAlt} />
-                                </IconButton>
-                              </Link>
+                              <IconButton onClick={handleSelect}>
+                                <FontAwesomeIcon icon={faMapMarkerAlt} />
+                              </IconButton>
                             )}
                           </InputAdornment>
                         )

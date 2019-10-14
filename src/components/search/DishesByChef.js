@@ -8,6 +8,7 @@ import { teal } from '@material-ui/core/colors';
 import api from '../utils/api';
 import DishSkeleton from './DishSkeleton';
 import Dish from './Dish';
+import NoResults from '../layout/NoResults';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -50,16 +51,7 @@ const DishesByChef = ({ dishId, chefId, location }) => {
     <div className={container}>
       <Grid container spacing={2}>
         {loading && <DishSkeleton skeletons={3} />}
-        {!loading && dishes.length === 0 && (
-          <Card className={card}>
-            <Avatar className={avatar}>
-              <FontAwesomeIcon icon={faSadCry} size="2x" />
-            </Avatar>
-            <Typography variant="h6">
-              No dishes found.
-            </Typography>
-          </Card>
-        )}
+        {!loading && dishes.length === 0 && <NoResults text="We could not find any dishes." />}
         {!loading && dishes.map((dish, i) => (
           <Grid item key={i} xs={12} sm={6} md={4}>
             <Dish dish={dish} />

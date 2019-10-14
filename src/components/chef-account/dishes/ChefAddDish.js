@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton } from '@material-ui/core';
+import { Container, Grid, Typography, TextField, Button, Tooltip, IconButton, CircularProgress, InputAdornment, Paper, MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ChipInput from 'material-ui-chip-input'
 import { DropzoneArea } from 'material-ui-dropzone'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import Dish from '../../search/Dish';
 import api from '../../utils/api';
 import Alert from '../../layout/Alert';
+import useScript from '../../utils/useScript';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -26,6 +28,17 @@ const useStyles = makeStyles(theme => ({
   alertMargin: {
     marginBottom: theme.spacing(2),
   },
+  addressContainer: {
+    flex: 1,
+    position: 'relative',
+  },
+  addressPaper: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 1,
+    left: 0,
+    right: 0,
+  },
 }));
 
 const ChefAddDish = ({ user }) => {
@@ -37,16 +50,13 @@ const ChefAddDish = ({ user }) => {
     price: 0,
     tags: [],
     ingredients: [],
-    location: {
-      place: user.address,
-      coords: {
-        lat: 0,
-        lng: 0,
-      },
-    },
+    address: '',
+    coordinates: [],
   });
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loaded, error] = useScript(`https://maps.googleapis.com/maps/api/js?key=&libraries=places`);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -101,10 +111,33 @@ const ChefAddDish = ({ user }) => {
     });
   };
 
+  const handleAddressChange = address => {
+    setFields({
+      ...fields,
+      address,
+    });
+  };
+
+  const handleCoordsChange = (lng, lat) => {
+    setFields({
+      ...fields,
+      coordinates: [lng, lat],
+    });
+  };
+
+  const handleAddressSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(coords => handleCoordsChange(coords.lng, coords.lat))
+      .then(() => handleAddressChange(address))
+      .catch(() => console.error('Error selecting address.'));
+  };
+
   const handleFormSubmit = e => {
     e.preventDefault();
+    setLoading(true);
     if (validateForm()) {
-      const { images, title, description, stock, price, tags, ingredients } = fields;
+      const { images, title, description, stock, price, tags, ingredients, address, coordinates } = fields;
       let fd = new FormData();
       images.forEach(image => fd.append('images', image));
       fd.set('title', title);
@@ -113,6 +146,8 @@ const ChefAddDish = ({ user }) => {
       fd.set('price', price);
       fd.set('tags', tags);
       fd.set('ingredients', ingredients);
+      fd.set('pickupAddress', address);
+      fd.set('coordinates', coordinates);
       api.post('/api/dishes', fd)
         .then(res => {
           if (res.data.success) {
@@ -120,12 +155,13 @@ const ChefAddDish = ({ user }) => {
             setSuccessMessage('Your dish was successfully added. It is under verification review.');
           }
         })
-        .catch(err => setErrorMessage(err));
+        .catch(err => setErrorMessage(`You cannot add a new dish at this time. ERR: ${err.errmsg}`));
     }
+    setLoading(false);
   };
 
   const validateForm = () => {
-    const { images, title, description, stock, price, ingredients } = fields;
+    const { images, title, description, stock, price, ingredients, address } = fields;
     if (images.length === 0) {
       setErrorMessage('You must have atleast one image.');
       return false;
@@ -150,11 +186,15 @@ const ChefAddDish = ({ user }) => {
       setErrorMessage('You must set a valid price number (USD).');
       return false;
     }
+    else if (address.length === 0) {
+      setErrorMessage('You must set a pickup address.');
+      return false;
+    }
     return true;
   };
 
-  const { container, form, chipInput, alertMargin } = useStyles();
-  const { title, description, stock, price, tags, ingredients, location } = fields;
+  const { container, form, chipInput, alertMargin, addressContainer, addressPaper } = useStyles();
+  const { title, description, stock, price, tags, ingredients, address } = fields;
   return (
     <div className={container}>
       <Container>
@@ -196,20 +236,6 @@ const ChefAddDish = ({ user }) => {
                     multiline rows={5} margin="normal" required
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <ChipInput
-                    className={chipInput}
-                    label="Ingredients"
-                    placeholder="Chicken, Flour, Egg, Breadcrumbs, Salt, Pepper"
-                    variant="outlined"
-                    fullWidth
-                    value={ingredients}
-                    onAdd={handleAddIngredientChip}
-                    onDelete={handleDeleteIngredientChip}
-                    newChipKeyCodes={[13, 32]}
-                    required
-                  />
-                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Stock" variant="outlined" name="stock" type="number"
@@ -224,8 +250,8 @@ const ChefAddDish = ({ user }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5">
-                    Pickup Information
-                    <Tooltip title="Details related to consumers after ordering" placement="right">
+                    Ingredients
+                    <Tooltip title="Dish ingredients, be sure to list allergetic ingredients!" placement="right">
                       <IconButton size="small" disableRipple disableTouchRipple>
                         <FontAwesomeIcon icon={faQuestionCircle} />
                       </IconButton>
@@ -233,11 +259,74 @@ const ChefAddDish = ({ user }) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth label="Pickup Address" variant="outlined"
-                    name="location" value={location.place} disabled onChange={handleInputChange}
-                    required margin="normal"
+                  <ChipInput
+                    className={chipInput}
+                    label="Ingredients"
+                    placeholder="Hit Enter or Space to add an ingredient"
+                    variant="outlined"
+                    fullWidth
+                    value={ingredients}
+                    onAdd={handleAddIngredientChip}
+                    onDelete={handleDeleteIngredientChip}
+                    newChipKeyCodes={[13, 32]}
+                    required
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h5">
+                    Pickup Information
+                    <Tooltip title="Pickup details shown to consumers" placement="right">
+                      <IconButton size="small" disableRipple disableTouchRipple>
+                        <FontAwesomeIcon icon={faQuestionCircle} />
+                      </IconButton>
+                    </Tooltip>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  {loaded && !error && (
+                    <PlacesAutocomplete
+                      value={address}
+                      onChange={handleAddressChange}
+                      onSelect={handleAddressSelect}
+                    >
+                      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div className={addressContainer}>
+                          <TextField
+                            label="Pickup Address"
+                            margin="normal"
+                            variant="outlined"
+                            value={address}
+                            fullWidth
+                            required
+                            {...getInputProps()}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment>
+                                  {loading && <CircularProgress size={25} />}
+                                  {!loading && (
+                                    <IconButton onClick={handleAddressSelect}>
+                                      <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                    </IconButton>
+                                  )}
+                                </InputAdornment>
+                              )
+                            }}
+                          />
+                          <div>
+                            <Paper className={addressPaper} square>
+                              <div>
+                                {suggestions.map((suggestion, i) => (
+                                  <MenuItem key={i} button {...getSuggestionItemProps(suggestion)}>
+                                    {suggestion.description}
+                                  </MenuItem>
+                                ))}
+                              </div>
+                            </Paper>
+                          </div>
+                        </div>
+                      )}
+                    </PlacesAutocomplete>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5">
@@ -253,7 +342,7 @@ const ChefAddDish = ({ user }) => {
                   <ChipInput
                     className={chipInput}
                     label="Tags"
-                    placeholder="American, Fried, Spicy, Cheap"
+                    placeholder="Hit Enter or Space to add a search keyword"
                     variant="outlined"
                     fullWidth
                     value={tags}
@@ -272,12 +361,14 @@ const ChefAddDish = ({ user }) => {
           </Grid>
           <Grid item xs={12}>
             <Button
-              variant="contained" 
-              size="large" 
-              color="secondary" 
+              disabled={loading}
+              variant="contained"
+              size="large"
+              color="secondary"
               onClick={handleFormSubmit}
             >
-              Add New Dish
+              {loading && <CircularProgress size={25} color="inherit" />}
+              {!loading && 'Add New Dish'}
             </Button>
           </Grid>
         </Grid>

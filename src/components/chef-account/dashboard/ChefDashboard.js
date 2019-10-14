@@ -91,7 +91,7 @@ const ChefDashboard = ({ user }) => {
             <Link to="/account/payments" className={linkButton}>
               <Tile
                 number={24}
-                subtitle="Payments Made"
+                subtitle="Received Payments"
                 faIcon={faCreditCard}
                 color={purple[300]}
               />
